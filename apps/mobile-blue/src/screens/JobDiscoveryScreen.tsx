@@ -14,10 +14,12 @@ import { useTranslation } from 'shared/src/hooks/useTranslation';
 
 interface JobDiscoveryScreenProps {
   userLanguage?: Language;
+  userId?: string;
 }
 
 export const JobDiscoveryScreen: React.FC<JobDiscoveryScreenProps> = ({ 
-  userLanguage = Language.ENGLISH 
+  userLanguage = Language.ENGLISH,
+  userId = 'demo-user-123' // Default demo user for testing
 }) => {
   const { t } = useTranslation(userLanguage);
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -230,6 +232,7 @@ export const JobDiscoveryScreen: React.FC<JobDiscoveryScreenProps> = ({
             job={job}
             onApply={handleApply}
             language={userLanguage}
+            userId={userId}
           />
         ))}
         {jobs.length === 0 && !loading && (

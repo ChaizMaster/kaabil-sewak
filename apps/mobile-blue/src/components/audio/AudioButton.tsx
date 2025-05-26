@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import * as Speech from 'expo-speech';
 import { Language } from 'shared/src/types/user.types';
 import { useTranslation } from 'shared/src/hooks/useTranslation';
 
@@ -8,30 +9,127 @@ interface AudioButtonProps {
   text: string;
   language?: Language;
   accessibilityLabel?: string;
+  onAudioStart?: () => void;
+  onAudioEnd?: () => void;
 }
 
 export const AudioButton: React.FC<AudioButtonProps> = ({
   testID,
   text,
   language = Language.ENGLISH,
-  accessibilityLabel
+  accessibilityLabel,
+  onAudioStart,
+  onAudioEnd
 }) => {
   const { t } = useTranslation(language);
   const [isPlaying, setIsPlaying] = useState(false);
 
+  const getLanguageCode = (lang: Language): string => {
+    switch (lang) {
+      case Language.HINDI:
+        return 'hi'; // Simplified code for better compatibility
+      case Language.BENGALI:
+        return 'bn'; // Simplified code for better compatibility
+      case Language.ENGLISH:
+      default:
+        return 'en';
+    }
+  };
+
+  // Extract text in the target language only
+  const getLocalizedTextForSpeech = (text: string, lang: Language): string => {
+    if (lang === Language.ENGLISH) {
+      return text;
+    }
+
+    // For bilingual text, extract only the local language part
+    if (text.includes(' / ')) {
+      const parts = text.split(' / ');
+      // Return the first part (local language) for Hindi/Bengali
+      return parts[0];
+    }
+
+    return text;
+  };
+
   const handlePress = async () => {
-    setIsPlaying(true);
-    
-    // Simulate text-to-speech audio playback
-    // In real implementation, this would use expo-speech or react-native-tts
-    console.log(`Playing audio in ${language}: ${text}`);
-    
-    // Simulate audio duration based on text length
-    const audioDuration = Math.max(2000, text.length * 50); // Minimum 2 seconds
-    
-    setTimeout(() => {
+    if (isPlaying) {
+      // Stop current speech
+      Speech.stop();
       setIsPlaying(false);
-    }, audioDuration);
+      onAudioEnd?.();
+      return;
+    }
+
+    try {
+      setIsPlaying(true);
+      onAudioStart?.();
+
+      // Get available voices first
+      const voices = await Speech.getAvailableVoicesAsync();
+      console.log('Available voices:', voices.map(v => `${v.language} - ${v.name}`));
+
+      const targetLanguage = getLanguageCode(language);
+      const speechText = getLocalizedTextForSpeech(text, language);
+      
+      console.log(`TTS Language: ${targetLanguage}, Text: ${speechText}`);
+
+      // Find a voice for the target language
+      const targetVoice = voices.find(voice => 
+        voice.language.startsWith(targetLanguage)
+      );
+
+      const speechOptions: any = {
+        language: targetLanguage,
+        pitch: 1.0,
+        rate: 0.7, // Slower for better comprehension
+        onDone: () => {
+          setIsPlaying(false);
+          onAudioEnd?.();
+        },
+        onStopped: () => {
+          setIsPlaying(false);
+          onAudioEnd?.();
+        },
+        onError: (error: any) => {
+          console.warn('Speech error:', error);
+          // Fallback to English if target language fails
+          if (targetLanguage !== 'en') {
+            console.log('Fallback to English TTS');
+            Speech.speak(text, {
+              language: 'en',
+              pitch: 1.0,
+              rate: 0.7,
+              onDone: () => {
+                setIsPlaying(false);
+                onAudioEnd?.();
+              },
+              onStopped: () => {
+                setIsPlaying(false);
+                onAudioEnd?.();
+              },
+            });
+          } else {
+            setIsPlaying(false);
+            onAudioEnd?.();
+          }
+        },
+      };
+
+      // Use specific voice if available
+      if (targetVoice) {
+        speechOptions.voice = targetVoice.identifier;
+        console.log(`Using voice: ${targetVoice.name} (${targetVoice.language})`);
+      } else {
+        console.log(`No voice found for ${targetLanguage}, using default`);
+      }
+
+      await Speech.speak(speechText, speechOptions);
+    } catch (error) {
+      console.error('Audio playback error:', error);
+      setIsPlaying(false);
+      onAudioEnd?.();
+    }
   };
 
   return (
@@ -44,7 +142,6 @@ export const AudioButton: React.FC<AudioButtonProps> = ({
       onPress={handlePress}
       accessibilityLabel={accessibilityLabel || t.listenToDescription}
       accessibilityRole="button"
-      disabled={isPlaying}
     >
       <Text style={[
         styles.speakerIcon,
