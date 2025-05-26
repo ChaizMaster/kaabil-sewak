@@ -20,9 +20,35 @@ jest.mock('shared/src/hooks/useTranslation', () => ({
   }),
 }));
 
+// Mock the LanguageChangeModal
+jest.mock('../../common/LanguageChangeModal', () => ({
+  LanguageChangeModal: ({ visible, onClose, onLanguageChange }: any) => {
+    const { Text, TouchableOpacity, View } = require('react-native');
+    return visible ? (
+      <View testID="language-modal">
+        <Text>Language Modal</Text>
+        <TouchableOpacity
+          testID="select-hindi"
+          onPress={() => {
+            onLanguageChange(Language.HINDI);
+            onClose();
+          }}
+        >
+          <Text>Select Hindi</Text>
+        </TouchableOpacity>
+        <TouchableOpacity testID="close-modal" onPress={onClose}>
+          <Text>Close</Text>
+        </TouchableOpacity>
+      </View>
+    ) : null;
+  },
+}));
+
 describe('SignUpForm Component', () => {
   const mockOnSignUp = jest.fn();
   const mockOnSwitchToLogin = jest.fn();
+  const mockOnBack = jest.fn();
+  const mockOnLanguageChange = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -33,6 +59,8 @@ describe('SignUpForm Component', () => {
       <SignUpForm 
         onSignUp={mockOnSignUp} 
         onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
         language={Language.ENGLISH}
       />
     );
@@ -48,6 +76,8 @@ describe('SignUpForm Component', () => {
       <SignUpForm 
         onSignUp={mockOnSignUp} 
         onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
         language={Language.ENGLISH}
       />
     );
@@ -62,6 +92,8 @@ describe('SignUpForm Component', () => {
       <SignUpForm 
         onSignUp={mockOnSignUp} 
         onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
         language={Language.ENGLISH}
       />
     );
@@ -80,6 +112,8 @@ describe('SignUpForm Component', () => {
       <SignUpForm 
         onSignUp={mockOnSignUp} 
         onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
         language={Language.ENGLISH}
       />
     );
@@ -100,6 +134,8 @@ describe('SignUpForm Component', () => {
       <SignUpForm 
         onSignUp={mockOnSignUp} 
         onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
         language={Language.ENGLISH}
       />
     );
@@ -130,6 +166,8 @@ describe('SignUpForm Component', () => {
       <SignUpForm 
         onSignUp={mockOnSignUp} 
         onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
         language={Language.ENGLISH}
       />
     );
@@ -158,6 +196,8 @@ describe('SignUpForm Component', () => {
       <SignUpForm 
         onSignUp={mockOnSignUp} 
         onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
         language={Language.ENGLISH}
         isLoading={true}
       />
@@ -172,6 +212,8 @@ describe('SignUpForm Component', () => {
       <SignUpForm 
         onSignUp={mockOnSignUp} 
         onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
         language={Language.ENGLISH}
         error="Phone number already exists"
       />
@@ -185,6 +227,8 @@ describe('SignUpForm Component', () => {
       <SignUpForm 
         onSignUp={mockOnSignUp} 
         onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
         language={Language.ENGLISH}
       />
     );
@@ -200,6 +244,8 @@ describe('SignUpForm Component', () => {
       <SignUpForm 
         onSignUp={mockOnSignUp} 
         onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
         language={Language.ENGLISH}
       />
     );
@@ -207,5 +253,140 @@ describe('SignUpForm Component', () => {
     expect(screen.getByLabelText('Enter your full name')).toBeTruthy();
     expect(screen.getByLabelText('Enter your phone number')).toBeTruthy();
     expect(screen.getByLabelText('Enter your email address (optional)')).toBeTruthy();
+  });
+
+  test('shows back button when onBack prop is provided', () => {
+    render(
+      <SignUpForm 
+        onSignUp={mockOnSignUp} 
+        onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
+        language={Language.ENGLISH}
+      />
+    );
+    expect(screen.getByTestId('back-button')).toBeTruthy();
+  });
+
+  test('hides back button when onBack prop is not provided', () => {
+    render(
+      <SignUpForm 
+        onSignUp={mockOnSignUp} 
+        onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={undefined}
+        onLanguageChange={mockOnLanguageChange}
+        language={Language.ENGLISH}
+      />
+    );
+    expect(screen.queryByTestId('back-button')).toBeNull();
+  });
+
+  test('calls onBack when back button is pressed', () => {
+    render(
+      <SignUpForm 
+        onSignUp={mockOnSignUp} 
+        onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
+        language={Language.ENGLISH}
+      />
+    );
+    
+    const backButton = screen.getByTestId('back-button');
+    fireEvent.press(backButton);
+    
+    expect(mockOnBack).toHaveBeenCalledTimes(1);
+  });
+
+  test('shows language indicator with correct flag and text', () => {
+    render(
+      <SignUpForm 
+        onSignUp={mockOnSignUp} 
+        onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
+        language={Language.ENGLISH}
+      />
+    );
+    
+    expect(screen.getByTestId('language-change-button')).toBeTruthy();
+    expect(screen.getByText('🇺🇸 EN')).toBeTruthy();
+  });
+
+  test('shows correct language indicator for Hindi', () => {
+    render(
+      <SignUpForm 
+        onSignUp={mockOnSignUp} 
+        onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
+        language={Language.HINDI}
+      />
+    );
+    expect(screen.getByText('🇮🇳 हि')).toBeTruthy();
+  });
+
+  test('shows correct language indicator for Bengali', () => {
+    render(
+      <SignUpForm 
+        onSignUp={mockOnSignUp} 
+        onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
+        language={Language.BENGALI}
+      />
+    );
+    expect(screen.getByText('🇧🇩 বা')).toBeTruthy();
+  });
+
+  test('opens language modal when language indicator is pressed', async () => {
+    render(
+      <SignUpForm 
+        onSignUp={mockOnSignUp} 
+        onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
+        language={Language.ENGLISH}
+      />
+    );
+    
+    // Modal should not be visible initially
+    expect(screen.queryByTestId('language-modal')).toBeNull();
+    
+    // Press language indicator
+    const languageChangeButton = screen.getByTestId('language-change-button');
+    fireEvent.press(languageChangeButton);
+    
+    // Modal should be visible
+    await waitFor(() => {
+      expect(screen.queryByTestId('language-modal')).toBeTruthy();
+    });
+  });
+
+  test('handles language change through modal', async () => {
+    render(
+      <SignUpForm 
+        onSignUp={mockOnSignUp} 
+        onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
+        language={Language.ENGLISH}
+      />
+    );
+    
+    // Open modal
+    const languageChangeButton = screen.getByTestId('language-change-button');
+    fireEvent.press(languageChangeButton);
+    
+    // Select Hindi
+    await waitFor(() => {
+      expect(screen.queryByTestId('language-modal')).toBeTruthy();
+    });
+    
+    const selectHindiButton = screen.getByTestId('select-hindi');
+    fireEvent.press(selectHindiButton);
+    
+    // Verify onLanguageChange was called
+    expect(mockOnLanguageChange).toHaveBeenCalledWith(Language.HINDI);
   });
 }); 

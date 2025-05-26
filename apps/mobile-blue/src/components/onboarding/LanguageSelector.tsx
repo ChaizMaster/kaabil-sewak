@@ -7,12 +7,14 @@ interface LanguageSelectorProps {
   onLanguageSelect: (language: Language) => void;
   onContinue?: () => void;
   selectedLanguage?: Language;
+  compact?: boolean;
 }
 
 export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   onLanguageSelect,
   onContinue,
   selectedLanguage,
+  compact,
 }) => {
   const [currentLang, setCurrentLang] = useState<Language>(selectedLanguage || Language.ENGLISH);
   const { t } = useTranslation(currentLang);
@@ -29,22 +31,24 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   ];
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{t.selectLanguage}</Text>
+    <View style={compact ? styles.compactContainer : styles.container}>
+      {!compact && <Text style={styles.title}>{t.selectLanguage}</Text>}
       
-      <View style={styles.languageList}>
+      <View style={compact ? styles.compactLanguageList : styles.languageList}>
         {languageOptions.map((option) => (
           <TouchableOpacity
             key={option.code}
             testID={option.testId}
             accessibilityLabel={`Select ${option.name} language`}
             style={[
-              styles.languageOption,
-              selectedLanguage === option.code && styles.selectedOption
+              compact ? styles.compactLanguageOption : styles.languageOption,
+              selectedLanguage === option.code && (compact ? styles.compactSelectedOption : styles.selectedOption)
             ]}
             onPress={() => handleLanguagePress(option.code)}
           >
-            <Text style={styles.languageName}>{option.name}</Text>
+            <Text style={compact ? styles.compactLanguageName : styles.languageName}>
+              {option.name}
+            </Text>
             {selectedLanguage === option.code && (
               <Text style={styles.checkmark}>✓</Text>
             )}
@@ -52,22 +56,24 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
         ))}
       </View>
 
-      <TouchableOpacity
-        testID="continue-button"
-        style={[
-          styles.continueButton,
-          !selectedLanguage && styles.disabledButton
-        ]}
-        onPress={onContinue}
-        disabled={!selectedLanguage}
-      >
-        <Text style={[
-          styles.continueText,
-          !selectedLanguage && styles.disabledText
-        ]}>
-          {t.continue}
-        </Text>
-      </TouchableOpacity>
+      {!compact && onContinue && (
+        <TouchableOpacity
+          testID="continue-button"
+          style={[
+            styles.continueButton,
+            !selectedLanguage && styles.disabledButton
+          ]}
+          onPress={onContinue}
+          disabled={!selectedLanguage}
+        >
+          <Text style={[
+            styles.continueText,
+            !selectedLanguage && styles.disabledText
+          ]}>
+            {t.continue}
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -132,5 +138,35 @@ const styles = StyleSheet.create({
   },
   disabledText: {
     color: '#888',
+  },
+  compactContainer: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+  },
+  compactLanguageList: {
+    marginBottom: 40,
+  },
+  compactLanguageOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 16,
+    marginVertical: 8,
+    backgroundColor: '#F8F9FA',
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: 'transparent',
+    minHeight: 44, // Accessibility: minimum touch target
+  },
+  compactSelectedOption: {
+    backgroundColor: '#E8F4FD',
+    borderColor: '#2E86AB',
+  },
+  compactLanguageName: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
   },
 }); 

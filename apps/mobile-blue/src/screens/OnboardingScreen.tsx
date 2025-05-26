@@ -5,8 +5,8 @@ import { SignUpForm } from '../components/auth/SignUpForm';
 import { Language, SignUpData } from 'shared/src/types/user.types';
 
 enum OnboardingStep {
-  LANGUAGE_SELECTION = 'language_selection',
-  SIGN_UP = 'sign_up',
+  LANGUAGE_SELECTION = 'language',
+  SIGN_UP = 'signup',
 }
 
 interface OnboardingScreenProps {
@@ -19,26 +19,22 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onComplete }
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | undefined>();
 
-  const handleLanguageSelect = (language: Language) => {
+  const handleLanguageChange = (language: Language) => {
     setSelectedLanguage(language);
   };
 
-  const handleLanguageContinue = () => {
-    if (selectedLanguage) {
-      setCurrentStep(OnboardingStep.SIGN_UP);
-    }
-  };
+  const handleSignUp = async (data: SignUpData) => {
+    setIsLoading(true);
+    setError(undefined);
 
-  const handleSignUp = async (signUpData: SignUpData) => {
     try {
-      setIsLoading(true);
-      setError(undefined);
-      
-      // Simulate API call for signup
+      // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Pass the complete user data to parent
-      onComplete(signUpData);
+      // Mock API response - in real app, this would come from your auth service
+      console.log('User signed up:', data);
+      
+      onComplete(data);
     } catch (err) {
       setError('Failed to create account. Please try again.');
     } finally {
@@ -46,15 +42,8 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onComplete }
     }
   };
 
-  const handleSwitchToLogin = () => {
-    // For now, just show an alert
-    // In a real app, this would navigate to login screen
-    console.log('Switch to login - to be implemented');
-  };
-
-  const handleBackToLanguage = () => {
+  const handleBackToLanguageSelection = () => {
     setCurrentStep(OnboardingStep.LANGUAGE_SELECTION);
-    setError(undefined);
   };
 
   const renderCurrentStep = () => {
@@ -62,8 +51,8 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onComplete }
       case OnboardingStep.LANGUAGE_SELECTION:
         return (
           <LanguageSelector
-            onLanguageSelect={handleLanguageSelect}
-            onContinue={handleLanguageContinue}
+            onLanguageSelect={handleLanguageChange}
+            onContinue={() => setCurrentStep(OnboardingStep.SIGN_UP)}
             selectedLanguage={selectedLanguage}
           />
         );
@@ -72,7 +61,9 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onComplete }
         return (
           <SignUpForm
             onSignUp={handleSignUp}
-            onSwitchToLogin={handleSwitchToLogin}
+            onSwitchToLogin={() => console.log('Switch to login')}
+            onBack={handleBackToLanguageSelection}
+            onLanguageChange={handleLanguageChange}
             language={selectedLanguage || Language.ENGLISH}
             isLoading={isLoading}
             error={error}

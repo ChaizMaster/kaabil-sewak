@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Language, SignUpData } from 'shared/src/types/user.types';
 import { useTranslation } from 'shared/src/hooks/useTranslation';
+import { LanguageChangeModal } from '../common/LanguageChangeModal';
 
 interface SignUpFormProps {
   onSignUp: (data: SignUpData) => void;
   onSwitchToLogin: () => void;
+  onBack?: () => void;
+  onLanguageChange?: (language: Language) => void;
   language: Language;
   isLoading?: boolean;
   error?: string;
@@ -20,6 +23,8 @@ interface FormErrors {
 export const SignUpForm: React.FC<SignUpFormProps> = ({
   onSignUp,
   onSwitchToLogin,
+  onBack,
+  onLanguageChange,
   language,
   isLoading = false,
   error,
@@ -31,6 +36,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
     email: '',
   });
   const [errors, setErrors] = useState<FormErrors>({});
+  const [isLanguageModalVisible, setIsLanguageModalVisible] = useState(false);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -69,8 +75,48 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
     }
   };
 
+  const handleLanguageChange = (newLanguage: Language) => {
+    if (onLanguageChange) {
+      onLanguageChange(newLanguage);
+    }
+  };
+
   return (
     <View style={styles.container}>
+      {/* Header with back button and language indicator */}
+      <View style={styles.header}>
+        {onBack && (
+          <TouchableOpacity
+            testID="back-button"
+            style={styles.backButton}
+            onPress={onBack}
+            accessibilityLabel="Go back to language selection"
+          >
+            <Text style={styles.backButtonText}>← {t.back}</Text>
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity
+          style={styles.languageIndicator}
+          onPress={() => setIsLanguageModalVisible(true)}
+          accessibilityLabel="Change language"
+          testID="language-change-button"
+        >
+          <Text style={styles.languageText}>
+            {language === Language.ENGLISH ? '🇺🇸 EN' :
+             language === Language.HINDI ? '🇮🇳 हि' :
+             language === Language.BENGALI ? '🇧🇩 বা' : '🇺🇸 EN'}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Language Change Modal */}
+      <LanguageChangeModal
+        visible={isLanguageModalVisible}
+        onClose={() => setIsLanguageModalVisible(false)}
+        selectedLanguage={language}
+        onLanguageChange={handleLanguageChange}
+      />
+
       <Text style={styles.title}>{t.signUp}</Text>
 
       {error && (
@@ -159,6 +205,35 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
     justifyContent: 'center',
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: -50, // Offset the centering to place header at top
+    marginBottom: 20,
+  },
+  backButton: {
+    padding: 10,
+    minHeight: 44, // Accessibility: minimum touch target
+  },
+  backButtonText: {
+    color: '#2E86AB',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  languageIndicator: {
+    backgroundColor: '#F8F9FA',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+  },
+  languageText: {
+    color: '#333',
+    fontSize: 14,
+    fontWeight: '600',
   },
   title: {
     fontSize: 28,
