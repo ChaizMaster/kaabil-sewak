@@ -9,8 +9,17 @@ import {
 } from 'react-native';
 import { JobCard } from '../components/jobs/JobCard';
 import { Job, JobStatus } from '@kaabil/shared';
+import { Language } from 'shared/src/types/user.types';
+import { useTranslation } from 'shared/src/hooks/useTranslation';
 
-export const JobDiscoveryScreen: React.FC = () => {
+interface JobDiscoveryScreenProps {
+  userLanguage?: Language;
+}
+
+export const JobDiscoveryScreen: React.FC<JobDiscoveryScreenProps> = ({ 
+  userLanguage = Language.ENGLISH 
+}) => {
+  const { t } = useTranslation(userLanguage);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -100,14 +109,14 @@ export const JobDiscoveryScreen: React.FC = () => {
   if (loading && jobs.length === 0) {
     return (
       <View style={styles.centerContainer}>
-        <Text style={styles.loadingText}>Loading jobs...</Text>
+        <Text style={styles.loadingText}>{t.loading}</Text>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Jobs Near You</Text>
+      <Text style={styles.title}>{t.jobsNearYou}</Text>
       <ScrollView
         style={styles.scrollView}
         refreshControl={
