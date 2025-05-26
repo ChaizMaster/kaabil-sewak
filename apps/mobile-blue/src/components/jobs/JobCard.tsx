@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { VoiceCommandButton } from '../voice/VoiceCommandButton';
 import { Job } from '@kaabil/shared';
 import { Language } from 'shared/src/types/user.types';
 import { useTranslation } from 'shared/src/hooks/useTranslation';
@@ -14,35 +13,14 @@ interface JobCardProps {
 export const JobCard: React.FC<JobCardProps> = ({ 
   job, 
   onApply, 
-  language = Language.ENGLISH 
+  language = Language.ENGLISH
 }) => {
   const { t } = useTranslation(language);
-  const [isListening, setIsListening] = useState(false);
 
   const handleApply = () => {
     if (onApply) {
       onApply(job.id);
     }
-  };
-
-  const handleVoicePress = () => {
-    setIsListening(true);
-  };
-
-  const handleVoiceCommand = (command: string) => {
-    const applyCommands = {
-      [Language.ENGLISH]: ['apply'],
-      [Language.HINDI]: ['आवेदन', 'अप्लाई'],
-      [Language.BENGALI]: ['আবেদন', 'অ্যাপ্লাই'],
-    };
-    
-    const validCommands = applyCommands[language] || applyCommands[Language.ENGLISH];
-    const commandLower = command.toLowerCase();
-    
-    if (validCommands.some(cmd => commandLower.includes(cmd))) {
-      handleApply();
-    }
-    setIsListening(false);
   };
 
   return (
@@ -71,22 +49,7 @@ export const JobCard: React.FC<JobCardProps> = ({
         >
           <Text style={styles.applyText}>{t.apply}</Text>
         </TouchableOpacity>
-        
-        <VoiceCommandButton
-          testID="voice-command-button"
-          isListening={isListening}
-          onPress={handleVoicePress}
-          onVoiceCommand={handleVoiceCommand}
-          accessibilityLabel={t.voiceApplyHint}
-          language={language}
-        />
       </View>
-      
-      {isListening && (
-        <Text style={styles.voicePrompt}>
-          {t.voiceApplyHint}
-        </Text>
-      )}
     </View>
   );
 };
@@ -134,7 +97,7 @@ const styles = StyleSheet.create({
   },
   actions: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   applyButton: {
@@ -143,20 +106,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 8,
     flex: 1,
-    marginRight: 12,
   },
   applyText: {
     color: '#ffffff',
     fontSize: 16,
     fontWeight: '600',
     textAlign: 'center',
-  },
-  voicePrompt: {
-    fontSize: 12,
-    color: '#4CAF50',
-    textAlign: 'center',
-    marginTop: 8,
-    fontStyle: 'italic',
   },
   requirementsTitle: {
     fontSize: 14,

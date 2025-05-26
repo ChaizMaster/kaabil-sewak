@@ -39,11 +39,11 @@ export interface Translations {
   requirements: string;
   viewDetails: string;
   
-  // Voice Commands
-  voiceCommand: string;
-  listening: string;
-  sayApply: string;
-  voiceApplyHint: string;
+  // App Navigation
+  exitApp: string;
+  exitAppMessage: string;
+  noStay: string;
+  yesExit: string;
   
   // Common
   loading: string;
@@ -109,11 +109,11 @@ export const translations: Record<Language, Translations> = {
     requirements: 'Requirements',
     viewDetails: 'View Details',
     
-    // Voice Commands
-    voiceCommand: 'Voice Command',
-    listening: 'Listening...',
-    sayApply: 'Say "Apply"',
-    voiceApplyHint: 'Say "Apply" to apply for this job',
+    // App Navigation
+    exitApp: 'Exit App',
+    exitAppMessage: 'Are you sure you want to exit the app?',
+    noStay: 'No, stay in the app',
+    yesExit: 'Yes, exit the app',
     
     // Common
     loading: 'Loading...',
@@ -178,11 +178,11 @@ export const translations: Record<Language, Translations> = {
     requirements: 'आवश्यकताएं',
     viewDetails: 'विवरण देखें',
     
-    // Voice Commands
-    voiceCommand: 'आवाज़ कमांड',
-    listening: 'सुन रहे हैं...',
-    sayApply: '"आवेदन करें" कहें',
-    voiceApplyHint: 'इस नौकरी के लिए आवेदन करने के लिए "आवेदन करें" कहें',
+    // App Navigation
+    exitApp: 'ऐप निकालें',
+    exitAppMessage: 'क्या आप वाकई ऐप निकालना चाहते हैं?',
+    noStay: 'नहीं, ऐप में रहें',
+    yesExit: 'हाँ, ऐप निकालें',
     
     // Common
     loading: 'लोड हो रहा है...',
@@ -247,11 +247,11 @@ export const translations: Record<Language, Translations> = {
     requirements: 'প্রয়োজনীয়তা',
     viewDetails: 'বিস্তারিত দেখুন',
     
-    // Voice Commands
-    voiceCommand: 'ভয়েস কমান্ড',
-    listening: 'শুনছি...',
-    sayApply: '"আবেদন করুন" বলুন',
-    voiceApplyHint: 'এই চাকরির জন্য আবেদন করতে "আবেদন করুন" বলুন',
+    // App Navigation
+    exitApp: 'অ্যাপ থেকে বেরিয়ে যান',
+    exitAppMessage: 'আপনি কি সত্যিই অ্যাপ থেকে বেরিয়ে যেতে চান?',
+    noStay: 'না, অ্যাপে থাকুন',
+    yesExit: 'হ্যাঁ, অ্যাপ থেকে বেরিয়ে যান',
     
     // Common
     loading: 'লোড হচ্ছে...',
@@ -260,7 +260,7 @@ export const translations: Record<Language, Translations> = {
     cancel: 'বাতিল',
     confirm: 'নিশ্চিত করুন',
     next: 'পরবর্তী',
-    back: 'ফিরে যান',
+    back: 'পেছনে',
     skip: 'এড়িয়ে যান',
     done: 'সম্পন্ন',
     
@@ -268,12 +268,12 @@ export const translations: Record<Language, Translations> = {
     construction: 'নির্মাণ',
     delivery: 'ডেলিভারি',
     security: 'নিরাপত্তা',
-    cleaning: 'পরিষ্কার',
+    cleaning: 'পরিচ্ছন্নতা',
     cooking: 'রান্না',
-    gardening: 'বাগান',
+    gardening: 'বাগান করা',
     electrician: 'ইলেকট্রিশিয়ান',
     plumber: 'প্লাম্বার',
-    painter: 'চিত্রশিল্পী',
+    painter: 'চিত্রকর',
     driver: 'চালক',
   },
 }; 
