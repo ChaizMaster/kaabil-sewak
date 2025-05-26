@@ -165,18 +165,6 @@ npm run dev:mobile-blue
 npm run dev:all
 ```
 
-## 📊 **Revenue Projections**
-
-### **Three-Year Financial Forecast**
-- **Year 1**: ₹1.01 crores revenue with 50K+ three-tier users
-- **Year 2**: ₹12.5 crores revenue with 250K+ users across all tiers  
-- **Year 3**: ₹48 crores revenue with 1M+ hierarchical workforce users
-
-### **Market Opportunity**
-- **TAM**: ₹500+ crores (India's blue-collar workforce market)
-- **Competitive Advantage**: Only three-tier hierarchical platform with real-time sync
-- **AI Moat**: 94% matching accuracy through cross-tier learning
-
 ## 🔄 **Real-time Synchronization**
 
 ### **Hierarchical Data Flow**
