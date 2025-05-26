@@ -40,7 +40,7 @@ describe('JobCard Component', () => {
 
   it('should display location with distance', () => {
     render(<JobCard job={mockJob} />);
-    expect(screen.getByText('Sector 15, Gurgaon (2.5 km)')).toBeVisible();
+    expect(screen.getByText('Sector 15, Gurgaon (2.5 km away)')).toBeVisible();
   });
 
   it('should show job requirements', () => {
@@ -49,10 +49,10 @@ describe('JobCard Component', () => {
     expect(screen.getByText('• Experience')).toBeVisible();
   });
 
-  it('should have voice command button', () => {
+  it('should have audio button for listening to job description', () => {
     render(<JobCard job={mockJob} />);
-    const voiceButton = screen.getByTestId('voice-command-button');
-    expect(voiceButton).toBeVisible();
+    const audioButton = screen.getByTestId('audio-button');
+    expect(audioButton).toBeVisible();
   });
 
   it('should have apply button', () => {
@@ -71,25 +71,24 @@ describe('JobCard Component', () => {
     expect(onApply).toHaveBeenCalledWith('job-123');
   });
 
-  it('should handle voice commands for application', () => {
-    const onApply = jest.fn();
-    render(<JobCard job={mockJob} onApply={onApply} />);
+  it('should handle audio playback for job description', () => {
+    render(<JobCard job={mockJob} />);
     
-    const voiceButton = screen.getByTestId('voice-command-button');
-    fireEvent.press(voiceButton);
+    const audioButton = screen.getByTestId('audio-button');
+    fireEvent.press(audioButton);
     
-    // Should show voice prompt
-    expect(screen.getByText('Say "Apply" to apply for this job')).toBeVisible();
+    // Audio button should be disabled while playing
+    expect(audioButton).toHaveProperty('accessibilityState.disabled', true);
   });
 
   it('should have proper accessibility labels', () => {
     render(<JobCard job={mockJob} />);
     
     const applyButton = screen.getByLabelText('Apply for Construction Worker');
-    const voiceButton = screen.getByLabelText('Voice apply for job');
+    const audioButton = screen.getByLabelText('Listen to Construction Worker job description');
     
     expect(applyButton).toBeVisible();
-    expect(voiceButton).toBeVisible();
+    expect(audioButton).toBeVisible();
   });
 
   it('should display job card with proper test ID', () => {

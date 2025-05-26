@@ -39,11 +39,9 @@ export interface Translations {
   requirements: string;
   viewDetails: string;
   
-  // Voice Commands
-  voiceCommand: string;
-  listening: string;
-  sayApply: string;
-  voiceApplyHint: string;
+  // Audio Features
+  listenToDescription: string;
+  playing: string;
   
   // Common
   loading: string;
@@ -109,11 +107,9 @@ export const translations: Record<Language, Translations> = {
     requirements: 'Requirements',
     viewDetails: 'View Details',
     
-    // Voice Commands
-    voiceCommand: 'Voice Command',
-    listening: 'Listening...',
-    sayApply: 'Say "Apply"',
-    voiceApplyHint: 'Say "Apply" to apply for this job',
+    // Audio Features
+    listenToDescription: 'Listen to Description',
+    playing: 'Playing...',
     
     // Common
     loading: 'Loading...',
@@ -178,11 +174,9 @@ export const translations: Record<Language, Translations> = {
     requirements: 'आवश्यकताएं',
     viewDetails: 'विवरण देखें',
     
-    // Voice Commands
-    voiceCommand: 'आवाज़ कमांड',
-    listening: 'सुन रहे हैं...',
-    sayApply: '"आवेदन करें" कहें',
-    voiceApplyHint: 'इस नौकरी के लिए आवेदन करने के लिए "आवेदन करें" कहें',
+    // Audio Features
+    listenToDescription: 'विवरण सुनें',
+    playing: 'गायन हो रहा है...',
     
     // Common
     loading: 'लोड हो रहा है...',
@@ -247,11 +241,9 @@ export const translations: Record<Language, Translations> = {
     requirements: 'প্রয়োজনীয়তা',
     viewDetails: 'বিস্তারিত দেখুন',
     
-    // Voice Commands
-    voiceCommand: 'ভয়েস কমান্ড',
-    listening: 'শুনছি...',
-    sayApply: '"আবেদন করুন" বলুন',
-    voiceApplyHint: 'এই চাকরির জন্য আবেদন করতে "আবেদন করুন" বলুন',
+    // Audio Features
+    listenToDescription: 'বিবরণ শুনতে',
+    playing: 'গান শুনছি...',
     
     // Common
     loading: 'লোড হচ্ছে...',
