@@ -2,13 +2,21 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { VoiceCommandButton } from '../voice/VoiceCommandButton';
 import { Job } from '@kaabil/shared';
+import { Language } from 'shared/src/types/user.types';
+import { useTranslation } from 'shared/src/hooks/useTranslation';
 
 interface JobCardProps {
   job: Job;
   onApply?: (jobId: string) => void;
+  language?: Language;
 }
 
-export const JobCard: React.FC<JobCardProps> = ({ job, onApply }) => {
+export const JobCard: React.FC<JobCardProps> = ({ 
+  job, 
+  onApply, 
+  language = Language.ENGLISH 
+}) => {
+  const { t } = useTranslation(language);
   const [isListening, setIsListening] = useState(false);
 
   const handleApply = () => {
@@ -22,7 +30,16 @@ export const JobCard: React.FC<JobCardProps> = ({ job, onApply }) => {
   };
 
   const handleVoiceCommand = (command: string) => {
-    if (command.toLowerCase().includes('apply')) {
+    const applyCommands = {
+      [Language.ENGLISH]: ['apply'],
+      [Language.HINDI]: ['आवेदन', 'अप्लाई'],
+      [Language.BENGALI]: ['আবেদন', 'অ্যাপ্লাই'],
+    };
+    
+    const validCommands = applyCommands[language] || applyCommands[Language.ENGLISH];
+    const commandLower = command.toLowerCase();
+    
+    if (validCommands.some(cmd => commandLower.includes(cmd))) {
       handleApply();
     }
     setIsListening(false);
@@ -31,11 +48,12 @@ export const JobCard: React.FC<JobCardProps> = ({ job, onApply }) => {
   return (
     <View style={styles.container} testID="job-card">
       <Text style={styles.title}>{job.title}</Text>
-      <Text style={styles.wage}>₹{job.wage}/day</Text>
+      <Text style={styles.wage}>₹{job.wage}{t.perDay}</Text>
       <Text style={styles.location}>
-        {job.location} ({job.distance} km)
+        {job.location} ({job.distance} km {t.away})
       </Text>
       
+      <Text style={styles.requirementsTitle}>{t.requirements}:</Text>
       <View style={styles.requirements}>
         {job.requirements.map((req, index) => (
           <Text key={index} style={styles.requirement}>
@@ -48,10 +66,10 @@ export const JobCard: React.FC<JobCardProps> = ({ job, onApply }) => {
         <TouchableOpacity 
           style={styles.applyButton}
           onPress={handleApply}
-          accessibilityLabel={`Apply for ${job.title}`}
+          accessibilityLabel={`${t.apply} for ${job.title}`}
           accessibilityRole="button"
         >
-          <Text style={styles.applyText}>Apply</Text>
+          <Text style={styles.applyText}>{t.apply}</Text>
         </TouchableOpacity>
         
         <VoiceCommandButton
@@ -59,13 +77,14 @@ export const JobCard: React.FC<JobCardProps> = ({ job, onApply }) => {
           isListening={isListening}
           onPress={handleVoicePress}
           onVoiceCommand={handleVoiceCommand}
-          accessibilityLabel="Voice apply for job"
+          accessibilityLabel={t.voiceApplyHint}
+          language={language}
         />
       </View>
       
       {isListening && (
         <Text style={styles.voicePrompt}>
-          Say "Apply" to apply for this job
+          {t.voiceApplyHint}
         </Text>
       )}
     </View>
@@ -89,6 +108,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#333333',
     marginBottom: 8,
+    lineHeight: 24,
+    flexWrap: 'wrap',
   },
   wage: {
     fontSize: 24,
@@ -100,6 +121,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666666',
     marginBottom: 12,
+    lineHeight: 20,
+    flexWrap: 'wrap',
   },
   requirements: {
     marginBottom: 16,
@@ -134,5 +157,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 8,
     fontStyle: 'italic',
+  },
+  requirementsTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333333',
+    marginBottom: 8,
   },
 }); 

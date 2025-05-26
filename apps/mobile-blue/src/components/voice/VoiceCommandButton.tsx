@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { Language } from 'shared/src/types/user.types';
+import { useTranslation } from 'shared/src/hooks/useTranslation';
 
 interface VoiceCommandButtonProps {
   testID?: string;
@@ -7,6 +9,7 @@ interface VoiceCommandButtonProps {
   onPress?: () => void;
   onVoiceCommand?: (command: string) => void;
   accessibilityLabel?: string;
+  language?: Language;
 }
 
 export const VoiceCommandButton: React.FC<VoiceCommandButtonProps> = ({
@@ -14,8 +17,10 @@ export const VoiceCommandButton: React.FC<VoiceCommandButtonProps> = ({
   isListening = false,
   onPress,
   onVoiceCommand,
-  accessibilityLabel
+  accessibilityLabel,
+  language = Language.ENGLISH
 }) => {
+  const { t } = useTranslation(language);
   const [currentlyListening, setCurrentlyListening] = useState(isListening);
 
   const handlePress = async () => {
@@ -25,11 +30,17 @@ export const VoiceCommandButton: React.FC<VoiceCommandButtonProps> = ({
     
     setCurrentlyListening(true);
     
-    // Simulate voice recognition
+    // Simulate voice recognition with localized commands
     // In real implementation, this would use expo-speech or similar
     setTimeout(() => {
       if (onVoiceCommand) {
-        onVoiceCommand('apply'); // Simulated voice command
+        // Simulate a localized voice command based on language
+        const simulatedCommands = {
+          [Language.ENGLISH]: 'apply',
+          [Language.HINDI]: 'आवेदन',
+          [Language.BENGALI]: 'আবেদন',
+        };
+        onVoiceCommand(simulatedCommands[language] || 'apply');
       }
       setCurrentlyListening(false);
     }, 1000);
@@ -53,7 +64,7 @@ export const VoiceCommandButton: React.FC<VoiceCommandButtonProps> = ({
         🎤
       </Text>
       {currentlyListening && (
-        <Text style={styles.listeningText}>Listening...</Text>
+        <Text style={styles.listeningText}>{t.listening}</Text>
       )}
     </TouchableOpacity>
   );
