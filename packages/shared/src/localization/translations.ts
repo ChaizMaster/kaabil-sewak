@@ -39,10 +39,6 @@ export interface Translations {
   requirements: string;
   viewDetails: string;
   
-  // Audio Features
-  listenToDescription: string;
-  playing: string;
-  
   // Common
   loading: string;
   error: string;
@@ -107,10 +103,6 @@ export const translations: Record<Language, Translations> = {
     requirements: 'Requirements',
     viewDetails: 'View Details',
     
-    // Audio Features
-    listenToDescription: 'Listen to Description',
-    playing: 'Playing...',
-    
     // Common
     loading: 'Loading...',
     error: 'Something went wrong',
@@ -173,10 +165,6 @@ export const translations: Record<Language, Translations> = {
     applied: 'आवेदन किया',
     requirements: 'आवश्यकताएं',
     viewDetails: 'विवरण देखें',
-    
-    // Audio Features
-    listenToDescription: 'विवरण सुनें',
-    playing: 'गायन हो रहा है...',
     
     // Common
     loading: 'लोड हो रहा है...',
@@ -241,10 +229,6 @@ export const translations: Record<Language, Translations> = {
     requirements: 'প্রয়োজনীয়তা',
     viewDetails: 'বিস্তারিত দেখুন',
     
-    // Audio Features
-    listenToDescription: 'বিবরণ শুনতে',
-    playing: 'গান শুনছি...',
-    
     // Common
     loading: 'লোড হচ্ছে...',
     error: 'কিছু ভুল হয়েছে',
@@ -252,7 +236,7 @@ export const translations: Record<Language, Translations> = {
     cancel: 'বাতিল',
     confirm: 'নিশ্চিত করুন',
     next: 'পরবর্তী',
-    back: 'ফিরে যান',
+    back: 'পেছনে',
     skip: 'এড়িয়ে যান',
     done: 'সম্পন্ন',
     
@@ -260,12 +244,12 @@ export const translations: Record<Language, Translations> = {
     construction: 'নির্মাণ',
     delivery: 'ডেলিভারি',
     security: 'নিরাপত্তা',
-    cleaning: 'পরিষ্কার',
+    cleaning: 'পরিচ্ছন্নতা',
     cooking: 'রান্না',
-    gardening: 'বাগান',
+    gardening: 'বাগান করা',
     electrician: 'ইলেকট্রিশিয়ান',
     plumber: 'প্লাম্বার',
-    painter: 'চিত্রশিল্পী',
+    painter: 'চিত্রকর',
     driver: 'চালক',
   },
 }; 

@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { AudioButton } from '../audio/AudioButton';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Job } from '@kaabil/shared';
 import { Language } from 'shared/src/types/user.types';
 import { useTranslation } from 'shared/src/hooks/useTranslation';
@@ -9,116 +8,18 @@ interface JobCardProps {
   job: Job;
   onApply?: (jobId: string) => void;
   language?: Language;
-  userId?: string;
 }
 
 export const JobCard: React.FC<JobCardProps> = ({ 
   job, 
   onApply, 
-  language = Language.ENGLISH,
-  userId 
+  language = Language.ENGLISH
 }) => {
   const { t } = useTranslation(language);
 
   const handleApply = () => {
     if (onApply) {
       onApply(job.id);
-    }
-  };
-
-  // Create a complete job description for audio playback
-  const getJobDescription = () => {
-    // For TTS, we want clean language-specific text
-    const getCleanText = (text: string) => {
-      if (language === Language.ENGLISH) {
-        // For English, extract English part if bilingual
-        if (text.includes(' / ')) {
-          return text.split(' / ')[1] || text.split(' / ')[0];
-        }
-        return text;
-      } else {
-        // For Hindi/Bengali, extract local language part
-        if (text.includes(' / ')) {
-          return text.split(' / ')[0];
-        }
-        return text;
-      }
-    };
-
-    const cleanTitle = getCleanText(job.title);
-    const cleanLocation = getCleanText(job.location);
-    const requirements = job.requirements.join('. ');
-    
-    // Create language-appropriate description
-    if (language === Language.HINDI) {
-      return `नौकरी: ${cleanTitle}. स्थान: ${cleanLocation}. वेतन: ${job.wage} रुपये प्रति दिन. आवश्यकताएं: ${requirements}`;
-    } else if (language === Language.BENGALI) {
-      return `চাকরি: ${cleanTitle}. স্থান: ${cleanLocation}. বেতন: ${job.wage} টাকা প্রতিদিন. প্রয়োজনীয়তা: ${requirements}`;
-    } else {
-      return `Job: ${cleanTitle}. Location: ${cleanLocation}. Wage: ${job.wage} rupees per day. Requirements: ${requirements}`;
-    }
-  };
-
-  // Track audio interactions with backend
-  const handleAudioStart = async () => {
-    try {
-      console.log('Audio started for job:', job.id);
-      
-      // Call backend API to track audio start
-      if (userId) {
-        const response = await fetch('http://localhost:3000/api/analytics/audio-interaction', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId,
-            jobId: job.id,
-            action: 'audio_start',
-            language,
-            timestamp: new Date().toISOString(),
-            jobTitle: job.title,
-            jobLocation: job.location
-          }),
-        });
-
-        if (!response.ok) {
-          console.warn('Failed to track audio start:', response.statusText);
-        }
-      }
-    } catch (error) {
-      console.error('Error tracking audio start:', error);
-    }
-  };
-
-  const handleAudioEnd = async () => {
-    try {
-      console.log('Audio ended for job:', job.id);
-      
-      // Call backend API to track audio end
-      if (userId) {
-        const response = await fetch('http://localhost:3000/api/analytics/audio-interaction', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId,
-            jobId: job.id,
-            action: 'audio_end',
-            language,
-            timestamp: new Date().toISOString(),
-            jobTitle: job.title,
-            jobLocation: job.location
-          }),
-        });
-
-        if (!response.ok) {
-          console.warn('Failed to track audio end:', response.statusText);
-        }
-      }
-    } catch (error) {
-      console.error('Error tracking audio end:', error);
     }
   };
 
@@ -148,15 +49,6 @@ export const JobCard: React.FC<JobCardProps> = ({
         >
           <Text style={styles.applyText}>{t.apply}</Text>
         </TouchableOpacity>
-        
-        <AudioButton
-          testID="audio-button"
-          text={getJobDescription()}
-          language={language}
-          accessibilityLabel={`Listen to ${job.title} job description`}
-          onAudioStart={handleAudioStart}
-          onAudioEnd={handleAudioEnd}
-        />
       </View>
     </View>
   );
@@ -205,7 +97,7 @@ const styles = StyleSheet.create({
   },
   actions: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   applyButton: {
@@ -214,7 +106,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 8,
     flex: 1,
-    marginRight: 12,
   },
   applyText: {
     color: '#ffffff',
