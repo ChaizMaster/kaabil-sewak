@@ -39,6 +39,12 @@ export interface Translations {
   requirements: string;
   viewDetails: string;
   
+  // App Navigation
+  exitApp: string;
+  exitAppMessage: string;
+  noStay: string;
+  yesExit: string;
+  
   // Common
   loading: string;
   error: string;
@@ -103,6 +109,12 @@ export const translations: Record<Language, Translations> = {
     requirements: 'Requirements',
     viewDetails: 'View Details',
     
+    // App Navigation
+    exitApp: 'Exit App',
+    exitAppMessage: 'Are you sure you want to exit the app?',
+    noStay: 'No, stay in the app',
+    yesExit: 'Yes, exit the app',
+    
     // Common
     loading: 'Loading...',
     error: 'Something went wrong',
@@ -166,6 +178,12 @@ export const translations: Record<Language, Translations> = {
     requirements: 'आवश्यकताएं',
     viewDetails: 'विवरण देखें',
     
+    // App Navigation
+    exitApp: 'ऐप निकालें',
+    exitAppMessage: 'क्या आप वाकई ऐप निकालना चाहते हैं?',
+    noStay: 'नहीं, ऐप में रहें',
+    yesExit: 'हाँ, ऐप निकालें',
+    
     // Common
     loading: 'लोड हो रहा है...',
     error: 'कुछ गलत हुआ',
@@ -228,6 +246,12 @@ export const translations: Record<Language, Translations> = {
     applied: 'আবেদন করা হয়েছে',
     requirements: 'প্রয়োজনীয়তা',
     viewDetails: 'বিস্তারিত দেখুন',
+    
+    // App Navigation
+    exitApp: 'অ্যাপ থেকে বেরিয়ে যান',
+    exitAppMessage: 'আপনি কি সত্যিই অ্যাপ থেকে বেরিয়ে যেতে চান?',
+    noStay: 'না, অ্যাপে থাকুন',
+    yesExit: 'হ্যাঁ, অ্যাপ থেকে বেরিয়ে যান',
     
     // Common
     loading: 'লোড হচ্ছে...',

@@ -5,7 +5,8 @@ import {
   Text, 
   StyleSheet, 
   Alert, 
-  RefreshControl 
+  RefreshControl,
+  BackHandler 
 } from 'react-native';
 import { JobCard } from '../components/jobs/JobCard';
 import { Job, JobStatus } from '@kaabil/shared';
@@ -136,6 +137,35 @@ export const JobDiscoveryScreen: React.FC<JobDiscoveryScreenProps> = ({
   useEffect(() => {
     loadJobs();
   }, [userLanguage]); // Reload jobs when language changes
+
+  // Handle back button press
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    
+    return () => backHandler.remove();
+  }, [userLanguage]);
+
+  const handleBackPress = () => {
+    Alert.alert(
+      t.exitApp,
+      t.exitAppMessage,
+      [
+        {
+          text: t.noStay,
+          style: 'cancel',
+          onPress: () => {} // Stay in the app
+        },
+        {
+          text: t.yesExit,
+          style: 'destructive',
+          onPress: () => BackHandler.exitApp()
+        }
+      ],
+      { cancelable: false }
+    );
+
+    return true; // Prevent default back behavior
+  };
 
   const loadJobs = async () => {
     try {
