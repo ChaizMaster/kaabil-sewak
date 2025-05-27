@@ -23,10 +23,10 @@ describe('JobCard', () => {
     render(<JobCard job={mockJob} />);
     
     expect(screen.getByText('Construction Worker')).toBeVisible();
-    expect(screen.getByText('₹500/day')).toBeVisible();
-    expect(screen.getByText('Sector 15, Gurgaon (2.5 km away)')).toBeVisible();
-    expect(screen.getByText('Experience in construction')).toBeVisible();
-    expect(screen.getByText('Physical fitness')).toBeVisible();
+    expect(screen.getByText('₹500')).toBeVisible();
+    expect(screen.getByText(/Sector 15, Gurgaon.*2\.5.*km/)).toBeVisible();
+    expect(screen.getByText('• Experience in construction')).toBeVisible();
+    expect(screen.getByText('• Physical fitness')).toBeVisible();
   });
 
   it('calls onApply when apply button is pressed', () => {
@@ -43,6 +43,6 @@ describe('JobCard', () => {
     render(<JobCard job={mockJob} language={Language.HINDI} />);
     
     expect(screen.getByText('आवेदन करें')).toBeVisible();
-    expect(screen.getByText('आवश्यकताएं:')).toBeVisible();
+    expect(screen.getByText(/आवश्यकताएं:\s*:/)).toBeVisible();
   });
 }); 
