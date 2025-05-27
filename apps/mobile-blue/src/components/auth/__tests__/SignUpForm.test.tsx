@@ -5,7 +5,7 @@ import { Language } from 'shared/src/types/user.types';
 
 // Mock the useTranslation hook
 jest.mock('shared/src/hooks/useTranslation', () => ({
-  useTranslation: (lang: Language) => ({
+  useTranslation: (lang: string) => ({
     t: {
       signUp: 'Sign Up',
       name: 'Full Name',
@@ -37,7 +37,7 @@ jest.mock('../../common/LanguageChangeModal', () => ({
         <TouchableOpacity
           testID="select-hindi"
           onPress={() => {
-            onLanguageChange(Language.HINDI);
+            onLanguageChange('hi');
             onClose();
           }}
         >
