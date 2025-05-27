@@ -12,7 +12,6 @@ export interface Translations {
   login: string;
   name: string;
   phone: string;
-  email: string;
   password: string;
   confirmPassword: string;
   createAccount: string;
@@ -91,7 +90,6 @@ export const translations: Record<Language, Translations> = {
     login: 'Login',
     name: 'Full Name',
     phone: 'Phone Number',
-    email: 'Email (Optional)',
     password: 'Password',
     confirmPassword: 'Confirm Password',
     createAccount: 'Create Account',
@@ -169,7 +167,6 @@ export const translations: Record<Language, Translations> = {
     login: 'लॉग इन करें',
     name: 'पूरा नाम',
     phone: 'फोन नंबर',
-    email: 'ईमेल (वैकल्पिक)',
     password: 'पासवर्ड',
     confirmPassword: 'पासवर्ड की पुष्टि करें',
     createAccount: 'खाता बनाएं',
@@ -247,7 +244,6 @@ export const translations: Record<Language, Translations> = {
     login: 'লগইন',
     name: 'পুরো নাম',
     phone: 'ফোন নম্বর',
-    email: 'ইমেইল (ঐচ্ছিক)',
     password: 'পাসওয়ার্ড',
     confirmPassword: 'পাসওয়ার্ড নিশ্চিত করুন',
     createAccount: 'অ্যাকাউন্ট তৈরি করুন',
