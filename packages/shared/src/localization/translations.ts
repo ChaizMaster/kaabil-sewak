@@ -12,12 +12,20 @@ export interface Translations {
   login: string;
   name: string;
   phone: string;
-  email: string;
   password: string;
   confirmPassword: string;
   createAccount: string;
   alreadyHaveAccount: string;
   dontHaveAccount: string;
+  
+  // Photo Upload
+  photo: string;
+  uploadPhoto: string;
+  takePhoto: string;
+  chooseFromGallery: string;
+  photoRequired: string;
+  photoIdentityCaption: string;
+  retakePhoto: string;
   
   // Profile Setup
   profileSetup: string;
@@ -82,12 +90,20 @@ export const translations: Record<Language, Translations> = {
     login: 'Login',
     name: 'Full Name',
     phone: 'Phone Number',
-    email: 'Email (Optional)',
     password: 'Password',
     confirmPassword: 'Confirm Password',
     createAccount: 'Create Account',
     alreadyHaveAccount: 'Already have an account? Login',
     dontHaveAccount: "Don't have an account? Sign Up",
+    
+          // Photo Upload
+      photo: 'Photo',
+      uploadPhoto: 'Upload Photo',
+      takePhoto: 'Take Photo',
+      chooseFromGallery: 'Choose from Gallery',
+      photoRequired: 'Photo is required',
+      photoIdentityCaption: 'Please upload your photo or take a selfie to uniquely identify you, as names can be common. This helps us ensure you are a genuine worker.',
+      retakePhoto: 'Retake Photo',
     
     // Profile Setup
     profileSetup: 'Complete Your Profile',
@@ -151,12 +167,20 @@ export const translations: Record<Language, Translations> = {
     login: 'लॉग इन करें',
     name: 'पूरा नाम',
     phone: 'फोन नंबर',
-    email: 'ईमेल (वैकल्पिक)',
     password: 'पासवर्ड',
     confirmPassword: 'पासवर्ड की पुष्टि करें',
     createAccount: 'खाता बनाएं',
     alreadyHaveAccount: 'पहले से खाता है? लॉग इन करें',
     dontHaveAccount: 'खाता नहीं है? साइन अप करें',
+    
+          // Photo Upload
+      photo: 'फोटो',
+      uploadPhoto: 'फोटो अपलोड करें',
+      takePhoto: 'फोटो लें',
+      chooseFromGallery: 'गैलरी से चुनें',
+      photoRequired: 'फोटो आवश्यक है',
+      photoIdentityCaption: 'कृपया अपनी फोटो अपलोड करें या सेल्फी लें ताकि आपकी पहचान हो सके, क्योंकि नाम समान हो सकते हैं। यह हमें यह सुनिश्चित करने में मदद करता है कि आप एक वास्तविक कामगार हैं।',
+      retakePhoto: 'फोटो फिर से लें',
     
     // Profile Setup
     profileSetup: 'अपनी प्रोफ़ाइल पूरी करें',
@@ -220,12 +244,20 @@ export const translations: Record<Language, Translations> = {
     login: 'লগইন',
     name: 'পুরো নাম',
     phone: 'ফোন নম্বর',
-    email: 'ইমেইল (ঐচ্ছিক)',
     password: 'পাসওয়ার্ড',
     confirmPassword: 'পাসওয়ার্ড নিশ্চিত করুন',
     createAccount: 'অ্যাকাউন্ট তৈরি করুন',
     alreadyHaveAccount: 'ইতিমধ্যে অ্যাকাউন্ট আছে? লগইন করুন',
     dontHaveAccount: 'অ্যাকাউন্ট নেই? সাইন আপ করুন',
+    
+          // Photo Upload
+      photo: 'ফটো',
+      uploadPhoto: 'ফটো আপলোড করুন',
+      takePhoto: 'ফটো তুলুন',
+      chooseFromGallery: 'গ্যালারি থেকে চয়ন করুন',
+      photoRequired: 'ফটো আবশ্যক',
+      photoIdentityCaption: 'অনুগ্রহ করে আপনার ফটো আপলোড করুন বা সেলফি তুলুন যাতে আপনাকে অনন্যভাবে চিহ্নিত করা যায়, কারণ নাম সাধারণ হতে পারে। এটি আমাদের নিশ্চিত করতে সাহায্য করে যে আপনি একজন প্রকৃত কর্মী।',
+      retakePhoto: 'ফটো পুনরায় তুলুন',
     
     // Profile Setup
     profileSetup: 'আপনার প্রোফাইল সম্পূর্ণ করুন',

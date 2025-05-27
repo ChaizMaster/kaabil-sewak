@@ -39,5 +39,6 @@ export interface SignUpData {
   name: string;
   phone: string;
   email?: string;
+  photo: string; // Base64 encoded image or URI
   preferredLanguage: Language;
 } 

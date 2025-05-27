@@ -10,7 +10,14 @@ jest.mock('shared/src/hooks/useTranslation', () => ({
       signUp: 'Sign Up',
       name: 'Full Name',
       phone: 'Phone Number',
-      email: 'Email (Optional)',
+      photo: 'Photo',
+      photoRequired: 'Photo is required',
+      photoIdentityCaption: 'Please upload your photo or take a selfie to uniquely identify you, as names can be common. This helps us ensure you are a genuine worker.',
+      uploadPhoto: 'Upload Photo',
+      takePhoto: 'Take Photo',
+      chooseFromGallery: 'Choose from Gallery',
+      retakePhoto: 'Retake Photo',
+      cancel: 'Cancel',
       createAccount: 'Create Account',
       alreadyHaveAccount: 'Already have an account? Login',
       loading: 'Loading...',
@@ -44,6 +51,25 @@ jest.mock('../../common/LanguageChangeModal', () => ({
   },
 }));
 
+// Mock the PhotoUpload component
+jest.mock('../../common/PhotoUpload', () => ({
+  PhotoUpload: ({ onPhotoSelected, error }: any) => {
+    const { Text, TouchableOpacity, View } = require('react-native');
+    return (
+      <View testID="photo-upload">
+        <Text>Photo Upload Component</Text>
+        <TouchableOpacity
+          testID="mock-photo-select"
+          onPress={() => onPhotoSelected('mock-photo-uri')}
+        >
+          <Text>Select Photo</Text>
+        </TouchableOpacity>
+        {error && <Text testID="photo-error">{error}</Text>}
+      </View>
+    );
+  },
+}));
+
 describe('SignUpForm Component', () => {
   const mockOnSignUp = jest.fn();
   const mockOnSwitchToLogin = jest.fn();
@@ -67,7 +93,6 @@ describe('SignUpForm Component', () => {
     
     expect(screen.getByTestId('name-input')).toBeTruthy();
     expect(screen.getByTestId('phone-input')).toBeTruthy();
-    expect(screen.getByTestId('email-input')).toBeTruthy();
     expect(screen.getByTestId('signup-button')).toBeTruthy();
   });
 
@@ -84,7 +109,6 @@ describe('SignUpForm Component', () => {
     
     expect(screen.getByText('Full Name')).toBeTruthy();
     expect(screen.getByText('Phone Number')).toBeTruthy();
-    expect(screen.getByText('Email (Optional)')).toBeTruthy();
   });
 
   test('validates required fields', async () => {
@@ -104,6 +128,7 @@ describe('SignUpForm Component', () => {
     await waitFor(() => {
       expect(screen.getByText('Name is required')).toBeTruthy();
       expect(screen.getByText('Phone number is required')).toBeTruthy();
+      expect(screen.getByText('Photo is required')).toBeTruthy();
     });
   });
 
@@ -142,11 +167,11 @@ describe('SignUpForm Component', () => {
     
     const nameInput = screen.getByTestId('name-input');
     const phoneInput = screen.getByTestId('phone-input');
-    const emailInput = screen.getByTestId('email-input');
+    const photoSelectButton = screen.getByTestId('mock-photo-select');
     
     fireEvent.changeText(nameInput, 'Ravi Kumar');
     fireEvent.changeText(phoneInput, '9876543210');
-    fireEvent.changeText(emailInput, 'ravi@example.com');
+    fireEvent.press(photoSelectButton);
     
     const signUpButton = screen.getByTestId('signup-button');
     fireEvent.press(signUpButton);
@@ -155,37 +180,8 @@ describe('SignUpForm Component', () => {
       expect(mockOnSignUp).toHaveBeenCalledWith({
         name: 'Ravi Kumar',
         phone: '9876543210',
-        email: 'ravi@example.com',
-        preferredLanguage: Language.ENGLISH,
-      });
-    });
-  });
-
-  test('allows signup without email', async () => {
-    render(
-      <SignUpForm 
-        onSignUp={mockOnSignUp} 
-        onSwitchToLogin={mockOnSwitchToLogin}
-        onBack={mockOnBack}
-        onLanguageChange={mockOnLanguageChange}
-        language={Language.ENGLISH}
-      />
-    );
-    
-    const nameInput = screen.getByTestId('name-input');
-    const phoneInput = screen.getByTestId('phone-input');
-    
-    fireEvent.changeText(nameInput, 'Raj Singh');
-    fireEvent.changeText(phoneInput, '9123456789');
-    
-    const signUpButton = screen.getByTestId('signup-button');
-    fireEvent.press(signUpButton);
-    
-    await waitFor(() => {
-      expect(mockOnSignUp).toHaveBeenCalledWith({
-        name: 'Raj Singh',
-        phone: '9123456789',
         email: undefined,
+        photo: 'mock-photo-uri',
         preferredLanguage: Language.ENGLISH,
       });
     });
@@ -252,7 +248,6 @@ describe('SignUpForm Component', () => {
     
     expect(screen.getByLabelText('Enter your full name')).toBeTruthy();
     expect(screen.getByLabelText('Enter your phone number')).toBeTruthy();
-    expect(screen.getByLabelText('Enter your email address (optional)')).toBeTruthy();
   });
 
   test('shows back button when onBack prop is provided', () => {
@@ -336,7 +331,7 @@ describe('SignUpForm Component', () => {
         language={Language.BENGALI}
       />
     );
-    expect(screen.getByText('🇧🇩 বা')).toBeTruthy();
+    expect(screen.getByText('🇮🇳 বা')).toBeTruthy();
   });
 
   test('opens language modal when language indicator is pressed', async () => {
@@ -388,5 +383,46 @@ describe('SignUpForm Component', () => {
     
     // Verify onLanguageChange was called
     expect(mockOnLanguageChange).toHaveBeenCalledWith(Language.HINDI);
+  });
+
+  test('renders photo upload component', () => {
+    render(
+      <SignUpForm 
+        onSignUp={mockOnSignUp} 
+        onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
+        language={Language.ENGLISH}
+      />
+    );
+    
+    expect(screen.getByTestId('photo-upload')).toBeTruthy();
+    expect(screen.getByText('Photo Upload Component')).toBeTruthy();
+  });
+
+  test('validates photo is required', async () => {
+    render(
+      <SignUpForm 
+        onSignUp={mockOnSignUp} 
+        onSwitchToLogin={mockOnSwitchToLogin}
+        onBack={mockOnBack}
+        onLanguageChange={mockOnLanguageChange}
+        language={Language.ENGLISH}
+      />
+    );
+    
+    const nameInput = screen.getByTestId('name-input');
+    const phoneInput = screen.getByTestId('phone-input');
+    
+    fireEvent.changeText(nameInput, 'Test User');
+    fireEvent.changeText(phoneInput, '9876543210');
+    
+    const signUpButton = screen.getByTestId('signup-button');
+    fireEvent.press(signUpButton);
+    
+    await waitFor(() => {
+      expect(screen.getByTestId('photo-error')).toBeTruthy();
+      expect(screen.getByText('Photo is required')).toBeTruthy();
+    });
   });
 }); 

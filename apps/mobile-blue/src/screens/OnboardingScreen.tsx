@@ -43,7 +43,10 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onComplete }
   };
 
   const handleBackToLanguageSelection = () => {
+    console.log('Back button pressed - navigating to language selection');
+    console.log('Current step before:', currentStep);
     setCurrentStep(OnboardingStep.LANGUAGE_SELECTION);
+    console.log('Setting step to:', OnboardingStep.LANGUAGE_SELECTION);
   };
 
   const renderCurrentStep = () => {

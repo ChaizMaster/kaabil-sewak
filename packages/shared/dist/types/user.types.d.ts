@@ -35,6 +35,7 @@ export interface SignUpData {
     name: string;
     phone: string;
     email?: string;
+    photo: string;
     preferredLanguage: Language;
 }
 //# sourceMappingURL=user.types.d.ts.map

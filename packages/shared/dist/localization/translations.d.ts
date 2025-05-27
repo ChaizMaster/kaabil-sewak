@@ -14,6 +14,13 @@ export interface Translations {
     createAccount: string;
     alreadyHaveAccount: string;
     dontHaveAccount: string;
+    photo: string;
+    uploadPhoto: string;
+    takePhoto: string;
+    chooseFromGallery: string;
+    photoRequired: string;
+    photoIdentityCaption: string;
+    retakePhoto: string;
     profileSetup: string;
     tellUsAboutYou: string;
     selectSkills: string;
@@ -30,10 +37,10 @@ export interface Translations {
     applied: string;
     requirements: string;
     viewDetails: string;
-    voiceCommand: string;
-    listening: string;
-    sayApply: string;
-    voiceApplyHint: string;
+    exitApp: string;
+    exitAppMessage: string;
+    noStay: string;
+    yesExit: string;
     loading: string;
     error: string;
     success: string;
