@@ -8,18 +8,29 @@ jest.mock('expo-status-bar', () => ({
   StatusBar: 'StatusBar',
 }));
 
-jest.mock('expo-speech', () => ({
-  speak: jest.fn(),
-  isSpeakingAsync: jest.fn(() => Promise.resolve(false)),
-  stop: jest.fn(),
-}));
 
-jest.mock('expo-av', () => ({
-  Audio: {
-    requestPermissionsAsync: jest.fn(() => 
-      Promise.resolve({ status: 'granted' })
-    ),
-    setAudioModeAsync: jest.fn(),
+
+jest.mock('expo-image-picker', () => ({
+  requestCameraPermissionsAsync: jest.fn(() => 
+    Promise.resolve({ status: 'granted' })
+  ),
+  requestMediaLibraryPermissionsAsync: jest.fn(() => 
+    Promise.resolve({ status: 'granted' })
+  ),
+  launchCameraAsync: jest.fn(() => 
+    Promise.resolve({
+      canceled: false,
+      assets: [{ uri: 'mock-photo-uri' }]
+    })
+  ),
+  launchImageLibraryAsync: jest.fn(() => 
+    Promise.resolve({
+      canceled: false,
+      assets: [{ uri: 'mock-photo-uri' }]
+    })
+  ),
+  MediaTypeOptions: {
+    Images: 'Images',
   },
 }));
 

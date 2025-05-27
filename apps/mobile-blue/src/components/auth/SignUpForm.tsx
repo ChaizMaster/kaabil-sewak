@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, SafeAreaView } from 'react-native';
 import { Language, SignUpData } from 'shared/src/types/user.types';
 import { useTranslation } from 'shared/src/hooks/useTranslation';
 import { LanguageChangeModal } from '../common/LanguageChangeModal';
+import { PhotoUpload } from '../common/PhotoUpload';
 
 interface SignUpFormProps {
   onSignUp: (data: SignUpData) => void;
@@ -18,6 +19,7 @@ interface FormErrors {
   name?: string;
   phone?: string;
   email?: string;
+  photo?: string;
 }
 
 export const SignUpForm: React.FC<SignUpFormProps> = ({
@@ -34,9 +36,23 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
     name: '',
     phone: '',
     email: '',
+    photo: '',
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLanguageModalVisible, setIsLanguageModalVisible] = useState(false);
+
+  // Debug logging
+  console.log('SignUpForm rendered with onBack:', !!onBack);
+
+  const handleBackPress = () => {
+    console.log('Back button pressed in SignUpForm');
+    if (onBack) {
+      console.log('Calling onBack function');
+      onBack();
+    } else {
+      console.log('onBack function not provided');
+    }
+  };
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -51,6 +67,10 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
       newErrors.phone = 'Please enter a valid 10-digit phone number';
     }
 
+    if (!formData.photo.trim()) {
+      newErrors.photo = t.photoRequired;
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -61,6 +81,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
         name: formData.name.trim(),
         phone: formData.phone.trim(),
         email: formData.email.trim() || undefined,
+        photo: formData.photo,
         preferredLanguage: language,
       };
       onSignUp(signUpData);
@@ -75,6 +96,10 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
     }
   };
 
+  const handlePhotoSelected = (photoUri: string) => {
+    updateField('photo', photoUri);
+  };
+
   const handleLanguageChange = (newLanguage: Language) => {
     if (onLanguageChange) {
       onLanguageChange(newLanguage);
@@ -82,14 +107,14 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {/* Header with back button and language indicator */}
       <View style={styles.header}>
         {onBack && (
           <TouchableOpacity
             testID="back-button"
             style={styles.backButton}
-            onPress={onBack}
+            onPress={handleBackPress}
             accessibilityLabel="Go back to language selection"
           >
             <Text style={styles.backButtonText}>← {t.back}</Text>
@@ -104,7 +129,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           <Text style={styles.languageText}>
             {language === Language.ENGLISH ? '🇺🇸 EN' :
              language === Language.HINDI ? '🇮🇳 हि' :
-             language === Language.BENGALI ? '🇧🇩 বা' : '🇺🇸 EN'}
+             language === Language.BENGALI ? '🇮🇳 বা' : '🇺🇸 EN'}
           </Text>
         </TouchableOpacity>
       </View>
@@ -176,6 +201,13 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           {errors.email && <Text style={styles.fieldError}>{errors.email}</Text>}
         </View>
 
+        <PhotoUpload
+          onPhotoSelected={handlePhotoSelected}
+          language={language}
+          selectedPhoto={formData.photo}
+          error={errors.photo}
+        />
+
         <TouchableOpacity
           testID="signup-button"
           style={[styles.signUpButton, isLoading && styles.disabledButton]}
@@ -195,7 +227,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
           <Text style={styles.loginLinkText}>{t.alreadyHaveAccount}</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -204,18 +236,23 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#fff',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: -50, // Offset the centering to place header at top
+    marginTop: 20,
     marginBottom: 20,
+    paddingHorizontal: 5,
   },
   backButton: {
     padding: 10,
     minHeight: 44, // Accessibility: minimum touch target
+    backgroundColor: '#E8F4FD', // Light blue background for visibility
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#2E86AB',
   },
   backButtonText: {
     color: '#2E86AB',
