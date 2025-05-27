@@ -20,6 +20,14 @@ exports.translations = {
         createAccount: 'Create Account',
         alreadyHaveAccount: 'Already have an account? Login',
         dontHaveAccount: "Don't have an account? Sign Up",
+        // Photo Upload
+        photo: 'Photo',
+        uploadPhoto: 'Upload Photo',
+        takePhoto: 'Take Photo',
+        chooseFromGallery: 'Choose from Gallery',
+        photoRequired: 'Photo is required',
+        photoIdentityCaption: 'Please upload your photo or take a selfie to uniquely identify you, as names can be common. This helps us ensure you are a genuine worker.',
+        retakePhoto: 'Retake Photo',
         // Profile Setup
         profileSetup: 'Complete Your Profile',
         tellUsAboutYou: 'Tell us about yourself',
@@ -38,11 +46,11 @@ exports.translations = {
         applied: 'Applied',
         requirements: 'Requirements',
         viewDetails: 'View Details',
-        // Voice Commands
-        voiceCommand: 'Voice Command',
-        listening: 'Listening...',
-        sayApply: 'Say "Apply"',
-        voiceApplyHint: 'Say "Apply" to apply for this job',
+        // App Navigation
+        exitApp: 'Exit App',
+        exitAppMessage: 'Are you sure you want to exit the app?',
+        noStay: 'No, stay in the app',
+        yesExit: 'Yes, exit the app',
         // Common
         loading: 'Loading...',
         error: 'Something went wrong',
@@ -82,6 +90,14 @@ exports.translations = {
         createAccount: 'खाता बनाएं',
         alreadyHaveAccount: 'पहले से खाता है? लॉग इन करें',
         dontHaveAccount: 'खाता नहीं है? साइन अप करें',
+        // Photo Upload
+        photo: 'फोटो',
+        uploadPhoto: 'फोटो अपलोड करें',
+        takePhoto: 'फोटो लें',
+        chooseFromGallery: 'गैलरी से चुनें',
+        photoRequired: 'फोटो आवश्यक है',
+        photoIdentityCaption: 'कृपया अपनी फोटो अपलोड करें या सेल्फी लें ताकि आपकी पहचान हो सके, क्योंकि नाम समान हो सकते हैं। यह हमें यह सुनिश्चित करने में मदद करता है कि आप एक वास्तविक कामगार हैं।',
+        retakePhoto: 'फोटो फिर से लें',
         // Profile Setup
         profileSetup: 'अपनी प्रोफ़ाइल पूरी करें',
         tellUsAboutYou: 'अपने बारे में बताएं',
@@ -100,11 +116,11 @@ exports.translations = {
         applied: 'आवेदन किया',
         requirements: 'आवश्यकताएं',
         viewDetails: 'विवरण देखें',
-        // Voice Commands
-        voiceCommand: 'आवाज़ कमांड',
-        listening: 'सुन रहे हैं...',
-        sayApply: '"आवेदन करें" कहें',
-        voiceApplyHint: 'इस नौकरी के लिए आवेदन करने के लिए "आवेदन करें" कहें',
+        // App Navigation
+        exitApp: 'ऐप निकालें',
+        exitAppMessage: 'क्या आप वाकई ऐप निकालना चाहते हैं?',
+        noStay: 'नहीं, ऐप में रहें',
+        yesExit: 'हाँ, ऐप निकालें',
         // Common
         loading: 'लोड हो रहा है...',
         error: 'कुछ गलत हुआ',
@@ -144,6 +160,14 @@ exports.translations = {
         createAccount: 'অ্যাকাউন্ট তৈরি করুন',
         alreadyHaveAccount: 'ইতিমধ্যে অ্যাকাউন্ট আছে? লগইন করুন',
         dontHaveAccount: 'অ্যাকাউন্ট নেই? সাইন আপ করুন',
+        // Photo Upload
+        photo: 'ফটো',
+        uploadPhoto: 'ফটো আপলোড করুন',
+        takePhoto: 'ফটো তুলুন',
+        chooseFromGallery: 'গ্যালারি থেকে চয়ন করুন',
+        photoRequired: 'ফটো আবশ্যক',
+        photoIdentityCaption: 'অনুগ্রহ করে আপনার ফটো আপলোড করুন বা সেলফি তুলুন যাতে আপনাকে অনন্যভাবে চিহ্নিত করা যায়, কারণ নাম সাধারণ হতে পারে। এটি আমাদের নিশ্চিত করতে সাহায্য করে যে আপনি একজন প্রকৃত কর্মী।',
+        retakePhoto: 'ফটো পুনরায় তুলুন',
         // Profile Setup
         profileSetup: 'আপনার প্রোফাইল সম্পূর্ণ করুন',
         tellUsAboutYou: 'নিজের সম্পর্কে বলুন',
@@ -162,11 +186,11 @@ exports.translations = {
         applied: 'আবেদন করা হয়েছে',
         requirements: 'প্রয়োজনীয়তা',
         viewDetails: 'বিস্তারিত দেখুন',
-        // Voice Commands
-        voiceCommand: 'ভয়েস কমান্ড',
-        listening: 'শুনছি...',
-        sayApply: '"আবেদন করুন" বলুন',
-        voiceApplyHint: 'এই চাকরির জন্য আবেদন করতে "আবেদন করুন" বলুন',
+        // App Navigation
+        exitApp: 'অ্যাপ থেকে বেরিয়ে যান',
+        exitAppMessage: 'আপনি কি সত্যিই অ্যাপ থেকে বেরিয়ে যেতে চান?',
+        noStay: 'না, অ্যাপে থাকুন',
+        yesExit: 'হ্যাঁ, অ্যাপ থেকে বেরিয়ে যান',
         // Common
         loading: 'লোড হচ্ছে...',
         error: 'কিছু ভুল হয়েছে',
@@ -174,19 +198,19 @@ exports.translations = {
         cancel: 'বাতিল',
         confirm: 'নিশ্চিত করুন',
         next: 'পরবর্তী',
-        back: 'ফিরে যান',
+        back: 'পেছনে',
         skip: 'এড়িয়ে যান',
         done: 'সম্পন্ন',
         // Skills
         construction: 'নির্মাণ',
         delivery: 'ডেলিভারি',
         security: 'নিরাপত্তা',
-        cleaning: 'পরিষ্কার',
+        cleaning: 'পরিচ্ছন্নতা',
         cooking: 'রান্না',
-        gardening: 'বাগান',
+        gardening: 'বাগান করা',
         electrician: 'ইলেকট্রিশিয়ান',
         plumber: 'প্লাম্বার',
-        painter: 'চিত্রশিল্পী',
+        painter: 'চিত্রকর',
         driver: 'চালক',
     },
 };
