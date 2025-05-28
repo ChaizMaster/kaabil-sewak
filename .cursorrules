@@ -1,0 +1,87 @@
+# .cursorrules - Balanced Autonomy for Full-Stack AI Development
+
+[project]
+name = "Kaabil Sewak"
+type = "monorepo"
+version = "1.0.0"
+
+[rules]
+# Give Cursor the autonomy to execute confidently
+suggest.autocomplete = true
+edit.allow_autonomous = true
+edit.confidence_threshold = 0.94  # Less than 95% to speed up dev
+edit.require_self_consistency_check = true
+edit.ask_if_unsure = true         # But only if <85% sure
+
+# Don’t waste time asking about obvious things
+question.only_when_blocked = true
+question.include_contextual_summary = true
+
+# Keep Cursor efficient
+prefer.minimal_changes = true
+prefer.functional = true
+prefer.clean_diff = true
+
+# Encourage good practices, but don’t block work
+require.tests = true
+require.tdd = false
+test.min_coverage = 80
+docs.require = false
+docs.suggest = true
+
+# Cursor thinks like a staff engineer
+require.code_impact_analysis = true
+require.backward_compatibility = true
+require.refactor_scope = "local"
+
+[context.architecture]
+# When user mentions "refactor" or "restructure"
+allow.cross_package_changes = true
+require.user_approval_for_breaking = true
+
+[refactor.architectural]
+allow.cross_package_changes = true
+require.impact_analysis = true
+require.user_approval = true
+# For larger structural improvements
+
+# AI oversight
+[ai]
+autonomy = true
+use_model = "GPT-4"
+ask_before_risky_action = true
+bias_check = true
+privacy_respect = true
+
+# Platform smartness
+[platforms.reactnative]
+require.low-end-device_support = true
+
+[platforms.web]
+require.accessibility = true
+
+[platforms.backend]
+require.modularization = true
+require.ddd = true
+
+[monorepo]
+allow.shared_type_changes = true
+require.dependency_impact_check = true
+suggest.coordinated_releases = true
+
+# ========== Scratchpad for Planning & Memory ==========
+
+[scratchpad]
+# Use this to plan upcoming features, break down tasks, and mark progress.
+
+# Example:
+# [ ] Build voice-powered job search for blue-collar users
+# [ ] Add Hindi/Bengali TTS fallback for low literacy
+# [ ] Integrate feedback into Matching AI scoring model
+
+[lessons]
+# Add anything Cursor should not forget
+# - 2025-05-28: Do not block edits to package.json — needed for dependency management
+# - Use tsconfig paths correctly when referencing shared packages
+# - Avoid making changes across unrelated packages unless required
+# - Ask if unsure between two interfaces or types
