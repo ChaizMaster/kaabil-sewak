@@ -54,13 +54,13 @@ let JobsService = class JobsService {
     async getJobsNearby(latitude, longitude, filters) {
         let filteredJobs = this.jobs.filter(job => job.status === shared_1.JobStatus.ACTIVE);
         if (filters) {
-            if (filters.wageMin) {
+            if (filters.wageMin !== undefined) {
                 filteredJobs = filteredJobs.filter(job => job.wage >= filters.wageMin);
             }
-            if (filters.wageMax) {
+            if (filters.wageMax !== undefined) {
                 filteredJobs = filteredJobs.filter(job => job.wage <= filters.wageMax);
             }
-            if (filters.distance) {
+            if (filters.distance !== undefined) {
                 filteredJobs = filteredJobs.filter(job => job.distance <= filters.distance);
             }
             if (filters.skills && filters.skills.length > 0) {
@@ -78,10 +78,10 @@ let JobsService = class JobsService {
             job.description?.toLowerCase().includes(lowercaseQuery) ||
             job.requirements.some(req => req.toLowerCase().includes(lowercaseQuery)));
         if (filters) {
-            if (filters.wageMin) {
+            if (filters.wageMin !== undefined) {
                 results = results.filter(job => job.wage >= filters.wageMin);
             }
-            if (filters.wageMax) {
+            if (filters.wageMax !== undefined) {
                 results = results.filter(job => job.wage <= filters.wageMax);
             }
         }

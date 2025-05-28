@@ -17,7 +17,17 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "db:view": "node scripts/view-data.js",
+    "db:tables": "node scripts/view-data.js tables",
+    "db:locations": "node scripts/view-data.js locations",
+    "db:checks": "node scripts/view-data.js checks",
+    "db:stats": "node scripts/view-data.js stats",
+    "api:test": "node scripts/test-api.js",
+    "api:locations": "node scripts/test-api.js locations",
+    "api:checks": "node scripts/test-api.js checks",
+    "seed:data": "node scripts/seed-data.js",
+    "clear:data": "node scripts/seed-data.js clear"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
