@@ -44,5 +44,8 @@
     "matching"
   ],
   "author": "Kaabil Sewak Team",
-  "license": "MIT"
-} 
+  "license": "MIT",
+  "dependencies": {
+    "@babel/runtime": "^7.27.3"
+  }
+}
