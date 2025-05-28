@@ -1,0 +1,70 @@
+## Cursor Coding Guidelines
+
+### 1. Understanding Requirements & Feature Breakdown
+- **Careful Requirement Analysis**: Thoroughly read and understand the provided requirements.
+- **Feature Decomposition**: Break down each requirement into a distinct, implementable feature.
+- **Approval Checkpoint**: Await user approval for the feature breakdown before proceeding with implementation.
+
+### 2. Context is King (Pre-Implementation)
+- **Understand the Ecosystem**: Before writing or modifying code, thoroughly analyze the surrounding files, modules, and the overall project architecture. Understand how your changes will impact other parts of the system.
+- **Impact Assessment**: Briefly consider the potential side effects of the proposed changes on other components.
+- **Overall Architecture Layout**: Propose an initial architecture layout with placeholders for both frontend and backend components related to the feature.
+- **Ask if Unsure**: If the context or potential impact isn't clear, ask for clarification or suggest ways to gather more information (e.g., "Should I look into `module_x.py` to see how this function is used?").
+
+### 3. Test-Driven Development (TDD) Lifecycle for Approved Features
+*This cycle should be strictly followed for each approved feature.*
+
+1.  **UI Implementation First**:
+    *   Implement the user interface components for the feature.
+2.  **UI Testing**:
+    *   Write comprehensive unit tests and other UI tests for the implemented UI components.
+    *   **Target 90% minimum code coverage** for UI tests.
+3.  **Backend Implementation**:
+    *   Develop the backend logic and APIs required to support the UI components and feature functionality.
+4.  **Backend Testing**:
+    *   Write comprehensive unit tests and other relevant tests for the backend implementation.
+    *   **Target 90% minimum code coverage** for backend tests.
+5.  **Frontend-Backend Integration**:
+    *   Integrate the frontend UI components with the backend services.
+    *   Perform integration testing to ensure seamless communication and data flow.
+6.  **Comprehensive Documentation**:
+    *   Generate a detailed document for the implemented feature.
+    *   Store this document in a designated `documents/` folder (create if it doesn't exist).
+    *   The document must include:
+        *   A summary of changes made (both frontend and backend).
+        *   Reported unit test coverage percentages for both frontend and backend.
+        *   Status of integration testing (pass/fail, issues found).
+        *   Clear instructions on how the user can manually verify the implemented feature.
+7.  **Review and Iteration**:
+    *   Present the implemented feature, test results, and documentation to the user.
+    *   Address any identified problems or, if directed by the user, proceed to the next feature.
+
+### 4. Code Quality and Best Practices
+- **Clean Code**: Write clean, readable, and maintainable code. Follow established coding conventions (e.g., PEP 8 for Python, standard style guides for other languages).
+- **Modularity**: Design functions and classes that are modular, with single responsibilities.
+- **Efficiency**: Aim for efficient algorithms and data structures where appropriate, but prioritize clarity and maintainability unless performance is a critical, stated requirement.
+- **Error Handling**: Implement robust error handling and provide informative error messages.
+- **Code-Level Documentation**: Generate JSDoc, Python docstrings, or other relevant documentation for public APIs and complex logic within the code itself (distinct from the feature document in step 3.6).
+
+### 5. Iterative Development and User Feedback (General Principles)
+- **Incremental Changes**: For complex overall projects, break them down into smaller, manageable features (as per section 1).
+- **User Validation Loop**: Remember that the generated code will be manually tested by the user (as per step 3.6). Design the code to be easily testable and understandable.
+- **PR Readiness**: Aim to produce code that is near "Pull Request ready" after each feature cycle, meaning it's well-tested, documented (both code-level and feature document), and follows project standards.
+
+### 6. Adherence to User's Workflow
+- **Focus on Feature/Modification**: Concentrate on the specific feature being implemented according to the lifecycle in section 3.
+- **Preparation for Manual Testing**: Ensure the output (code, tests, documentation) is in a state where the user can immediately start their manual testing and validation process.
+- **PR Creation Support**: While Cursor doesn't create PRs, the code and surrounding explanations (especially the feature document) should facilitate an easy PR creation process for the user.
+
+### Example Interaction Flow (Illustrative - Actual flow follows Section 3):
+1.  **User Request**: "Implement feature X based on these requirements: [requirements details]."
+2.  **Cursor**:
+    *   "Understood. Here's the feature breakdown for requirement X: [Feature 1], [Feature 2]. Do you approve?"
+    *   (User Approves Feature 1)
+    *   "Okay, for Feature 1, here's the proposed architecture layout: [layout details]. Starting UI implementation."
+    *   (Implements UI, then UI Tests) "UI for Feature 1 is complete with 92% test coverage. Moving to backend."
+    *   (Implements Backend, then Backend Tests) "Backend for Feature 1 is complete with 95% test coverage. Integrating now."
+    *   (Integration) "Integration successful. Generating feature documentation."
+    *   "Feature 1 is complete. The documentation is at `documents/feature_1_summary.md`. It includes change summaries, test coverage, and manual verification steps. Please review and let me know if there are issues or if I should proceed to Feature 2."
+
+By following these rules, Cursor should be better equipped to assist you in your startup development process. 
