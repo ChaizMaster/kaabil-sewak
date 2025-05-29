@@ -60,6 +60,12 @@ const translations = {
     profileUpdated: 'Profile Updated Successfully',
     invalidOtp: 'Invalid OTP',
     back: 'Back',
+    cameraError: 'Camera Error',
+    cameraErrorMessage: 'Could not open camera. Please try again.',
+    galleryError: 'Gallery Error',
+    galleryErrorMessage: 'Could not open gallery. Please try again.',
+    otpPlaceholder: 'Enter 6-digit OTP',
+    notSet: 'Not set',
   },
   hindi: {
     title: 'मेरी प्रोफाइल',
@@ -86,6 +92,12 @@ const translations = {
     profileUpdated: 'प्रोफाइल सफलतापूर्वक अपडेट हुई',
     invalidOtp: 'गलत OTP',
     back: 'वापस',
+    cameraError: 'कैमरा त्रुटि',
+    cameraErrorMessage: 'कैमरा नहीं खुल सका। कृपया पुनः प्रयास करें।',
+    galleryError: 'गैलरी त्रुटि',
+    galleryErrorMessage: 'गैलरी नहीं खुल सकी। कृपया पुनः प्रयास करें।',
+    otpPlaceholder: '6 अंकों का OTP दर्ज करें',
+    notSet: 'सेट नहीं है',
   },
   bengali: {
     title: 'আমার প্রোফাইল',
@@ -112,6 +124,12 @@ const translations = {
     profileUpdated: 'প্রোফাইল সফলভাবে আপডেট হয়েছে',
     invalidOtp: 'ভুল OTP',
     back: 'ফিরে যান',
+    cameraError: 'ক্যামেরা ত্রুটি',
+    cameraErrorMessage: 'ক্যামেরা খুলতে পারছে না। দয়া করে আবার চেষ্টা করুন।',
+    galleryError: 'গ্যালারি ত্রুটি',
+    galleryErrorMessage: 'গ্যালারি খুলতে পারছে না। দয়া করে আবার চেষ্টা করুন।',
+    otpPlaceholder: '৬ ডিজিটের OTP প্রবেশ করুন',
+    notSet: 'সেট করা নেই',
   },
 };
 
@@ -169,6 +187,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
       }
     } catch (error) {
       console.error('Error taking photo:', error);
+      Alert.alert(t.cameraError, t.cameraErrorMessage);
     }
   };
 
@@ -186,6 +205,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
       }
     } catch (error) {
       console.error('Error choosing photo:', error);
+      Alert.alert(t.galleryError, t.galleryErrorMessage);
     }
   };
 
@@ -271,7 +291,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
             style={styles.otpInput}
             value={otpCode}
             onChangeText={setOtpCode}
-            placeholder="Enter 6-digit OTP"
+            placeholder={t.otpPlaceholder}
             keyboardType="numeric"
             maxLength={6}
           />
@@ -335,7 +355,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
                 placeholder={t.fullName}
               />
             ) : (
-              <Text style={styles.fieldValue}>{userData.signupData?.fullName || 'Not set'}</Text>
+              <Text style={styles.fieldValue}>{userData.signupData?.fullName || t.notSet}</Text>
             )}
           </View>
 
@@ -351,7 +371,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
                 keyboardType="phone-pad"
               />
             ) : (
-              <Text style={styles.fieldValue}>{userData.signupData?.phoneNumber || 'Not set'}</Text>
+              <Text style={styles.fieldValue}>{userData.signupData?.phoneNumber || t.notSet}</Text>
             )}
           </View>
 
@@ -366,7 +386,7 @@ export const UserProfileScreen: React.FC<UserProfileScreenProps> = ({
                 placeholder={t.city}
               />
             ) : (
-              <Text style={styles.fieldValue}>{userData.signupData?.city || 'Not set'}</Text>
+              <Text style={styles.fieldValue}>{userData.signupData?.city || t.notSet}</Text>
             )}
           </View>
 

@@ -43,9 +43,9 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
     if (cameraStatus !== 'granted' || mediaLibraryStatus !== 'granted') {
       console.log('Permissions denied - Camera:', cameraStatus, 'Media Library:', mediaLibraryStatus);
       Alert.alert(
-        'Permissions Required',
-        'We need camera and photo library permissions to upload your photo.',
-        [{ text: 'OK' }]
+        t.permissionsRequired || 'Permissions Required',
+        t.permissionsRequiredMessage || 'We need camera and photo library permissions to upload your photo.',
+        [{ text: t.ok || 'OK' }]
       );
       return false;
     }
@@ -77,13 +77,13 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
         console.log('User canceled photo capture');
       } else {
         console.log('No assets returned from camera');
-        Alert.alert('Error', 'No photo was captured. Please try again.');
+        Alert.alert(t.error || 'Error', t.noCaptureError || 'No photo was captured. Please try again.');
       }
     } catch (error) {
       console.error('Camera error:', error);
       Alert.alert(
-        'Camera Error', 
-        `Failed to take photo: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`
+        t.cameraError || 'Camera Error', 
+        `${t.cameraErrorMessage || 'Failed to take photo'}: ${error instanceof Error ? error.message : t.unknownError || 'Unknown error'}. ${t.tryAgain || 'Please try again.'}`
       );
     }
   };
@@ -111,13 +111,13 @@ export const PhotoUpload: React.FC<PhotoUploadProps> = ({
         console.log('User canceled photo selection');
       } else {
         console.log('No assets returned from gallery');
-        Alert.alert('Error', 'No photo was selected. Please try again.');
+        Alert.alert(t.error || 'Error', t.noSelectionError || 'No photo was selected. Please try again.');
       }
     } catch (error) {
       console.error('Gallery error:', error);
       Alert.alert(
-        'Gallery Error', 
-        `Failed to select photo: ${error instanceof Error ? error.message : 'Unknown error'}. Please try again.`
+        t.galleryError || 'Gallery Error', 
+        `${t.galleryErrorMessage || 'Failed to select photo'}: ${error instanceof Error ? error.message : t.unknownError || 'Unknown error'}. ${t.tryAgain || 'Please try again.'}`
       );
     }
   };

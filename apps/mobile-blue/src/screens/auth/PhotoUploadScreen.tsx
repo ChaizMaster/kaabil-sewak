@@ -37,6 +37,12 @@ const translations = {
     cameraPermissionMessage: 'We need camera permission to take your photo',
     galleryPermission: 'Gallery Permission',
     galleryPermissionMessage: 'We need gallery permission to select your photo',
+    cameraError: 'Camera Error',
+    cameraErrorMessage: 'Could not open camera. Please try again.',
+    galleryError: 'Gallery Error',
+    galleryErrorMessage: 'Could not open gallery. Please try again.',
+    uploadError: 'Upload Error',
+    uploadErrorMessage: 'Failed to upload photo. Please try again.',
   },
   hindi: {
     title: 'अपनी तस्वीर जोड़ें',
@@ -57,6 +63,12 @@ const translations = {
     cameraPermissionMessage: 'तस्वीर लेने के लिए कैमरा की अनुमति चाहिए',
     galleryPermission: 'गैलरी की अनुमति',
     galleryPermissionMessage: 'तस्वीर चुनने के लिए गैलरी की अनुमति चाहिए',
+    cameraError: 'कैमरा त्रुटि',
+    cameraErrorMessage: 'कैमरा नहीं खुल सका। कृपया पुनः प्रयास करें।',
+    galleryError: 'गैलरी त्रुटि',
+    galleryErrorMessage: 'गैलरी नहीं खुल सकी। कृपया पुनः प्रयास करें।',
+    uploadError: 'अपलोड त्रुटि',
+    uploadErrorMessage: 'तस्वीर अपलोड नहीं हो सकी। कृपया पुनः प्रयास करें।',
   },
   bengali: {
     title: 'আপনার ছবি যোগ করুন',
@@ -77,6 +89,12 @@ const translations = {
     cameraPermissionMessage: 'আপনার ছবি তুলতে ক্যামেরার অনুমতি প্রয়োজন',
     galleryPermission: 'গ্যালারির অনুমতি',
     galleryPermissionMessage: 'আপনার ছবি নির্বাচন করতে গ্যালারির অনুমতি প্রয়োজন',
+    cameraError: 'ক্যামেরা ত্রুটি',
+    cameraErrorMessage: 'ক্যামেরা খুলতে পারছে না। দয়া করে আবার চেষ্টা করুন।',
+    galleryError: 'গ্যালারি ত্রুটি',
+    galleryErrorMessage: 'গ্যালারি খুলতে পারছে না। দয়া করে আবার চেষ্টা করুন।',
+    uploadError: 'আপলোড ত্রুটি',
+    uploadErrorMessage: 'ছবি আপলোড করতে ব্যর্থ। দয়া করে আবার চেষ্টা করুন।',
   },
 };
 
@@ -129,7 +147,7 @@ export const PhotoUploadScreen: React.FC<PhotoUploadScreenProps> = ({
       }
     } catch (error) {
       console.error('Error taking photo:', error);
-      Alert.alert('Camera Error', 'Could not open camera. Please try again.');
+      Alert.alert(t.cameraError, t.cameraErrorMessage);
     }
   };
 
@@ -154,7 +172,7 @@ export const PhotoUploadScreen: React.FC<PhotoUploadScreenProps> = ({
       }
     } catch (error) {
       console.error('Error choosing from gallery:', error);
-      Alert.alert('Gallery Error', 'Could not open gallery. Please try again.');
+      Alert.alert(t.galleryError, t.galleryErrorMessage);
     }
   };
 
@@ -168,7 +186,7 @@ export const PhotoUploadScreen: React.FC<PhotoUploadScreenProps> = ({
       onPhotoUploaded(selectedImage);
     } catch (error) {
       console.error('Error uploading photo:', error);
-      Alert.alert('Upload Error', 'Failed to upload photo. Please try again.');
+      Alert.alert(t.uploadError, t.uploadErrorMessage);
     } finally {
       setUploading(false);
     }
