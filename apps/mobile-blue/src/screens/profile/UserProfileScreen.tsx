@@ -12,12 +12,13 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Language } from 'shared/src/types/user.types';
 
 interface UserProfileScreenProps {
-  userLanguage: 'english' | 'hindi' | 'bengali';
+  userLanguage: Language;
   userData: {
     isAuthenticated: boolean;
-    language: 'english' | 'hindi' | 'bengali';
+    language: Language;
     signupData?: {
       fullName: string;
       phoneNumber: string;
@@ -35,7 +36,7 @@ interface UserProfileScreenProps {
 }
 
 const translations = {
-  english: {
+  [Language.ENGLISH]: {
     title: 'My Profile',
     editProfile: 'Edit Profile',
     personalInfo: 'Personal Information',
@@ -67,7 +68,7 @@ const translations = {
     otpPlaceholder: 'Enter 6-digit OTP',
     notSet: 'Not set',
   },
-  hindi: {
+  [Language.HINDI]: {
     title: 'मेरी प्रोफाइल',
     editProfile: 'प्रोफाइल संपादित करें',
     personalInfo: 'व्यक्तिगत जानकारी',
@@ -99,7 +100,7 @@ const translations = {
     otpPlaceholder: '6 अंकों का OTP दर्ज करें',
     notSet: 'सेट नहीं है',
   },
-  bengali: {
+  [Language.BENGALI]: {
     title: 'আমার প্রোফাইল',
     editProfile: 'প্রোফাইল সম্পাদনা করুন',
     personalInfo: 'ব্যক্তিগত তথ্য',

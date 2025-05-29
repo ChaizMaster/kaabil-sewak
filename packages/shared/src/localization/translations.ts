@@ -57,6 +57,26 @@ export interface Translations {
   applied: string;
   requirements: string;
   viewDetails: string;
+  noJobsAvailable: string;
+  
+  // Job Titles
+  constructionWorker: string;
+  houseCleaning: string;
+  deliveryHelper: string;
+  maintenanceWork: string;
+  kitchenHelper: string;
+  securityGuard: string;
+  
+  // Job Descriptions
+  constructionWorkerDesc: string;
+  houseCleaningDesc: string;
+  deliveryHelperDesc: string;
+  maintenanceWorkDesc: string;
+  kitchenHelperDesc: string;
+  securityGuardDesc: string;
+  
+  // Location text
+  kmAway: string;
   
   // App Navigation
   exitApp: string;
@@ -146,6 +166,26 @@ export const translations: Record<Language, Translations> = {
     applied: 'Applied',
     requirements: 'Requirements',
     viewDetails: 'View Details',
+    noJobsAvailable: 'No jobs available',
+    
+    // Job Titles
+    constructionWorker: '🔨 Construction Worker',
+    houseCleaning: '🏠 House Cleaning',
+    deliveryHelper: '🚚 Delivery Helper',
+    maintenanceWork: '🔧 Maintenance Work',
+    kitchenHelper: '🍳 Kitchen Helper',
+    securityGuard: '🛡️ Security Guard',
+    
+    // Job Descriptions
+    constructionWorkerDesc: 'Building construction site work. Experience preferred.',
+    houseCleaningDesc: 'Regular house cleaning work. Flexible timing.',
+    deliveryHelperDesc: 'Loading and unloading delivery trucks.',
+    maintenanceWorkDesc: 'General maintenance and repair work.',
+    kitchenHelperDesc: 'Restaurant kitchen assistance. Food preparation.',
+    securityGuardDesc: 'Protecting and securing premises.',
+    
+    // Location text
+    kmAway: 'km away',
     
     // App Navigation
     exitApp: 'Exit App',
@@ -234,6 +274,26 @@ export const translations: Record<Language, Translations> = {
     applied: 'आवेदन किया',
     requirements: 'आवश्यकताएं',
     viewDetails: 'विवरण देखें',
+    noJobsAvailable: 'कोई नौकरी उपलब्ध नहीं है',
+    
+    // Job Titles
+    constructionWorker: '🔨 निर्माण कामगार',
+    houseCleaning: '🏠 घर की सफाई',
+    deliveryHelper: '🚚 डिलीवरी सहायक',
+    maintenanceWork: '🔧 रखरखाव का काम',
+    kitchenHelper: '🍳 रसोई सहायक',
+    securityGuard: '🛡️ सुरक्षा गार्ड',
+    
+    // Job Descriptions
+    constructionWorkerDesc: 'भवन निर्माण साइट का काम। अनुभव प्राथमिकता।',
+    houseCleaningDesc: 'नियमित घर की सफाई का काम। लचीला समय।',
+    deliveryHelperDesc: 'डिलीवरी ट्रकों की लोडिंग और अनलोडिंग।',
+    maintenanceWorkDesc: 'सामान्य रखरखाव और मरम्मत का काम।',
+    kitchenHelperDesc: 'रेस्टोरेंट रसोई सहायता। खाना तैयार करना।',
+    securityGuardDesc: 'व्यवस्था को सुरक्षित रखने का काम।',
+    
+    // Location text
+    kmAway: 'किमी दूर',
     
     // App Navigation
     exitApp: 'ऐप निकालें',
@@ -322,6 +382,26 @@ export const translations: Record<Language, Translations> = {
     applied: 'আবেদন করা হয়েছে',
     requirements: 'প্রয়োজনীয়তা',
     viewDetails: 'বিস্তারিত দেখুন',
+    noJobsAvailable: 'কোনো নিয়োগ উপলব্ধ নয়',
+    
+    // Job Titles
+    constructionWorker: '🔨 নির্মাণ কর্মী',
+    houseCleaning: '🏠 বাড়ি পরিষ্কার',
+    deliveryHelper: '🚚 ডেলিভারি সহায়ক',
+    maintenanceWork: '🔧 রক্ষণাবেক্ষণ কাজ',
+    kitchenHelper: '�� রান্নাঘর সহায়ক',
+    securityGuard: '🛡️ সম্পত্তি গার্ড',
+    
+    // Job Descriptions
+    constructionWorkerDesc: 'ভবন নির্মাণ সাইটের কাজ। অভিজ্ঞতা অগ্রাধিকার।',
+    houseCleaningDesc: 'নিয়মিত বাড়ি পরিষ্কারের কাজ। নমনীয় সময়।',
+    deliveryHelperDesc: 'ডেলিভারি ট্রাক লোডিং এবং আনলোডিং।',
+    maintenanceWorkDesc: 'সাধারণ রক্ষণাবেক্ষণ এবং মেরামতের কাজ।',
+    kitchenHelperDesc: 'রেস্তোরাঁ রান্নাঘর সহায়তা। খাবার প্রস্তুতি।',
+    securityGuardDesc: 'প্রতিরোধ করার কাজ।',
+    
+    // Location text
+    kmAway: 'কিমি দূরে',
     
     // App Navigation
     exitApp: 'অ্যাপ থেকে বেরিয়ে যান',

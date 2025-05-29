@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Language } from 'shared/src/types/user.types';
 import { LanguageSelectionScreen } from '../screens/auth/LanguageSelectionScreen';
 import { AuthChoiceScreen } from '../screens/auth/AuthChoiceScreen';
 import { SignupScreen } from '../screens/auth/SignupScreen';
@@ -14,7 +15,7 @@ type AuthStep = 'language_selection' | 'auth_choice' | 'signup' | 'login' | 'otp
 
 interface UserData {
   isAuthenticated: boolean;
-  language: 'english' | 'hindi' | 'bengali';
+  language: Language;
   signupData?: {
     fullName: string;
     phoneNumber: string;
@@ -28,11 +29,35 @@ interface UserData {
   };
 }
 
+// Helper function to convert Language enum to string for legacy components
+const languageToString = (lang: Language): 'english' | 'hindi' | 'bengali' => {
+  switch (lang) {
+    case Language.HINDI:
+      return 'hindi';
+    case Language.BENGALI:
+      return 'bengali';
+    default:
+      return 'english';
+  }
+};
+
+// Helper function to convert string to Language enum
+const stringToLanguage = (lang: 'english' | 'hindi' | 'bengali'): Language => {
+  switch (lang) {
+    case 'hindi':
+      return Language.HINDI;
+    case 'bengali':
+      return Language.BENGALI;
+    default:
+      return Language.ENGLISH;
+  }
+};
+
 export const NewAuthFlow: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<AuthStep>('language_selection');
   const [userData, setUserData] = useState<UserData>({
     isAuthenticated: false,
-    language: 'english',
+    language: Language.ENGLISH,
   });
   const [authType, setAuthType] = useState<'signup' | 'login'>('signup');
 
@@ -52,7 +77,7 @@ export const NewAuthFlow: React.FC = () => {
   };
 
   const handleLanguageSelect = async (language: 'english' | 'hindi' | 'bengali') => {
-    const updatedData = { ...userData, language };
+    const updatedData = { ...userData, language: stringToLanguage(language) };
     setUserData(updatedData);
     await AsyncStorage.setItem('user_data', JSON.stringify(updatedData));
     setCurrentStep('auth_choice');
@@ -154,7 +179,7 @@ export const NewAuthFlow: React.FC = () => {
     case 'auth_choice':
       return (
         <AuthChoiceScreen
-          language={userData.language}
+          language={languageToString(userData.language)}
           onSignup={() => handleAuthChoice('signup')}
           onLogin={() => handleAuthChoice('login')}
           onGoBack={handleGoBackToLanguageSelection}
@@ -164,7 +189,7 @@ export const NewAuthFlow: React.FC = () => {
     case 'signup':
       return (
         <SignupScreen
-          language={userData.language}
+          language={languageToString(userData.language)}
           onNavigateToOTP={handleSignupComplete}
           onGoBack={handleGoBackToAuthChoice}
         />
@@ -173,7 +198,7 @@ export const NewAuthFlow: React.FC = () => {
     case 'login':
       return (
         <LoginScreen
-          language={userData.language}
+          language={languageToString(userData.language)}
           onNavigateToOTP={handleLoginSubmit}
           onGoBack={handleGoBackToAuthChoice}
         />
@@ -182,7 +207,7 @@ export const NewAuthFlow: React.FC = () => {
     case 'otp':
       return (
         <OTPScreen
-          language={userData.language}
+          language={languageToString(userData.language)}
           phoneNumber={userData.signupData?.phoneNumber || ''}
           onVerificationSuccess={handleOTPVerified}
           onGoBack={authType === 'signup' ? handleGoBackToSignup : handleGoBackToLogin}
@@ -192,7 +217,7 @@ export const NewAuthFlow: React.FC = () => {
     case 'photo_upload':
       return (
         <PhotoUploadScreen
-          language={userData.language}
+          language={languageToString(userData.language)}
           userName={userData.signupData?.fullName || 'User'}
           onPhotoUploaded={handlePhotoUploaded}
         />
@@ -201,7 +226,7 @@ export const NewAuthFlow: React.FC = () => {
     case 'location_permission':
       return (
         <LocationPermissionScreen
-          language={userData.language}
+          language={languageToString(userData.language)}
           userName={userData.signupData?.fullName || 'User'}
           onLocationGranted={handleLocationPermissionGranted}
         />
