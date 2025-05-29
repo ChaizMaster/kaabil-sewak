@@ -174,7 +174,7 @@ export const SignupScreen: React.FC<SignupScreenProps> = ({
                   value={formData.fullName}
                   onChangeText={(text) => setFormData({ ...formData, fullName: text })}
                   placeholder={t.fullNamePlaceholder}
-                  placeholderTextColor="#999"
+                  placeholderTextColor="#AAAAAA"
                   autoCapitalize="words"
                 />
               </View>
@@ -191,7 +191,7 @@ export const SignupScreen: React.FC<SignupScreenProps> = ({
                     value={formatPhoneDisplay(formData.phoneNumber)}
                     onChangeText={handlePhoneNumberChange}
                     placeholder={t.phonePlaceholder}
-                    placeholderTextColor="#999"
+                    placeholderTextColor="#AAAAAA"
                     keyboardType="phone-pad"
                     maxLength={11} // 5 + space + 5
                   />
@@ -206,7 +206,7 @@ export const SignupScreen: React.FC<SignupScreenProps> = ({
                   value={formData.city}
                   onChangeText={(text) => setFormData({ ...formData, city: text })}
                   placeholder={t.cityPlaceholder}
-                  placeholderTextColor="#999"
+                  placeholderTextColor="#AAAAAA"
                   autoCapitalize="words"
                 />
               </View>
@@ -242,7 +242,7 @@ export const SignupScreen: React.FC<SignupScreenProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#F5F5F7',
   },
   keyboardView: {
     flex: 1,
@@ -261,13 +261,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#1a1a1a',
+    color: '#222222',
     marginBottom: 8,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: '#888888',
     textAlign: 'center',
     lineHeight: 22,
   },
@@ -280,72 +280,73 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#333',
+    color: '#222222',
     marginBottom: 8,
   },
   textInput: {
-    borderWidth: 2,
-    borderColor: '#e1e5e9',
-    borderRadius: 12,
-    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
     paddingHorizontal: 16,
     paddingVertical: 16,
     fontSize: 16,
-    color: '#333',
+    color: '#222222',
   },
   phoneInputContainer: {
     flexDirection: 'row',
-    borderWidth: 2,
-    borderColor: '#e1e5e9',
-    borderRadius: 12,
-    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#E0E0E0',
+    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
     overflow: 'hidden',
   },
   countryCode: {
     paddingHorizontal: 16,
     paddingVertical: 16,
-    backgroundColor: '#f1f3f4',
+    backgroundColor: '#FFFFFF',
     borderRightWidth: 1,
-    borderRightColor: '#e1e5e9',
+    borderRightColor: '#E0E0E0',
     justifyContent: 'center',
   },
   countryCodeText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#333',
+    color: '#222222',
   },
   phoneInput: {
     flex: 1,
     paddingHorizontal: 16,
     paddingVertical: 16,
     fontSize: 16,
-    color: '#333',
+    color: '#222222',
+    backgroundColor: '#FFFFFF',
   },
   sendButton: {
     backgroundColor: '#007AFF',
     paddingVertical: 16,
-    borderRadius: 12,
+    borderRadius: 8,
     alignItems: 'center',
     marginBottom: 16,
     shadowColor: '#007AFF',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
   },
   sendButtonDisabled: {
-    backgroundColor: '#ccc',
+    backgroundColor: '#A0D7FF',
     shadowOpacity: 0,
     elevation: 0,
   },
   sendButtonText: {
-    color: '#fff',
+    color: '#FFFFFF',
     fontSize: 18,
     fontWeight: '600',
   },
   termsText: {
     fontSize: 12,
-    color: '#888',
+    color: '#AAAAAA',
     textAlign: 'center',
     lineHeight: 16,
     marginBottom: 20,
