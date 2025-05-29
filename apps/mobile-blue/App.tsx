@@ -1,25 +1,34 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import { OnboardingScreen } from './src/screens/OnboardingScreen';
-import { JobDiscoveryScreen } from './src/screens/JobDiscoveryScreen';
-import { SignUpData } from 'shared/src/types/user.types';
+import { NewAuthFlow, UserAuthData } from './src/components/NewAuthFlow';
+import { JobsScreen } from './src/screens/jobs/JobsScreen';
 
 export default function App() {
-  const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
-  const [userData, setUserData] = useState<SignUpData | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userData, setUserData] = useState<UserAuthData | null>(null);
 
-  const handleOnboardingComplete = (signUpData: SignUpData) => {
-    setUserData(signUpData);
-    setIsOnboardingComplete(true);
+  const handleAuthSuccess = (authData: UserAuthData) => {
+    setUserData(authData);
+    setIsAuthenticated(true);
   };
 
+  // Show authentication flow first
+  if (!isAuthenticated) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <NewAuthFlow onAuthSuccess={handleAuthSuccess} />
+      </SafeAreaView>
+    );
+  }
+
+  // Show jobs screen after authentication
   return (
     <SafeAreaView style={styles.container}>
-      {!isOnboardingComplete ? (
-        <OnboardingScreen onComplete={handleOnboardingComplete} />
-      ) : (
-        <JobDiscoveryScreen userLanguage={userData?.preferredLanguage} />
-      )}
+      <JobsScreen 
+        userLanguage={userData?.language || 'english'}
+        userName={userData?.signupData?.fullName}
+        userLocation={userData?.location}
+      />
     </SafeAreaView>
   );
 }
