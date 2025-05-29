@@ -11,7 +11,7 @@
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:web\"",
     "dev:backend": "cd apps/backend && npm run start:dev",
     "dev:web": "cd apps/web && npm run dev",
-    "dev:mobile": "cd apps/mobile && npm start",
+    "dev:mobile": "cd apps/mobile-blue && npm start",
     "build": "npm run build:backend && npm run build:web",
     "build:backend": "cd apps/backend && npm run build",
     "build:web": "cd apps/web && npm run build",
