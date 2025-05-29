@@ -16,6 +16,7 @@ interface JobsScreenProps {
     longitude: number;
     address?: string;
   };
+  onProfilePress: () => void;
 }
 
 const translations = {
@@ -26,6 +27,7 @@ const translations = {
     comingSoon: 'Job listings will be available soon!',
     locationInfo: 'Your location',
     profileIncomplete: 'Complete your profile to see more jobs',
+    profile: 'Profile',
   },
   hindi: {
     title: 'आपके आस-पास की नौकरियां',
@@ -34,6 +36,7 @@ const translations = {
     comingSoon: 'नौकरी की सूची जल्द ही उपलब्ध होगी!',
     locationInfo: 'आपका स्थान',
     profileIncomplete: 'अधिक नौकरियां देखने के लिए अपनी प्रोफाइल पूरी करें',
+    profile: 'प्रोफाइल',
   },
   bengali: {
     title: 'আপনার কাছাকাছি চাকরি',
@@ -42,6 +45,7 @@ const translations = {
     comingSoon: 'চাকরির তালিকা শীঘ্রই উপলব্ধ হবে!',
     locationInfo: 'আপনার অবস্থান',
     profileIncomplete: 'আরও চাকরি দেখতে আপনার প্রোফাইল সম্পূর্ণ করুন',
+    profile: 'প্রোফাইল',
   },
 };
 
@@ -49,16 +53,23 @@ export const JobsScreen: React.FC<JobsScreenProps> = ({
   userLanguage,
   userName,
   userLocation,
+  onProfilePress,
 }) => {
   const t = translations[userLanguage];
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.content}>
-        {/* Clean Header */}
-        <View style={styles.header}>
-          <Text style={styles.title}>{t.title}</Text>
-          <Text style={styles.subtitle}>{t.subtitle}</Text>
+        {/* Header with Profile Button */}
+        <View style={styles.headerContainer}>
+          <View style={styles.header}>
+            <Text style={styles.title}>{t.title}</Text>
+            <Text style={styles.subtitle}>{t.subtitle}</Text>
+          </View>
+          <TouchableOpacity style={styles.profileButton} onPress={onProfilePress}>
+            <Text style={styles.profileButtonText}>👤</Text>
+            <Text style={styles.profileButtonLabel}>{t.profile}</Text>
+          </TouchableOpacity>
         </View>
 
         {/* Location Info */}
@@ -132,8 +143,14 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  header: {
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
     marginBottom: 24,
+  },
+  header: {
+    flex: 1,
   },
   title: {
     fontSize: 28,
@@ -144,6 +161,29 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: '#666',
+  },
+  profileButton: {
+    alignItems: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#e1e5e9',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  profileButtonText: {
+    fontSize: 20,
+    marginBottom: 2,
+  },
+  profileButtonLabel: {
+    fontSize: 12,
+    color: '#666',
+    fontWeight: '500',
   },
   locationCard: {
     backgroundColor: '#fff',
