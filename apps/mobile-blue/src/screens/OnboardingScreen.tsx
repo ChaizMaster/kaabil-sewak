@@ -2,20 +2,23 @@ import React, { useState } from 'react';
 import { View, StyleSheet, StatusBar } from 'react-native';
 import { LanguageSelector } from '../components/onboarding/LanguageSelector';
 import { SignUpForm } from '../components/auth/SignUpForm';
-import { Language, SignUpData } from 'shared/src/types/user.types';
+import { LocationCollector } from '../components/onboarding/LocationCollector';
+import { Language, SignUpData, UserLocation } from 'shared/src/types/user.types';
 
 enum OnboardingStep {
   LANGUAGE_SELECTION = 'language',
   SIGN_UP = 'signup',
+  LOCATION_COLLECTION = 'location',
 }
 
 interface OnboardingScreenProps {
-  onComplete: (userData: SignUpData) => void;
+  onComplete: (userData: SignUpData & { location?: UserLocation }) => void;
 }
 
 export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onComplete }) => {
   const [currentStep, setCurrentStep] = useState<OnboardingStep>(OnboardingStep.LANGUAGE_SELECTION);
   const [selectedLanguage, setSelectedLanguage] = useState<Language | undefined>();
+  const [signUpData, setSignUpData] = useState<SignUpData | undefined>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | undefined>();
 
@@ -31,14 +34,25 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onComplete }
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Mock API response - in real app, this would come from your auth service
-      console.log('User signed up:', data);
-      
-      onComplete(data);
+      // Store sign up data and move to location collection
+      setSignUpData(data);
+      setCurrentStep(OnboardingStep.LOCATION_COLLECTION);
     } catch (err) {
       setError('Failed to create account. Please try again.');
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleLocationCollected = (location: UserLocation) => {
+    if (signUpData) {
+      onComplete({ ...signUpData, location });
+    }
+  };
+
+  const handleLocationSkipped = () => {
+    if (signUpData) {
+      onComplete(signUpData);
     }
   };
 
@@ -70,6 +84,15 @@ export const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onComplete }
             language={selectedLanguage || Language.ENGLISH}
             isLoading={isLoading}
             error={error}
+          />
+        );
+
+      case OnboardingStep.LOCATION_COLLECTION:
+        return (
+          <LocationCollector
+            onLocationCollected={handleLocationCollected}
+            onSkip={handleLocationSkipped}
+            language={selectedLanguage || Language.ENGLISH}
           />
         );
       

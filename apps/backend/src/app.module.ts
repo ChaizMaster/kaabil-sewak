@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { JobsModule } from './jobs/jobs.module';
+import { LocationModule } from './location/location.module';
 import { AnalyticsModule } from './analytics/analytics.module';
-import { AudioInteraction } from './analytics/entities/audio-interaction.entity';
 
 @Module({
   imports: [
@@ -15,11 +15,12 @@ import { AudioInteraction } from './analytics/entities/audio-interaction.entity'
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'kaabil-sewak.db',
-      entities: [AudioInteraction],
-      synchronize: true, // Only for development
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true, // Set to false in production
       logging: true,
     }),
     JobsModule,
+    LocationModule,
     AnalyticsModule,
   ],
   controllers: [AppController],
