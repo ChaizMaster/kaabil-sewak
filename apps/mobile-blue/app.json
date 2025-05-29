@@ -12,14 +12,17 @@
       "supportsTablet": true,
       "infoPlist": {
         "NSCameraUsageDescription": "This app needs access to camera to take your photo for identity verification.",
-        "NSPhotoLibraryUsageDescription": "This app needs access to photo library to select your photo for identity verification."
+        "NSPhotoLibraryUsageDescription": "This app needs access to photo library to select your photo for identity verification.",
+        "NSLocationWhenInUseUsageDescription": "This app needs access to your location to find jobs near you and provide better recommendations."
       }
     },
     "android": {
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.READ_EXTERNAL_STORAGE",
-        "android.permission.WRITE_EXTERNAL_STORAGE"
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION"
       ]
     },
     "web": {}
