@@ -85,7 +85,7 @@ export const LanguageSelectionScreen: React.FC<LanguageSelectionScreenProps> = (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#F5F5F7',
   },
   content: {
     flex: 1,
@@ -105,19 +105,19 @@ const styles = StyleSheet.create({
   tagline: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#FF6B35',
+    color: '#222222',
     marginBottom: 32,
   },
   subtitle: {
     fontSize: 24,
     fontWeight: '600',
-    color: '#1a1a1a',
+    color: '#222222',
     textAlign: 'center',
     marginBottom: 8,
   },
   subtitleNative: {
     fontSize: 20,
-    color: '#666',
+    color: '#888888',
     textAlign: 'center',
   },
   languageContainer: {
@@ -126,16 +126,16 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
   },
   languageOption: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: '#e1e5e9',
-    shadowColor: '#000',
+    borderColor: '#E0E0E0',
+    shadowColor: '#000000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
+    shadowOpacity: 0.05,
+    shadowRadius: 5,
+    elevation: 2,
   },
   languageContent: {
     flexDirection: 'row',
@@ -152,12 +152,12 @@ const styles = StyleSheet.create({
   languageName: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#1a1a1a',
+    color: '#222222',
     marginBottom: 4,
   },
   languageNative: {
     fontSize: 16,
-    color: '#666',
+    color: '#888888',
   },
   arrow: {
     fontSize: 24,
@@ -170,13 +170,13 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
-    color: '#888',
+    color: '#888888',
     textAlign: 'center',
     marginBottom: 4,
   },
   footerTextNative: {
     fontSize: 12,
-    color: '#aaa',
+    color: '#AAAAAA',
     textAlign: 'center',
   },
 }); 

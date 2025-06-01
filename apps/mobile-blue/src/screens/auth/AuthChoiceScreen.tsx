@@ -122,7 +122,7 @@ export const AuthChoiceScreen: React.FC<AuthChoiceScreenProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#F5F5F7',
   },
   content: {
     flex: 1,
@@ -142,19 +142,19 @@ const styles = StyleSheet.create({
   taglineHindi: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#FF6B35',
+    color: '#222222',
     marginBottom: 32,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#1a1a1a',
+    color: '#222222',
     textAlign: 'center',
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: '#888888',
     textAlign: 'center',
   },
   optionsContainer: {
@@ -163,20 +163,19 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
   },
   authOption: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
     marginBottom: 20,
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: '#007AFF',
-    shadowColor: '#007AFF',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 12,
-    elevation: 4,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 5,
+    elevation: 2,
   },
   loginOption: {
-    borderColor: '#28a745',
-    shadowColor: '#28a745',
+    borderColor: '#4A4A4A',
   },
   optionContent: {
     flexDirection: 'row',
@@ -187,13 +186,13 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: '#f0f8ff',
+    backgroundColor: '#E5F2FF',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 16,
   },
   loginIconContainer: {
-    backgroundColor: '#f0fff4',
+    backgroundColor: '#F0F0F0',
   },
   icon: {
     fontSize: 28,
@@ -208,14 +207,14 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   loginTitle: {
-    color: '#28a745',
+    color: '#222222',
   },
   optionDesc: {
     fontSize: 14,
-    color: '#666',
+    color: '#888888',
   },
   loginDesc: {
-    color: '#555',
+    color: '#888888',
   },
   arrow: {
     fontSize: 24,
@@ -223,7 +222,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   loginArrow: {
-    color: '#28a745',
+    color: '#4A4A4A',
   },
   footer: {
     alignItems: 'center',
@@ -231,7 +230,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 12,
-    color: '#888',
+    color: '#888888',
     textAlign: 'center',
   },
   backButton: {
