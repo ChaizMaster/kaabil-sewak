@@ -6,6 +6,7 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 
 interface AuthChoiceScreenProps {
   onSignup: () => void;
@@ -16,34 +17,31 @@ interface AuthChoiceScreenProps {
 
 const translations = {
   english: {
-    title: 'Welcome to Kaabil Sewak',
-    subtitle: 'Your path to better opportunities',
+    mainTitle: 'Kaabil Sewak',
+    welcomeSubtitle: 'Your Gateway to Meaningful Work',
     newUser: 'I\'m New Here',
-    newUserDesc: 'Create a new account',
+    newUserDesc: 'Create an account to get started',
     existingUser: 'I Have an Account',
-    existingUserDesc: 'Sign in to your account',
-    tagline: 'India\'s Most Intelligent Blue-Collar Hiring Platform',
-    back: '← Change Language',
+    existingUserDesc: 'Sign in to continue',
+    back: 'Change Language',
   },
   hindi: {
-    title: 'काबिल सेवक में आपका स्वागत है',
-    subtitle: 'बेहतर अवसरों का आपका रास्ता',
+    mainTitle: 'काबिल सेवक',
+    welcomeSubtitle: 'सार्थक काम का आपका प्रवेश द्वार',
     newUser: 'मैं यहाँ नया हूँ',
-    newUserDesc: 'नया खाता बनाएं',
+    newUserDesc: 'शुरू करने के लिए एक खाता बनाएं',
     existingUser: 'मेरा खाता है',
-    existingUserDesc: 'अपने खाते में लॉग इन करें',
-    tagline: 'भारत का सबसे बुद्धिमान मजदूर भर्ती मंच',
-    back: '← भाषा बदलें',
+    existingUserDesc: 'जारी रखने के लिए साइन इन करें',
+    back: 'भाषा बदलें',
   },
   bengali: {
-    title: 'কাবিল সেবকে আপনাকে স্বাগতম',
-    subtitle: 'ভাল সুযোগের আপনার পথ',
+    mainTitle: 'কাবিল সেবক',
+    welcomeSubtitle: 'অর্থপূর্ণ কাজের আপনার প্রবেশদ্বার',
     newUser: 'আমি এখানে নতুন',
-    newUserDesc: 'নতুন অ্যাকাউন্ট তৈরি করুন',
+    newUserDesc: 'শুরু করতে একটি অ্যাকাউন্ট তৈরি করুন',
     existingUser: 'আমার অ্যাকাউন্ট আছে',
-    existingUserDesc: 'আপনার অ্যাকাউন্টে সাইন ইন করুন',
-    tagline: 'ভারতের সবচেয়ে বুদ্ধিমান নীল-কলার নিয়োগ প্ল্যাটফর্ম',
-    back: '← ভাষা পরিবর্তন করুন',
+    existingUserDesc: 'চালিয়ে যেতে সাইন ইন করুন',
+    back: 'ভাষা পরিবর্তন করুন',
   },
 };
 
@@ -58,59 +56,46 @@ export const AuthChoiceScreen: React.FC<AuthChoiceScreenProps> = ({
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.appName}>Kaabil Sewak</Text>
-          <Text style={styles.taglineHindi}>काबिल सेवक</Text>
-          <Text style={styles.title}>{t.title}</Text>
-          <Text style={styles.subtitle}>{t.subtitle}</Text>
+          <Text style={styles.mainTitle}>{t.mainTitle}</Text>
+          <Text style={styles.welcomeSubtitle}>{t.welcomeSubtitle}</Text>
         </View>
 
-        {/* Auth Options */}
         <View style={styles.optionsContainer}>
-          {/* New User Option */}
           <TouchableOpacity
-            style={styles.authOption}
+            style={[styles.authOptionButton, styles.newUserButton]}
             onPress={onSignup}
-            activeOpacity={0.7}
+            activeOpacity={0.75}
           >
-            <View style={styles.optionContent}>
-              <View style={styles.iconContainer}>
-                <Text style={styles.icon}>👤</Text>
-              </View>
-              <View style={styles.optionText}>
-                <Text style={styles.optionTitle}>{t.newUser}</Text>
-                <Text style={styles.optionDesc}>{t.newUserDesc}</Text>
-              </View>
-              <Text style={styles.arrow}>→</Text>
+            <View style={styles.optionIconContainer}>
+              <MaterialIcons name="person-add" size={28} color="#F0F4F8" />
             </View>
+            <View style={styles.optionTextContainer}>
+              <Text style={styles.optionTitle}>{t.newUser}</Text>
+              <Text style={styles.optionDesc}>{t.newUserDesc}</Text>
+            </View>
+            <MaterialIcons name="arrow-forward-ios" size={22} color="#FFFFFF" />
           </TouchableOpacity>
 
-          {/* Existing User Option */}
           <TouchableOpacity
-            style={[styles.authOption, styles.loginOption]}
+            style={[styles.authOptionButton, styles.existingUserButton]}
             onPress={onLogin}
-            activeOpacity={0.7}
+            activeOpacity={0.75}
           >
-            <View style={styles.optionContent}>
-              <View style={[styles.iconContainer, styles.loginIconContainer]}>
-                <Text style={styles.icon}>🔑</Text>
-              </View>
-              <View style={styles.optionText}>
-                <Text style={[styles.optionTitle, styles.loginTitle]}>{t.existingUser}</Text>
-                <Text style={[styles.optionDesc, styles.loginDesc]}>{t.existingUserDesc}</Text>
-              </View>
-              <Text style={[styles.arrow, styles.loginArrow]}>→</Text>
+            <View style={styles.optionIconContainer}>
+              <MaterialIcons name="login" size={28} color="#F0F4F8" />
             </View>
+            <View style={styles.optionTextContainer}>
+              <Text style={styles.optionTitle}>{t.existingUser}</Text>
+              <Text style={styles.optionDesc}>{t.existingUserDesc}</Text>
+            </View>
+            <MaterialIcons name="arrow-forward-ios" size={22} color="#FFFFFF" />
           </TouchableOpacity>
         </View>
 
-        {/* Footer */}
         <View style={styles.footer}>
-          <Text style={styles.footerText}>{t.tagline}</Text>
-          
-          {/* Back Button */}
           <TouchableOpacity onPress={onGoBack} style={styles.backButton}>
+            <MaterialIcons name="arrow-back-ios" size={16} color="#A0AEC0" style={styles.backIcon}/>
             <Text style={styles.backButtonText}>{t.back}</Text>
           </TouchableOpacity>
         </View>
@@ -122,125 +107,91 @@ export const AuthChoiceScreen: React.FC<AuthChoiceScreenProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F7',
+    backgroundColor: '#0A192F',
   },
   content: {
     flex: 1,
-    padding: 24,
+    paddingHorizontal: 24,
+    paddingVertical: 30,
     justifyContent: 'space-between',
   },
   header: {
     alignItems: 'center',
-    paddingTop: 40,
+    marginTop: 40,
+    marginBottom: 40,
   },
-  appName: {
-    fontSize: 32,
+  mainTitle: {
+    fontSize: 40,
     fontWeight: 'bold',
-    color: '#007AFF',
-    marginBottom: 8,
+    color: '#F0F4F8',
+    marginBottom: 12,
   },
-  taglineHindi: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#222222',
-    marginBottom: 32,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#222222',
+  welcomeSubtitle: {
+    fontSize: 18,
+    color: '#A0AEC0',
     textAlign: 'center',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#888888',
-    textAlign: 'center',
+    paddingHorizontal: 20,
   },
   optionsContainer: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
-    paddingVertical: 40,
   },
-  authOption: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    marginBottom: 20,
-    borderWidth: 1,
-    borderColor: '#007AFF',
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 5,
-    elevation: 2,
-  },
-  loginOption: {
-    borderColor: '#4A4A4A',
-  },
-  optionContent: {
+  authOptionButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 24,
+    justifyContent: 'space-between',
+    borderRadius: 18,
+    paddingHorizontal: 20,
+    paddingVertical: 22,
+    marginBottom: 24,
+    borderWidth: 1,
+    minHeight: 90,
   },
-  iconContainer: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#E5F2FF',
+  newUserButton: {
+    backgroundColor: 'rgba(48, 79, 254, 0.7)',
+    borderColor: 'rgba(240, 244, 248, 0.3)',
+  },
+  existingUserButton: {
+    backgroundColor: 'rgba(23, 42, 70, 0.65)',
+    borderColor: 'rgba(240, 244, 248, 0.25)',
+  },
+  optionIconContainer: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 16,
+    marginRight: 18,
   },
-  loginIconContainer: {
-    backgroundColor: '#F0F0F0',
-  },
-  icon: {
-    fontSize: 28,
-  },
-  optionText: {
+  optionTextContainer: {
     flex: 1,
   },
   optionTitle: {
-    fontSize: 20,
+    fontSize: 19,
     fontWeight: 'bold',
-    color: '#007AFF',
+    color: '#F0F4F8',
     marginBottom: 4,
-  },
-  loginTitle: {
-    color: '#222222',
   },
   optionDesc: {
     fontSize: 14,
-    color: '#888888',
-  },
-  loginDesc: {
-    color: '#888888',
-  },
-  arrow: {
-    fontSize: 24,
-    color: '#007AFF',
-    fontWeight: 'bold',
-  },
-  loginArrow: {
-    color: '#4A4A4A',
+    color: '#D0D6E0',
   },
   footer: {
     alignItems: 'center',
-    paddingBottom: 20,
-  },
-  footerText: {
-    fontSize: 12,
-    color: '#888888',
-    textAlign: 'center',
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   backButton: {
+    flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
-    marginTop: 16,
+    paddingVertical: 10,
+  },
+  backIcon: {
+    marginRight: 6,
   },
   backButtonText: {
     fontSize: 16,
-    color: '#007AFF',
+    color: '#A0AEC0',
     fontWeight: '500',
   },
 }); 

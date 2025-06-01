@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Image,
 } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 
 interface LanguageSelectionScreenProps {
   onLanguageSelected: (language: 'english' | 'hindi' | 'bengali') => void;
@@ -39,42 +40,35 @@ export const LanguageSelectionScreen: React.FC<LanguageSelectionScreenProps> = (
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        {/* Header */}
         <View style={styles.header}>
           <Text style={styles.appName}>Kaabil Sewak</Text>
-          <Text style={styles.tagline}>काबिल सेवक</Text>
           <Text style={styles.subtitle}>Choose Your Language</Text>
           <Text style={styles.subtitleNative}>अपनी भाषा चुनें</Text>
         </View>
 
-        {/* Language Options */}
-        <View style={styles.languageContainer}>
+        <View style={styles.languageListContainer}>
           {languages.map((language) => (
             <TouchableOpacity
               key={language.code}
-              style={styles.languageOption}
+              style={styles.languageOptionButton}
               onPress={() => onLanguageSelected(language.code)}
-              activeOpacity={0.7}
+              activeOpacity={0.75}
             >
-              <View style={styles.languageContent}>
+              <View style={styles.languageInfo}>
                 <Text style={styles.flag}>{language.flag}</Text>
-                <View style={styles.languageText}>
+                <View style={styles.languageTextContainer}>
                   <Text style={styles.languageName}>{language.name}</Text>
-                  <Text style={styles.languageNative}>{language.nativeName}</Text>
+                  <Text style={styles.languageNativeName}>{language.nativeName}</Text>
                 </View>
-                <Text style={styles.arrow}>→</Text>
               </View>
+              <MaterialIcons name="arrow-forward-ios" size={22} color="#A0AEC0" />
             </TouchableOpacity>
           ))}
         </View>
 
-        {/* Footer */}
         <View style={styles.footer}>
           <Text style={styles.footerText}>
-            India's Most Intelligent Blue-Collar Hiring Platform
-          </Text>
-          <Text style={styles.footerTextNative}>
-            भारत का सबसे बुद्धिमान मजदूर भर्ती मंच
+            India's Most Intelligent Hiring Platform
           </Text>
         </View>
       </View>
@@ -85,98 +79,84 @@ export const LanguageSelectionScreen: React.FC<LanguageSelectionScreenProps> = (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F7',
+    backgroundColor: '#0A192F',
   },
   content: {
     flex: 1,
-    padding: 24,
+    paddingHorizontal: 24,
+    paddingVertical: 30,
     justifyContent: 'space-between',
   },
   header: {
     alignItems: 'center',
-    paddingTop: 40,
+    marginTop: 30,
+    marginBottom: 40,
   },
   appName: {
-    fontSize: 32,
+    fontSize: 38,
     fontWeight: 'bold',
-    color: '#007AFF',
-    marginBottom: 8,
-  },
-  tagline: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#222222',
-    marginBottom: 32,
+    color: '#F0F4F8',
+    marginBottom: 20,
   },
   subtitle: {
     fontSize: 24,
     fontWeight: '600',
-    color: '#222222',
+    color: '#F0F4F8',
     textAlign: 'center',
-    marginBottom: 8,
+    marginBottom: 6,
   },
   subtitleNative: {
-    fontSize: 20,
-    color: '#888888',
+    fontSize: 18,
+    color: '#A0AEC0',
     textAlign: 'center',
+    marginBottom: 20,
   },
-  languageContainer: {
-    flex: 1,
+  languageListContainer: {
+    flexGrow: 1,
     justifyContent: 'center',
-    paddingVertical: 40,
   },
-  languageOption: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 5,
-    elevation: 2,
-  },
-  languageContent: {
+  languageOptionButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
+    justifyContent: 'space-between',
+    backgroundColor: 'rgba(23, 42, 70, 0.65)',
+    borderRadius: 18,
+    marginBottom: 20,
+    paddingHorizontal: 25,
+    paddingVertical: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(240, 244, 248, 0.25)',
+    minHeight: 70,
+  },
+  languageInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   flag: {
-    fontSize: 32,
-    marginRight: 16,
+    fontSize: 28,
+    marginRight: 18,
   },
-  languageText: {
-    flex: 1,
+  languageTextContainer: {
   },
   languageName: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#222222',
-    marginBottom: 4,
-  },
-  languageNative: {
-    fontSize: 16,
-    color: '#888888',
-  },
-  arrow: {
-    fontSize: 24,
-    color: '#007AFF',
+    fontSize: 19,
     fontWeight: 'bold',
+    color: '#F0F4F8',
+    marginBottom: 3,
+  },
+  languageNativeName: {
+    fontSize: 15,
+    color: '#A0AEC0',
   },
   footer: {
     alignItems: 'center',
-    paddingBottom: 20,
+    paddingVertical: 10,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(240, 244, 248, 0.1)',
   },
   footerText: {
-    fontSize: 14,
-    color: '#888888',
-    textAlign: 'center',
-    marginBottom: 4,
-  },
-  footerTextNative: {
     fontSize: 12,
-    color: '#AAAAAA',
+    color: 'rgba(160, 174, 192, 0.7)',
     textAlign: 'center',
   },
 }); 
