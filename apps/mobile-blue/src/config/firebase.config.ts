@@ -10,13 +10,17 @@ const firebaseConfig = {
     messagingSenderId: "781734222971",
     appId: "1:781734222971:web:4e74fdf9008077882b16de",
     measurementId: "G-QJF6LXXG3E"
-  };
+};
 
 // Initialize Firebase
+console.log('Initializing Firebase...');
 const app = initializeApp(firebaseConfig);
 
 // Initialize Auth - AsyncStorage will be used automatically in React Native environment
+console.log('Initializing Firebase Auth...');
 const auth = getAuth(app);
+
+console.log('Firebase initialized successfully');
 
 export { auth };
 export default app; 
