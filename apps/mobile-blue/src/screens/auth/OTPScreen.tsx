@@ -337,8 +337,7 @@ const styles = StyleSheet.create({
   },
   otpContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
+    justifyContent: 'center',
     maxWidth: 360,
     marginBottom: 20,
   },
@@ -352,7 +351,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     borderColor: 'rgba(240, 244, 248, 0.25)',
-    marginHorizontal: 4,
+    marginHorizontal: 6,
   },
   otpInputFocused: {
     borderColor: '#F055A8',

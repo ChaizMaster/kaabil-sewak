@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -8,6 +8,8 @@ import {
   SafeAreaView,
   ActivityIndicator,
   Linking,
+  Platform,
+  AppState,
 } from 'react-native';
 import * as Location from 'expo-location';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -73,13 +75,91 @@ export const LocationPermissionScreen: React.FC<LocationPermissionScreenProps> =
 }) => {
   const [loading, setLoading] = useState(false);
   const t = translations[language];
+  const appState = useRef(AppState.currentState);
+  const wasLoadingWhenBackgrounded = useRef(false);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        console.log('App has come to the foreground!');
+        if (wasLoadingWhenBackgrounded.current) {
+          console.log('Retrying location permission request after returning from background.');
+          requestLocationPermission(); 
+        }
+      }
+
+      appState.current = nextAppState;
+      if (appState.current.match(/inactive|background/)) {
+        if(loading) {
+            wasLoadingWhenBackgrounded.current = true;
+        } else {
+            wasLoadingWhenBackgrounded.current = false;
+        }
+      } else if (appState.current === 'active') {
+        wasLoadingWhenBackgrounded.current = false;
+      }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, [loading]);
 
   const requestLocationPermission = async () => {
     setLoading(true);
     try {
+      const servicesEnabled = await Location.hasServicesEnabledAsync();
+      if (!servicesEnabled) {
+        if (Platform.OS === 'android') {
+          try {
+            await Location.enableNetworkProviderAsync();
+            const stillDisabled = !(await Location.hasServicesEnabledAsync());
+            if (stillDisabled) {
+              Alert.alert(
+                t.locationError,
+                t.locationErrorMessage,
+                [
+                  { text: t.openSettings, onPress: () => Linking.openSettings() },
+                  { text: 'Cancel', style: 'cancel', onPress: () => setLoading(false) },
+                ]
+              );
+              setLoading(false);
+              return;
+            }
+          } catch (e) {
+            console.warn("enableNetworkProviderAsync failed or was cancelled", e);
+            Alert.alert(
+              t.locationError,
+              t.locationErrorMessage,
+              [
+                { text: t.openSettings, onPress: () => Linking.openSettings() },
+                { text: 'Cancel', style: 'cancel', onPress: () => setLoading(false) },
+              ]
+            );
+            setLoading(false);
+            return;
+          }
+        } else { 
+          Alert.alert(
+            t.locationError,
+            "Location services are turned off. Please turn them on in your device settings to continue.",
+            [
+              { text: t.openSettings, onPress: () => Linking.openSettings() },
+              { text: 'Cancel', style: 'cancel', onPress: () => setLoading(false) },
+            ]
+          );
+          setLoading(false);
+          return;
+        }
+      }
+
       let { status } = await Location.getForegroundPermissionsAsync();
       if (status !== 'granted') {
-        status = (await Location.requestForegroundPermissionsAsync()).status;
+        const { status: newStatus } = await Location.requestForegroundPermissionsAsync();
+        status = newStatus;
       }
       
       if (status !== 'granted') {
@@ -88,7 +168,7 @@ export const LocationPermissionScreen: React.FC<LocationPermissionScreenProps> =
           t.locationPermissionMessage,
           [
             { text: t.openSettings, onPress: () => Linking.openSettings() },
-            { text: 'Cancel', style: 'cancel' },
+            { text: 'Cancel', style: 'cancel', onPress: () => setLoading(false) },
           ]
         );
         setLoading(false);
@@ -120,10 +200,17 @@ export const LocationPermissionScreen: React.FC<LocationPermissionScreenProps> =
         longitude: location.coords.longitude,
         address,
       });
-
+      setLoading(false);
     } catch (error: any) {
-      console.error('Error getting location:', error);
-      Alert.alert(t.locationError, error.message || t.locationErrorMessage);
+      console.error('Error in requestLocationPermission:', error);
+      if (error.message && (error.message.includes("Location provider is unavailable") || error.message.includes("Location services are disabled"))) {
+         Alert.alert(t.locationError, t.locationErrorMessage, [
+            { text: t.openSettings, onPress: () => Linking.openSettings() },
+            { text: 'Cancel', style: 'cancel', onPress: () => setLoading(false) },
+          ]);
+      } else {
+        Alert.alert(t.locationError, error.message || t.locationErrorMessage);
+      }
       setLoading(false);
     }
   };
