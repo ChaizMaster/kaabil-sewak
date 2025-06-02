@@ -10,6 +10,7 @@ import {
   Image,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { MaterialIcons } from '@expo/vector-icons';
 
 interface PhotoUploadScreenProps {
   onPhotoUploaded: (photoUri: string) => void;
@@ -131,18 +132,14 @@ export const PhotoUploadScreen: React.FC<PhotoUploadScreenProps> = ({
       const hasPermission = await requestCameraPermission();
       if (!hasPermission) return;
 
-      console.log('Launching camera...');
       const result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ['images'],
+        mediaTypes: ["images"],
         allowsEditing: true,
         aspect: [1, 1],
         quality: 0.8,
       });
 
-      console.log('Camera result:', result);
-
       if (!result.canceled && result.assets && result.assets[0]) {
-        console.log('Image selected:', result.assets[0].uri);
         setSelectedImage(result.assets[0].uri);
       }
     } catch (error) {
@@ -156,18 +153,14 @@ export const PhotoUploadScreen: React.FC<PhotoUploadScreenProps> = ({
       const hasPermission = await requestGalleryPermission();
       if (!hasPermission) return;
 
-      console.log('Launching gallery...');
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ['images'],
+        mediaTypes: ["images"],
         allowsEditing: true,
         aspect: [1, 1],
         quality: 0.8,
       });
 
-      console.log('Gallery result:', result);
-
       if (!result.canceled && result.assets && result.assets[0]) {
-        console.log('Image selected:', result.assets[0].uri);
         setSelectedImage(result.assets[0].uri);
       }
     } catch (error) {
@@ -181,7 +174,6 @@ export const PhotoUploadScreen: React.FC<PhotoUploadScreenProps> = ({
 
     setUploading(true);
     try {
-      // Simulate upload delay
       await new Promise(resolve => setTimeout(resolve, 2000));
       onPhotoUploaded(selectedImage);
     } catch (error) {
@@ -199,41 +191,43 @@ export const PhotoUploadScreen: React.FC<PhotoUploadScreenProps> = ({
   if (selectedImage) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.content}>
-          {/* Header */}
-          <View style={styles.header}>
+        <View style={styles.contentPreview}>
+          <View style={styles.headerPreview}>
             <Text style={styles.title}>{t.title}</Text>
             <Text style={styles.subtitle}>{t.subtitle}</Text>
           </View>
 
-          {/* Photo Preview */}
           <View style={styles.photoPreviewContainer}>
             <Image source={{ uri: selectedImage }} style={styles.photoPreview} />
           </View>
 
-          {/* Action Buttons */}
-          <View style={styles.actionContainer}>
+          <View style={styles.actionContainerPreview}>
             <TouchableOpacity
-              style={[styles.actionButton, styles.retakeButton]}
-              onPress={handleRetake}
-              disabled={uploading}
-            >
-              <Text style={styles.retakeButtonText}>{t.retake}</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.actionButton, styles.useButton, uploading && styles.useButtonDisabled]}
+              style={[styles.glassButton, styles.useButton, uploading && styles.glassButtonDisabled]}
               onPress={handleUsePhoto}
               disabled={uploading}
+              activeOpacity={0.8}
             >
               {uploading ? (
                 <>
-                  <ActivityIndicator color="#fff" size="small" style={{ marginRight: 8 }} />
-                  <Text style={styles.useButtonText}>{t.uploadingText}</Text>
+                  <ActivityIndicator color="#F0F4F8" size="small" style={styles.buttonIcon} />
+                  <Text style={styles.glassButtonText}>{t.uploadingText}</Text>
                 </>
               ) : (
-                <Text style={styles.useButtonText}>{t.usePhoto}</Text>
+                <>
+                  <MaterialIcons name="check-circle" size={24} color="#F0F4F8" style={styles.buttonIcon} />
+                  <Text style={styles.glassButtonText}>{t.usePhoto}</Text>
+                </>
               )}
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.glassButton, styles.retakeButton]}
+              onPress={handleRetake}
+              disabled={uploading}
+              activeOpacity={0.7}
+            >
+              <MaterialIcons name="refresh" size={24} color="#F0F4F8" style={styles.buttonIcon} />
+              <Text style={styles.glassButtonTextSecondary}>{t.retake}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -244,53 +238,34 @@ export const PhotoUploadScreen: React.FC<PhotoUploadScreenProps> = ({
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        {/* Header */}
         <View style={styles.header}>
           <Text style={styles.welcome}>
-            {t.welcome}, {userName}! 👋
+            {t.welcome}, <Text style={styles.userNameText}>{userName}</Text>! 👋
           </Text>
           <Text style={styles.title}>{t.title}</Text>
           <Text style={styles.subtitle}>{t.subtitle}</Text>
         </View>
 
-        {/* Photo Options */}
-        <View style={styles.photoOptions}>
-          {/* Take Photo Button */}
-          <TouchableOpacity
-            style={styles.photoOption}
-            onPress={takePhoto}
-            activeOpacity={0.7}
-          >
-            <View style={styles.photoOptionContent}>
-              <View style={styles.cameraIconContainer}>
-                <Text style={styles.cameraIcon}>📷</Text>
-              </View>
-              <View style={styles.optionTextContainer}>
-                <Text style={styles.photoOptionTitle}>{t.takePhoto}</Text>
-                <Text style={styles.photoOptionSubtitle}>{t.cameraSubtitle}</Text>
-              </View>
+        <View style={styles.optionsContainer}>
+          <TouchableOpacity style={styles.glassButton} onPress={takePhoto} activeOpacity={0.8}>
+            <MaterialIcons name="photo-camera" size={24} color="#F055A8" style={styles.buttonIcon} />
+            <View style={styles.optionTextContainer}>
+                <Text style={styles.glassButtonText}>{t.takePhoto}</Text>
+                <Text style={styles.glassButtonSubtitle}>{t.cameraSubtitle}</Text>
             </View>
+            <MaterialIcons name="arrow-forward-ios" size={20} color="#A0AEC0" />
           </TouchableOpacity>
 
-          {/* Choose from Gallery Button */}
-          <TouchableOpacity
-            style={styles.photoOption}
-            onPress={chooseFromGallery}
-            activeOpacity={0.7}
-          >
-            <View style={styles.photoOptionContent}>
-              <View style={styles.galleryIconContainer}>
-                <Text style={styles.galleryIcon}>🖼️</Text>
-              </View>
-              <View style={styles.optionTextContainer}>
-                <Text style={styles.photoOptionTitle}>{t.choosePhoto}</Text>
-                <Text style={styles.photoOptionSubtitle}>{t.gallerySubtitle}</Text>
-              </View>
+          <TouchableOpacity style={styles.glassButton} onPress={chooseFromGallery} activeOpacity={0.8}>
+            <MaterialIcons name="photo-library" size={24} color="#304FFE" style={styles.buttonIcon} />
+            <View style={styles.optionTextContainer}>
+                <Text style={styles.glassButtonText}>{t.choosePhoto}</Text>
+                <Text style={styles.glassButtonSubtitle}>{t.gallerySubtitle}</Text>
             </View>
+            <MaterialIcons name="arrow-forward-ios" size={20} color="#A0AEC0" />
           </TouchableOpacity>
         </View>
 
-        {/* Photo Tips */}
         <View style={styles.tipsContainer}>
           <Text style={styles.tipsTitle}>{t.photoTips}</Text>
           <Text style={styles.tipText}>{t.tip1}</Text>
@@ -305,171 +280,134 @@ export const PhotoUploadScreen: React.FC<PhotoUploadScreenProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#0A192F',
   },
   content: {
     flex: 1,
-    padding: 24,
+    paddingHorizontal: 24,
+    paddingVertical: 20,
+    justifyContent: 'space-around',
+  },
+  contentPreview: {
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingVertical: 20,
     justifyContent: 'space-between',
   },
   header: {
     alignItems: 'center',
-    paddingTop: 40,
+    marginBottom: 20,
+  },
+  headerPreview: {
+    alignItems: 'center',
+    marginTop: 20,
   },
   welcome: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#007AFF',
-    marginBottom: 16,
+    fontSize: 26,
+    color: '#F0F4F8',
     textAlign: 'center',
+    marginBottom: 10,
+  },
+  userNameText: {
+    color: '#F055A8',
+    fontWeight: 'bold',
   },
   title: {
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: 'bold',
-    color: '#1a1a1a',
-    marginBottom: 8,
+    color: '#F0F4F8',
     textAlign: 'center',
+    marginBottom: 6,
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: '#A0AEC0',
     textAlign: 'center',
   },
-  photoOptions: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingVertical: 20,
-    gap: 20,
+  optionsContainer: {
+    marginVertical: 20,
   },
-  photoOption: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    borderWidth: 2,
-    borderColor: '#e1e5e9',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  photoOptionContent: {
+  glassButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 20,
-  },
-  cameraIconContainer: {
-    backgroundColor: '#007AFF',
+    backgroundColor: 'rgba(23, 42, 70, 0.65)',
     borderRadius: 16,
-    padding: 16,
-    marginRight: 16,
-    shadowColor: '#007AFF',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 2,
+    paddingHorizontal: 20,
+    paddingVertical: 18,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(240, 244, 248, 0.2)',
+    minHeight: 58,
   },
-  galleryIconContainer: {
-    backgroundColor: '#28a745',
-    borderRadius: 16,
-    padding: 16,
-    marginRight: 16,
-    shadowColor: '#28a745',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 2,
+  glassButtonDisabled: {
+    backgroundColor: 'rgba(23, 42, 70, 0.3)',
   },
-  cameraIcon: {
-    fontSize: 28,
-    color: '#fff',
-  },
-  galleryIcon: {
-    fontSize: 28,
-    color: '#fff',
+  buttonIcon: {
+    marginRight: 12,
   },
   optionTextContainer: {
     flex: 1,
-    justifyContent: 'center',
   },
-  photoOptionTitle: {
+  glassButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#1a1a1a',
-    marginBottom: 4,
+    color: '#F0F4F8',
   },
-  photoOptionSubtitle: {
-    fontSize: 14,
-    color: '#666',
-  },
-  photoPreviewContainer: {
-    alignItems: 'center',
-    marginVertical: 40,
-  },
-  photoPreview: {
-    width: 200,
-    height: 200,
-    borderRadius: 100,
-    borderWidth: 4,
-    borderColor: '#007AFF',
-  },
-  actionContainer: {
-    paddingVertical: 20,
-  },
-  actionButton: {
-    paddingVertical: 16,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  retakeButton: {
-    backgroundColor: '#fff',
-    borderWidth: 2,
-    borderColor: '#666',
-  },
-  retakeButtonText: {
-    color: '#666',
-    fontSize: 16,
+  glassButtonTextSecondary: {
+    fontSize: 17,
     fontWeight: '600',
+    color: '#F0F4F8',
   },
-  useButton: {
-    backgroundColor: '#007AFF',
-    shadowColor: '#007AFF',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  useButtonDisabled: {
-    backgroundColor: '#ccc',
-    shadowOpacity: 0,
-    elevation: 0,
-  },
-  useButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '600',
+  glassButtonSubtitle: {
+    fontSize: 13,
+    color: '#A0AEC0',
+    marginTop: 2,
   },
   tipsContainer: {
-    backgroundColor: '#fff',
+    padding: 20,
+    backgroundColor: 'rgba(23, 42, 70, 0.5)',
     borderRadius: 12,
-    padding: 16,
-    marginBottom: 20,
     borderWidth: 1,
-    borderColor: '#e1e5e9',
+    borderColor: 'rgba(240, 244, 248, 0.15)',
+    marginBottom: 10,
   },
   tipsTitle: {
     fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 8,
+    fontWeight: 'bold',
+    color: '#F0F4F8',
+    marginBottom: 12,
   },
   tipText: {
     fontSize: 14,
-    color: '#666',
-    marginBottom: 4,
+    color: '#A0AEC0',
+    marginBottom: 6,
     lineHeight: 20,
+  },
+  photoPreviewContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  photoPreview: {
+    width: 300,
+    height: 300,
+    borderRadius: 150,
+    borderWidth: 5,
+    borderColor: 'rgba(240, 244, 248, 0.6)',
+  },
+  actionContainerPreview: {
+    paddingBottom: 10,
+  },
+  retakeButton: {
+    backgroundColor: 'rgba(160, 174, 192, 0.35)',
+    borderColor: 'rgba(240, 244, 248, 0.15)',
+    justifyContent: 'center',
+    marginBottom: 12,
+  },
+  useButton: {
+    backgroundColor: 'rgba(48, 79, 254, 0.75)',
+    borderColor: 'rgba(240, 244, 248, 0.35)',
+    justifyContent: 'center',
   },
 }); 

@@ -12,6 +12,7 @@ import {
   ActivityIndicator,
   ScrollView,
 } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 import authService from '../../services/authService';
 
 interface SignupScreenProps {
@@ -30,48 +31,72 @@ interface SignupData {
 const translations = {
   english: {
     title: 'Create Your Account',
-    subtitle: 'Join thousands of workers finding better jobs',
+    subtitle: 'Join us to find better job opportunities',
     fullName: 'Full Name',
-    fullNamePlaceholder: 'Enter your full name',
+    fullNamePlaceholder: 'E.g., Ramesh Kumar',
     phoneNumber: 'Mobile Number',
     phonePlaceholder: '98765 43210',
     city: 'Your City',
-    cityPlaceholder: 'Enter your city',
-    sendOtp: 'Send OTP',
-    termsText: 'By continuing, you agree to our Terms of Service and Privacy Policy',
+    cityPlaceholder: 'E.g., Mumbai',
+    sendOtp: 'Verify & Continue',
+    termsText: 'By continuing, you agree to our Terms & Privacy Policy',
     requiredField: 'This field is required',
-    invalidPhone: 'Please enter a valid Indian mobile number',
-    back: '← Back',
+    nameRequired: 'Full Name Required',
+    phoneRequired: 'Mobile Number Required',
+    cityRequired: 'City Required',
+    invalidPhone: 'Invalid Mobile Number',
+    invalidPhoneMsg: 'Please enter a valid 10-digit Indian mobile number.',
+    back: 'Back',
+    otpSent: 'OTP Sent!',
+    failedToSend: 'Failed to Send OTP',
+    networkError: 'Network Error',
+    networkErrorMsg: 'Please check your internet connection and try again.',
   },
   hindi: {
     title: 'अपना खाता बनाएं',
-    subtitle: 'हजारों मजदूरों से जुड़ें जो बेहतर काम पा रहे हैं',
+    subtitle: 'बेहतर नौकरी के अवसर पाने के लिए हमसे जुड़ें',
     fullName: 'पूरा नाम',
-    fullNamePlaceholder: 'अपना पूरा नाम लिखें',
+    fullNamePlaceholder: 'जैसे, रमेश कुमार',
     phoneNumber: 'मोबाइल नंबर',
     phonePlaceholder: '98765 43210',
     city: 'आपका शहर',
-    cityPlaceholder: 'अपना शहर लिखें',
-    sendOtp: 'OTP भेजें',
-    termsText: 'जारी रखने से आप हमारी सेवा की शर्तों और गोपनीयता नीति से सहमत हैं',
-    requiredField: 'यह फील्ड आवश्यक है',
-    invalidPhone: 'कृपया एक वैध भारतीय मोबाइल नंबर दर्ज करें',
-    back: '← वापस',
+    cityPlaceholder: 'जैसे, मुंबई',
+    sendOtp: 'सत्यापित करें और जारी रखें',
+    termsText: 'जारी रखकर, आप हमारी शर्तों और गोपनीयता नीति से सहमत हैं',
+    requiredField: 'यह फ़ील्ड आवश्यक है',
+    nameRequired: 'पूरा नाम आवश्यक है',
+    phoneRequired: 'मोबाइल नंबर आवश्यक है',
+    cityRequired: 'शहर आवश्यक है',
+    invalidPhone: 'अमान्य मोबाइल नंबर',
+    invalidPhoneMsg: 'कृपया एक मान्य 10-अंकीय भारतीय मोबाइल नंबर दर्ज करें।',
+    back: 'वापस',
+    otpSent: 'OTP भेजा गया!',
+    failedToSend: 'OTP भेजने में विफल',
+    networkError: 'नेटवर्क त्रुटि',
+    networkErrorMsg: 'कृपया अपना इंटरनेट कनेक्शन जांचें और पुनः प्रयास करें।',
   },
   bengali: {
     title: 'আপনার অ্যাকাউন্ট তৈরি করুন',
-    subtitle: 'হাজার হাজার শ্রমিকের সাথে যোগ দিন যারা ভাল কাজ খুঁজে পাচ্ছেন',
-    fullName: 'পূর্ণ নাম',
-    fullNamePlaceholder: 'আপনার পূর্ণ নাম লিখুন',
+    subtitle: 'আরও ভাল চাকরির সুযোগ পেতে আমাদের সাথে যোগ দিন',
+    fullName: 'পুরো নাম',
+    fullNamePlaceholder: 'যেমন, রমেশ কুমার',
     phoneNumber: 'মোবাইল নম্বর',
     phonePlaceholder: '98765 43210',
     city: 'আপনার শহর',
-    cityPlaceholder: 'আপনার শহর লিখুন',
-    sendOtp: 'OTP পাঠান',
-    termsText: 'চালিয়ে যাওয়ার মাধ্যমে আপনি আমাদের সেবার শর্তাবলী এবং গোপনীয়তা নীতিতে সম্মত হন',
+    cityPlaceholder: 'যেমন, মুম্বাই',
+    sendOtp: 'যাচাই করুন এবং চালিয়ে যান',
+    termsText: 'চালিয়ে যাওয়ার মাধ্যমে, আপনি আমাদের শর্তাবলী এবং গোপনীয়তা নীতিতে সম্মত হন',
     requiredField: 'এই ক্ষেত্রটি প্রয়োজনীয়',
-    invalidPhone: 'দয়া করে একটি বৈধ ভারতীয় মোবাইল নম্বর দিন',
-    back: '← ফিরে যান',
+    nameRequired: 'পুরো নাম প্রয়োজন',
+    phoneRequired: 'মোবাইল নম্বর প্রয়োজন',
+    cityRequired: 'শহর প্রয়োজন',
+    invalidPhone: 'অবৈধ মোবাইল নম্বর',
+    invalidPhoneMsg: 'অনুগ্রহ করে একটি বৈধ ১০-সংখ্যার ভারতীয় মোবাইল নম্বর প্রবেশ করান।',
+    back: 'ফিরে যান',
+    otpSent: 'OTP পাঠানো হয়েছে!',
+    failedToSend: 'OTP পাঠাতে ব্যর্থ হয়েছে',
+    networkError: 'নেটওয়ার্ক ত্রুটি',
+    networkErrorMsg: 'অনুগ্রহ করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।',
   },
 };
 
@@ -91,38 +116,37 @@ export const SignupScreen: React.FC<SignupScreenProps> = ({
   const t = translations[language];
 
   const handlePhoneNumberChange = (text: string) => {
-    // Remove non-numeric characters
     const cleaned = text.replace(/[^0-9]/g, '');
     setFormData({ ...formData, phoneNumber: cleaned });
   };
 
   const formatPhoneDisplay = (number: string) => {
-    // Format for display: 98765 43210
+    if (number.length === 0) return '';
     if (number.length <= 5) return number;
-    return `${number.slice(0, 5)} ${number.slice(5)}`;
+    if (number.length <= 10) return `${number.slice(0, 5)} ${number.slice(5)}`;
+    return `${number.slice(0, 5)} ${number.slice(5,10)}`;
   };
 
   const validateForm = () => {
     if (!formData.fullName.trim()) {
-      Alert.alert('Full Name Required', t.requiredField);
+      Alert.alert(t.nameRequired, t.requiredField);
       return false;
     }
-
-    if (!formData.phoneNumber) {
-      Alert.alert('Phone Number Required', t.requiredField);
+    if (!formData.phoneNumber || formData.phoneNumber.length !== 10) {
+      Alert.alert(
+        formData.phoneNumber ? t.invalidPhone : t.phoneRequired,
+        formData.phoneNumber ? t.invalidPhoneMsg : t.requiredField
+      );
       return false;
     }
-
     if (!authService.validateIndianPhoneNumber(formData.phoneNumber)) {
-      Alert.alert('Invalid Phone Number', t.invalidPhone);
+      Alert.alert(t.invalidPhone, t.invalidPhoneMsg);
       return false;
     }
-
     if (!formData.city.trim()) {
-      Alert.alert('City Required', t.requiredField);
+      Alert.alert(t.cityRequired, t.requiredField);
       return false;
     }
-
     return true;
   };
 
@@ -132,19 +156,18 @@ export const SignupScreen: React.FC<SignupScreenProps> = ({
     setLoading(true);
     try {
       const result = await authService.sendOTP(formData.phoneNumber);
-      
       if (result.success) {
         Alert.alert(
-          'OTP Sent!',
+          t.otpSent,
           `Verification code sent to +91 ${formatPhoneDisplay(formData.phoneNumber)}`,
           [{ text: 'OK', onPress: () => onNavigateToOTP(formData.phoneNumber, formData) }]
         );
       } else {
-        Alert.alert('Failed to Send OTP', result.error || 'Please try again');
+        Alert.alert(t.failedToSend, result.error || 'Please try again later.');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error sending OTP:', error);
-      Alert.alert('Network Error', 'Please check your internet connection');
+      Alert.alert(t.networkError, error.message || t.networkErrorMsg);
     } finally {
       setLoading(false);
     }
@@ -156,17 +179,19 @@ export const SignupScreen: React.FC<SignupScreenProps> = ({
         style={styles.keyboardView}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-          <View style={styles.content}>
-            {/* Header */}
+        <ScrollView 
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContentContainer} 
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View style={styles.mainFormContainer}> 
             <View style={styles.header}>
               <Text style={styles.title}>{t.title}</Text>
               <Text style={styles.subtitle}>{t.subtitle}</Text>
             </View>
 
-            {/* Form */}
             <View style={styles.form}>
-              {/* Full Name */}
               <View style={styles.inputGroup}>
                 <Text style={styles.inputLabel}>{t.fullName}</Text>
                 <TextInput
@@ -174,12 +199,13 @@ export const SignupScreen: React.FC<SignupScreenProps> = ({
                   value={formData.fullName}
                   onChangeText={(text) => setFormData({ ...formData, fullName: text })}
                   placeholder={t.fullNamePlaceholder}
-                  placeholderTextColor="#AAAAAA"
+                  placeholderTextColor='rgba(160, 174, 192, 0.6)'
                   autoCapitalize="words"
+                  returnKeyType="next"
+                  selectionColor={'#F055A8'}
                 />
               </View>
 
-              {/* Phone Number */}
               <View style={styles.inputGroup}>
                 <Text style={styles.inputLabel}>{t.phoneNumber}</Text>
                 <View style={styles.phoneInputContainer}>
@@ -191,14 +217,15 @@ export const SignupScreen: React.FC<SignupScreenProps> = ({
                     value={formatPhoneDisplay(formData.phoneNumber)}
                     onChangeText={handlePhoneNumberChange}
                     placeholder={t.phonePlaceholder}
-                    placeholderTextColor="#AAAAAA"
+                    placeholderTextColor='rgba(160, 174, 192, 0.6)'
                     keyboardType="phone-pad"
-                    maxLength={11} // 5 + space + 5
+                    maxLength={13}
+                    returnKeyType="next"
+                    selectionColor={'#F055A8'}
                   />
                 </View>
               </View>
 
-              {/* City */}
               <View style={styles.inputGroup}>
                 <Text style={styles.inputLabel}>{t.city}</Text>
                 <TextInput
@@ -206,30 +233,33 @@ export const SignupScreen: React.FC<SignupScreenProps> = ({
                   value={formData.city}
                   onChangeText={(text) => setFormData({ ...formData, city: text })}
                   placeholder={t.cityPlaceholder}
-                  placeholderTextColor="#AAAAAA"
+                  placeholderTextColor='rgba(160, 174, 192, 0.6)'
                   autoCapitalize="words"
+                  returnKeyType="done"
+                  selectionColor={'#F055A8'}
                 />
               </View>
             </View>
+          </View>
 
-            {/* Send OTP Button */}
+          <View style={styles.footerActions}>
             <TouchableOpacity
               style={[styles.sendButton, loading && styles.sendButtonDisabled]}
               onPress={handleSendOTP}
               disabled={loading}
+              activeOpacity={0.75}
             >
               {loading ? (
-                <ActivityIndicator color="#fff" size="small" />
+                <ActivityIndicator color="#F0F4F8" size="small" />
               ) : (
                 <Text style={styles.sendButtonText}>{t.sendOtp}</Text>
               )}
             </TouchableOpacity>
 
-            {/* Terms */}
             <Text style={styles.termsText}>{t.termsText}</Text>
 
-            {/* Back Button */}
             <TouchableOpacity onPress={onGoBack} style={styles.backButton}>
+              <MaterialIcons name="arrow-back-ios" size={16} color="#A0AEC0" style={styles.backIcon}/>
               <Text style={styles.backButtonText}>{t.back}</Text>
             </TouchableOpacity>
           </View>
@@ -242,7 +272,7 @@ export const SignupScreen: React.FC<SignupScreenProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F7',
+    backgroundColor: '#0A192F',
   },
   keyboardView: {
     flex: 1,
@@ -250,114 +280,124 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
   },
-  content: {
-    padding: 24,
-    paddingTop: 40,
+  scrollContentContainer: { 
+    flexGrow: 1,
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingVertical: 30,
+  },
+  mainFormContainer: {
   },
   header: {
     alignItems: 'center',
-    marginBottom: 32,
+    marginBottom: 25,
   },
   title: {
-    fontSize: 28,
+    fontSize: 30, 
     fontWeight: 'bold',
-    color: '#222222',
+    color: '#F0F4F8',
     marginBottom: 8,
     textAlign: 'center',
   },
   subtitle: {
-    fontSize: 16,
-    color: '#888888',
+    fontSize: 17,
+    color: '#A0AEC0',
     textAlign: 'center',
-    lineHeight: 22,
+    paddingHorizontal: 10,
   },
   form: {
-    marginBottom: 32,
-  },
-  inputGroup: {
     marginBottom: 20,
   },
-  inputLabel: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#222222',
-    marginBottom: 8,
+  inputGroup: {
+    marginBottom: 18,
   },
-  textInput: {
+  inputLabel: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: '#A0AEC0',
+    marginBottom: 10,
+  },
+  textInput: { 
+    backgroundColor: 'rgba(23, 42, 70, 0.65)',
+    borderRadius: 18,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
-    borderRadius: 8,
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    fontSize: 16,
-    color: '#222222',
+    borderColor: 'rgba(240, 244, 248, 0.25)',
+    paddingHorizontal: 20,
+    fontSize: 17,
+    color: '#F0F4F8',
+    height: 60,
   },
   phoneInputContainer: {
     flexDirection: 'row',
+    backgroundColor: 'rgba(23, 42, 70, 0.65)',
+    borderRadius: 18,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
-    borderRadius: 8,
-    backgroundColor: '#FFFFFF',
+    borderColor: 'rgba(240, 244, 248, 0.25)',
     overflow: 'hidden',
+    alignItems: 'center',
+    paddingHorizontal: 18,
+    height: 60,
   },
   countryCode: {
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    backgroundColor: '#FFFFFF',
+    paddingRight: 12,
     borderRightWidth: 1,
-    borderRightColor: '#E0E0E0',
+    borderRightColor: 'rgba(240, 244, 248, 0.25)',
+    height: '55%',
     justifyContent: 'center',
   },
   countryCodeText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#222222',
+    fontSize: 17,
+    color: '#F0F4F8',
   },
   phoneInput: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    fontSize: 16,
-    color: '#222222',
-    backgroundColor: '#FFFFFF',
+    fontSize: 17,
+    color: '#F0F4F8',
+    paddingLeft: 14,
+  },
+  footerActions: {
+     alignItems: 'center',
+     paddingBottom: 10, 
   },
   sendButton: {
-    backgroundColor: '#007AFF',
-    paddingVertical: 16,
-    borderRadius: 8,
+    backgroundColor: 'rgba(48, 79, 254, 0.8)',
+    borderRadius: 18,
+    paddingVertical: 18,
     alignItems: 'center',
-    marginBottom: 16,
-    shadowColor: '#007AFF',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3,
+    justifyContent: 'center',
+    width: '100%',
+    minHeight: 60,
+    borderWidth: 1,
+    borderColor: 'rgba(240, 244, 248, 0.35)',
+    marginBottom: 20,
   },
   sendButtonDisabled: {
-    backgroundColor: '#A0D7FF',
-    shadowOpacity: 0,
-    elevation: 0,
+    backgroundColor: 'rgba(48, 79, 254, 0.45)',
   },
   sendButtonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 19,
+    fontWeight: 'bold',
+    color: '#F0F4F8',
   },
   termsText: {
     fontSize: 12,
-    color: '#AAAAAA',
+    color: 'rgba(160, 174, 192, 0.7)',
     textAlign: 'center',
-    lineHeight: 16,
+    lineHeight: 18,
     marginBottom: 20,
+    paddingHorizontal: 10, 
   },
   backButton: {
+    flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: 10,
+  },
+  backIcon: {
+    marginRight: 6,
   },
   backButtonText: {
-    fontSize: 16,
-    color: '#007AFF',
+    fontSize: 15,
+    color: '#A0AEC0',
     fontWeight: '500',
   },
 });

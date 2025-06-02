@@ -11,6 +11,7 @@ import {
   Platform,
   Alert,
 } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 import authService from '../../services/authService';
 
 interface OTPScreenProps {
@@ -22,69 +23,71 @@ interface OTPScreenProps {
 
 const translations = {
   english: {
-    title: 'OTP Sent!',
-    subtitle: 'Verification code sent',
+    title: 'Verify Your Number',
+    subtitle: 'Enter the 6-digit code sent to',
     otpLabel: 'Enter 6-digit code',
-    verify: 'Verify OTP',
-    resendText: 'Didn\'t receive the code?',
-    resend: 'Resend OTP',
+    verify: 'Verify & Proceed',
+    resendText: "Didn't receive code?",
+    resend: 'Resend Code',
     resendIn: 'Resend in',
-    back: '← Change Phone Number',
-    incompleteOtp: 'Incomplete OTP',
-    incompleteOtpMsg: 'Please enter all 6 digits',
+    back: 'Back',
+    incompleteOtp: 'Incomplete Code',
+    incompleteOtpMsg: 'Please enter all 6 digits of the code.',
     verificationSuccess: 'Verification Successful!',
-    welcomeMsg: 'Welcome to Kaabil Sewak',
+    welcomeMsg: 'Welcome! Your number is verified.',
     verificationFailed: 'Verification Failed',
-    invalidOtpMsg: 'Invalid OTP code',
+    invalidOtpMsg: 'The code entered is incorrect. Please try again.',
     networkError: 'Network Error',
-    networkErrorMsg: 'Please check your internet connection',
-    otpResent: 'OTP Resent!',
-    otpResentMsg: 'New verification code sent to +91',
-    failedToResend: 'Failed to Resend OTP',
+    networkErrorMsg: 'Please check your connection and try again.',
+    otpResent: 'New Code Sent!',
+    otpResentMsg: 'A new verification code has been sent.',
+    failedToResend: 'Failed to Resend Code',
   },
   hindi: {
-    title: 'OTP भेजा गया!',
-    subtitle: 'सत्यापन कोड भेजा गया',
+    title: 'अपना नंबर सत्यापित करें',
+    subtitle: 'भेजा गया 6-अंकीय कोड दर्ज करें',
     otpLabel: '6-अंकीय कोड दर्ज करें',
-    verify: 'OTP सत्यापित करें',
-    resendText: 'कोड नहीं मिला?',
-    resend: 'OTP दोबारा भेजें',
-    resendIn: 'दोबारा भेजें',
-    back: '← मोबाइल नंबर बदलें',
-    incompleteOtp: 'अधूरा OTP',
-    incompleteOtpMsg: 'कृपया सभी 6 अंक दर्ज करें',
+    verify: 'सत्यापित करें और आगे बढ़ें',
+    resendText: 'कोड प्राप्त नहीं हुआ?',
+    resend: 'कोड पुनः भेजें',
+    resendIn: 'में पुनः भेजें',
+    back: 'वापस',
+    incompleteOtp: 'अधूरा कोड',
+    incompleteOtpMsg: 'कृपया कोड के सभी 6 अंक दर्ज करें।',
     verificationSuccess: 'सत्यापन सफल!',
-    welcomeMsg: 'काबिल सेवक में आपका स्वागत है',
+    welcomeMsg: 'स्वागत है! आपका नंबर सत्यापित है।',
     verificationFailed: 'सत्यापन विफल',
-    invalidOtpMsg: 'गलत OTP कोड',
+    invalidOtpMsg: 'दर्ज किया गया कोड गलत है। कृपया पुनः प्रयास करें।',
     networkError: 'नेटवर्क त्रुटि',
-    networkErrorMsg: 'कृपया अपना इंटरनेट कनेक्शन जांचें',
-    otpResent: 'OTP दोबारा भेजा गया!',
-    otpResentMsg: 'नया सत्यापन कोड भेजा गया +91',
-    failedToResend: 'OTP दोबारा भेजने में विफल',
+    networkErrorMsg: 'कृपया अपना कनेक्शन जांचें और पुनः प्रयास करें।',
+    otpResent: 'नया कोड भेजा गया!',
+    otpResentMsg: 'एक नया सत्यापन कोड भेजा गया है।',
+    failedToResend: 'कोड पुनः भेजने में विफल',
   },
   bengali: {
-    title: 'OTP পাঠানো হয়েছে!',
-    subtitle: 'যাচাইকরণ কোড পাঠানো হয়েছে',
+    title: 'আপনার নম্বর যাচাই করুন',
+    subtitle: 'পাঠানো ৬-সংখ্যার কোডটি প্রবেশ করান',
     otpLabel: '৬-সংখ্যার কোড দিন',
-    verify: 'OTP যাচাই করুন',
+    verify: 'যাচাই করুন এবং এগিয়ে যান',
     resendText: 'কোড পাননি?',
-    resend: 'OTP আবার পাঠান',
-    resendIn: 'আবার পাঠান',
-    back: '← মোবাইল নম্বর পরিবর্তন করুন',
-    incompleteOtp: 'অসম্পূর্ণ OTP',
-    incompleteOtpMsg: 'দয়া করে সব ৬টি সংখ্যা দিন',
+    resend: 'কোড আবার পাঠান',
+    resendIn: 'পুনরায় পাঠান',
+    back: 'ফিরে যান',
+    incompleteOtp: 'অসম্পূর্ণ কোড',
+    incompleteOtpMsg: 'অনুগ্রহ করে কোডের সব ৬টি সংখ্যা প্রবেশ করান।',
     verificationSuccess: 'যাচাইকরণ সফল!',
-    welcomeMsg: 'কাবিল সেবকে স্বাগতম',
+    welcomeMsg: 'স্বাগতম! আপনার নম্বর যাচাই করা হয়েছে।',
     verificationFailed: 'যাচাইকরণ ব্যর্থ',
-    invalidOtpMsg: 'ভুল OTP কোড',
+    invalidOtpMsg: 'প্রবেশ করা কোডটি ভুল। অনুগ্রহ করে আবার চেষ্টা করুন।',
     networkError: 'নেটওয়ার্ক ত্রুটি',
-    networkErrorMsg: 'দয়া করে আপনার ইন্টারনেট সংযোগ পরীক্ষা করুন',
-    otpResent: 'OTP আবার পাঠানো হয়েছে!',
-    otpResentMsg: 'নতুন যাচাইকরণ কোড পাঠানো হয়েছে +91',
-    failedToResend: 'OTP আবার পাঠাতে ব্যর্থ',
+    networkErrorMsg: 'অনুগ্রহ করে আপনার সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।',
+    otpResent: 'নতুন কোড পাঠানো হয়েছে!',
+    otpResentMsg: 'একটি নতুন যাচাইকরণ কোড পাঠানো হয়েছে।',
+    failedToResend: 'কোড আবার পাঠাতে ব্যর্থ হয়েছে',
   },
 };
+
+const RESEND_TIMEOUT_SECONDS = 60;
 
 export const OTPScreen: React.FC<OTPScreenProps> = ({
   phoneNumber,
@@ -92,120 +95,116 @@ export const OTPScreen: React.FC<OTPScreenProps> = ({
   onGoBack,
   language,
 }) => {
-  const [otp, setOtp] = useState(['', '', '', '', '', '']);
+  const [otp, setOtp] = useState<string[]>(Array(6).fill(''));
   const [loading, setLoading] = useState(false);
-  const [resendTimer, setResendTimer] = useState(30);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [resendTimer, setResendTimer] = useState(RESEND_TIMEOUT_SECONDS);
   const [canResend, setCanResend] = useState(false);
   
   const inputRefs = useRef<(TextInput | null)[]>([]);
   const t = translations[language];
 
   useEffect(() => {
-    // Start countdown timer
-    const timer = setInterval(() => {
-      setResendTimer((prev) => {
-        if (prev <= 1) {
-          setCanResend(true);
-          clearInterval(timer);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
+    let timerId: NodeJS.Timeout;
+    if (!canResend && resendTimer > 0) {
+      timerId = setInterval(() => {
+        setResendTimer((prev) => {
+          if (prev <= 1) {
+            setCanResend(true);
+            clearInterval(timerId);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(timerId);
+  }, [canResend, resendTimer]);
 
   const formatPhoneDisplay = (number: string) => {
+    if (number.length === 0) return '';
     if (number.length <= 5) return number;
-    return `${number.slice(0, 5)} ${number.slice(5)}`;
+    if (number.length <= 10) return `${number.slice(0, 5)} ${number.slice(5)}`;
+    return `${number.slice(0, 5)} ${number.slice(5,10)}`;
   };
 
   const handleOtpChange = (value: string, index: number) => {
-    if (!/^\d*$/.test(value)) return; // Only allow digits
+    if (!/^\d*$/.test(value) && value !== '') return;
 
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
 
-    // Auto-focus next input
     if (value && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
 
-    // Auto-verify when all digits are entered
-    if (newOtp.every(digit => digit !== '') && value) {
+    if (newOtp.every(digit => digit !== '') && value.length === 1 && index === 5) {
       handleVerifyOTP(newOtp.join(''));
     }
   };
 
-  const handleKeyPress = (e: any, index: number) => {
+  const handleKeyPress = (e: React.KeyboardEvent<TextInput>, index: number) => {
     if (e.nativeEvent.key === 'Backspace') {
       if (otp[index] === '' && index > 0) {
-        // Focus previous input on backspace if current is empty
         inputRefs.current[index - 1]?.focus();
+        const prevOtp = [...otp];
+        prevOtp[index - 1] = '';
+        setOtp(prevOtp);
       }
     }
   };
 
-  const handleVerifyOTP = async (otpCode?: string) => {
-    const code = otpCode || otp.join('');
+  const handleVerifyOTP = async (otpCodeParam?: string) => {
+    const codeToVerify = otpCodeParam || otp.join('');
     
-    if (code.length !== 6) {
+    if (codeToVerify.length !== 6) {
       Alert.alert(t.incompleteOtp, t.incompleteOtpMsg);
       return;
     }
 
+    setIsVerifying(true);
     setLoading(true);
     try {
-      const result = await authService.verifyOTP(code);
-      
+      const result = await authService.verifyOTP(codeToVerify);
       if (result.success && result.user) {
         Alert.alert(
           t.verificationSuccess,
           t.welcomeMsg,
-          [{ text: 'OK', onPress: () => {
-            console.log('Firebase User UID:', result.user?.uid);
-            onVerificationSuccess();
-          }}]
+          [{ text: 'OK', onPress: onVerificationSuccess }]
         );
       } else {
         Alert.alert(t.verificationFailed, result.error || t.invalidOtpMsg);
-        // Clear OTP inputs on error
-        setOtp(['', '', '', '', '', '']);
+        setOtp(Array(6).fill(''));
         inputRefs.current[0]?.focus();
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error verifying OTP:', error);
-      Alert.alert(t.networkError, t.networkErrorMsg);
+      Alert.alert(t.networkError, error.message || t.networkErrorMsg);
     } finally {
+      setIsVerifying(false);
       setLoading(false);
     }
   };
 
   const handleResendOTP = async () => {
-    if (!canResend) return;
+    if (!canResend || loading) return;
 
     setLoading(true);
     try {
-      const result = await authService.resendOTP(phoneNumber);
-      
+      const result = await authService.sendOTP(phoneNumber);
       if (result.success) {
-        Alert.alert(
-          t.otpResent,
-          `${t.otpResentMsg} ${formatPhoneDisplay(phoneNumber)}`
-        );
-        // Reset timer
-        setResendTimer(30);
+        Alert.alert(t.otpResent, t.otpResentMsg);
+        setOtp(Array(6).fill(''));
         setCanResend(false);
-        setOtp(['', '', '', '', '', '']);
+        setResendTimer(RESEND_TIMEOUT_SECONDS);
         inputRefs.current[0]?.focus();
       } else {
-        Alert.alert(t.failedToResend, result.error || 'Please try again');
+        Alert.alert(t.failedToResend, result.error || 'Please try again later.');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error resending OTP:', error);
-      Alert.alert(t.networkError, t.networkErrorMsg);
+      Alert.alert(t.networkError, error.message || t.networkErrorMsg);
     } finally {
       setLoading(false);
     }
@@ -217,75 +216,74 @@ export const OTPScreen: React.FC<OTPScreenProps> = ({
         style={styles.keyboardView}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View style={styles.content}>
-          {/* Header */}
-          <View style={styles.header}>
-            <Text style={styles.title}>{t.title}</Text>
-            <Text style={styles.subtitle}>{t.subtitle}</Text>
-            <Text style={styles.phoneText}>
-              +91 {formatPhoneDisplay(phoneNumber)}
-            </Text>
-          </View>
+        <View style={styles.scrollContentContainer}>
+          <View style={styles.mainContent}>
+            <View style={styles.header}>
+              <Text style={styles.title}>{t.title}</Text>
+              <Text style={styles.subtitle}>
+                {t.subtitle} <Text style={styles.phoneNumberDisplay}>+91 {formatPhoneDisplay(phoneNumber)}</Text>
+              </Text>
+            </View>
 
-          {/* OTP Input Section */}
-          <View style={styles.otpSection}>
-            <Text style={styles.otpLabel}>{t.otpLabel}</Text>
-            <View style={styles.otpContainer}>
-              {otp.map((digit, index) => (
-                <TextInput
-                  key={index}
-                  ref={(ref) => {
-                    inputRefs.current[index] = ref;
-                  }}
-                  style={[
-                    styles.otpInput,
-                    digit && styles.otpInputFilled,
-                  ]}
-                  value={digit}
-                  onChangeText={(value) => handleOtpChange(value, index)}
-                  onKeyPress={(e) => handleKeyPress(e, index)}
-                  keyboardType="numeric"
-                  maxLength={1}
-                  textAlign="center"
-                  autoFocus={index === 0}
-                />
-              ))}
+            <View style={styles.otpSection}>
+              <View style={styles.otpContainer}>
+                {otp.map((digit, index) => (
+                  <TextInput
+                    key={index}
+                    ref={(ref) => { inputRefs.current[index] = ref; }}
+                    style={[
+                      styles.otpInput,
+                      inputRefs.current[index]?.isFocused() ? styles.otpInputFocused : null,
+                      digit ? styles.otpInputFilled : null,
+                    ]}
+                    value={digit}
+                    onChangeText={(value) => handleOtpChange(value, index)}
+                    onKeyPress={(e: any) => handleKeyPress(e, index)}
+                    keyboardType="numeric"
+                    maxLength={1}
+                    textAlign="center"
+                    autoFocus={index === 0}
+                    selectionColor={'#F055A8'}
+                    textContentType="oneTimeCode"
+                    autoComplete="sms-otp"
+                  />
+                ))}
+              </View>
             </View>
           </View>
 
-          {/* Verify Button */}
-          <TouchableOpacity
-            style={[styles.verifyButton, loading && styles.verifyButtonDisabled]}
-            onPress={() => handleVerifyOTP()}
-            disabled={loading || otp.some(digit => !digit)}
-          >
-            {loading ? (
-              <ActivityIndicator color="#fff" size="small" />
-            ) : (
-              <Text style={styles.verifyButtonText}>{t.verify}</Text>
-            )}
-          </TouchableOpacity>
-
-          {/* Resend Section */}
-          <View style={styles.resendSection}>
-            <Text style={styles.resendText}>{t.resendText}</Text>
+          <View style={styles.footerActions}>
             <TouchableOpacity
-              onPress={handleResendOTP}
-              disabled={!canResend || loading}
+              style={[styles.verifyButton, (loading || isVerifying) && styles.verifyButtonDisabled]}
+              onPress={() => handleVerifyOTP()}
+              disabled={loading || isVerifying}
+              activeOpacity={0.75}
             >
-              <Text style={[
-                styles.resendButton,
-                (!canResend || loading) && styles.resendButtonDisabled
-              ]}>
-                {canResend ? t.resend : `${t.resendIn} ${resendTimer}s`}
-              </Text>
+              {(loading || isVerifying) ? (
+                <ActivityIndicator color="#F0F4F8" size="small" />
+              ) : (
+                <Text style={styles.verifyButtonText}>{t.verify}</Text>
+              )}
+            </TouchableOpacity>
+
+            <View style={styles.resendContainer}>
+              <Text style={styles.resendInfoText}>{t.resendText} </Text>
+              {canResend ? (
+                <TouchableOpacity onPress={handleResendOTP} disabled={loading}>
+                  <Text style={[styles.resendLinkText, loading && styles.disabledText]}>{t.resend}</Text>
+                </TouchableOpacity>
+              ) : (
+                <Text style={styles.resendTimerText}>
+                  {t.resendIn} {String(Math.floor(resendTimer / 60)).padStart(2, '0')}:{String(resendTimer % 60).padStart(2, '0')}
+                </Text>
+              )}
+            </View>
+            
+            <TouchableOpacity onPress={onGoBack} style={styles.backButton} disabled={loading || isVerifying}>
+              <MaterialIcons name="arrow-back-ios" size={16} color="#A0AEC0" style={styles.backIcon}/>
+              <Text style={[styles.backButtonText, (loading || isVerifying) && styles.disabledText]}>{t.back}</Text>
             </TouchableOpacity>
           </View>
-
-          {/* Back Button */}
-          <TouchableOpacity onPress={onGoBack} style={styles.backButton}>
-            <Text style={styles.backButtonText}>{t.back}</Text>
-          </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -295,116 +293,133 @@ export const OTPScreen: React.FC<OTPScreenProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#0A192F',
   },
   keyboardView: {
     flex: 1,
   },
-  content: {
+  scrollContentContainer: { 
     flex: 1,
-    padding: 24,
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingVertical: 30,
+  },
+  mainContent: {
+    flexGrow: 1,
     justifyContent: 'center',
   },
   header: {
     alignItems: 'center',
-    marginBottom: 48,
+    marginBottom: 30,
   },
   title: {
-    fontSize: 28,
+    fontSize: 30,
     fontWeight: 'bold',
-    color: '#1a1a1a',
-    marginBottom: 8,
+    color: '#F0F4F8',
+    marginBottom: 10,
     textAlign: 'center',
   },
   subtitle: {
-    fontSize: 18,
-    color: '#666',
-    marginBottom: 8,
+    fontSize: 17,
+    color: '#A0AEC0',
     textAlign: 'center',
+    marginBottom: 10,
+    paddingHorizontal: 15,
+    lineHeight: 24,
   },
-  phoneText: {
-    fontSize: 16,
+  phoneNumberDisplay: {
+    color: '#F0F4F8',
     fontWeight: '600',
-    color: '#007AFF',
-    textAlign: 'center',
   },
   otpSection: {
-    marginBottom: 32,
-  },
-  otpLabel: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-    textAlign: 'center',
-    marginBottom: 16,
+    alignItems: 'center',
+    marginBottom: 20,
   },
   otpContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginHorizontal: 20,
+    justifyContent: 'center',
+    maxWidth: 360,
+    marginBottom: 20,
   },
   otpInput: {
-    width: 45,
-    height: 55,
-    borderWidth: 2,
-    borderColor: '#e1e5e9',
-    borderRadius: 12,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(23, 42, 70, 0.65)',
+    color: '#F0F4F8',
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#333',
-    textAlign: 'center',
+    height: 60,
+    width: 50,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(240, 244, 248, 0.25)',
+    marginHorizontal: 6,
+  },
+  otpInputFocused: {
+    borderColor: '#F055A8',
+    backgroundColor: 'rgba(23, 42, 70, 0.8)',
   },
   otpInputFilled: {
-    borderColor: '#007AFF',
-    backgroundColor: '#f0f8ff',
+    borderColor: '#304FFE',
+    backgroundColor: 'rgba(23, 42, 70, 0.9)',
+  },
+  footerActions: {
+     alignItems: 'center',
+     paddingBottom: 10,
   },
   verifyButton: {
-    backgroundColor: '#007AFF',
-    paddingVertical: 16,
-    borderRadius: 12,
+    backgroundColor: 'rgba(48, 79, 254, 0.8)',
+    borderRadius: 18,
+    paddingVertical: 18,
     alignItems: 'center',
-    marginBottom: 24,
-    shadowColor: '#007AFF',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
+    justifyContent: 'center',
+    width: '100%',
+    minHeight: 60,
+    borderWidth: 1,
+    borderColor: 'rgba(240, 244, 248, 0.35)',
+    marginBottom: 25,
   },
   verifyButtonDisabled: {
-    backgroundColor: '#ccc',
-    shadowOpacity: 0,
-    elevation: 0,
+    backgroundColor: 'rgba(48, 79, 254, 0.45)',
   },
   verifyButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 19,
+    fontWeight: 'bold',
+    color: '#F0F4F8',
   },
-  resendSection: {
+  resendContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 24,
+    justifyContent: 'center',
+    marginBottom: 20,
   },
-  resendText: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 8,
+  resendInfoText: {
+    fontSize: 15,
+    color: '#A0AEC0',
   },
-  resendButton: {
-    fontSize: 16,
-    color: '#007AFF',
+  resendLinkText: {
+    fontSize: 15,
+    color: '#F055A8',
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
+  },
+  resendTimerText: {
+    fontSize: 15,
+    color: '#A0AEC0',
     fontWeight: '600',
-  },
-  resendButtonDisabled: {
-    color: '#ccc',
   },
   backButton: {
+    flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
+    paddingVertical: 10,
+  },
+  backIcon: {
+    marginRight: 6,
   },
   backButtonText: {
-    fontSize: 16,
-    color: '#007AFF',
+    fontSize: 15,
+    color: '#A0AEC0',
     fontWeight: '500',
+  },
+  disabledText: {
+    color: 'rgba(160, 174, 192, 0.5)',
   },
 }); 

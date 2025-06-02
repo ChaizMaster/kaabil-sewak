@@ -6,20 +6,91 @@ import {
   StyleSheet,
   SafeAreaView,
   Alert,
+  Platform,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
+import { MaterialIcons } from '@expo/vector-icons';
 import authService from '../../services/authService';
 
 interface SuccessScreenProps {
   onContinue: () => void;
   onSignOut: () => void;
+  language: 'english' | 'hindi' | 'bengali';
 }
+
+const translations = {
+  english: {
+    title: "Success!",
+    subtitle: "Authentication Successful!",
+    welcome: "Welcome to Kaabil Sewak",
+    phoneNumber: "Phone Number",
+    userId: "User ID",
+    lastLogin: "Last Login",
+    continue: "Continue to App",
+    signOut: "Sign Out",
+    signOutConfirmTitle: "Sign Out",
+    signOutConfirmMessage: "Are you sure you want to sign out?",
+    cancel: "Cancel",
+    signedOutToast: "Signed Out",
+    signedOutToastMsg: "You have been signed out successfully",
+    signOutFailedToast: "Sign Out Failed",
+    signOutFailedToastMsg: "Please try again",
+    debugTitle: "🔍 Debug Information",
+    debugFirebaseAuth: "Firebase Auth: Connected ✅",
+    debugSession: "Session: Stored securely ✅",
+    debugTesting: "Ready for manual testing! 🚀"
+  },
+  hindi: {
+    title: "सफल!",
+    subtitle: "प्रमाणीकरण सफल!",
+    welcome: "काबिल सेवक में आपका स्वागत है",
+    phoneNumber: "मोबाइल नंबर",
+    userId: "उपयोगकर्ता आईडी",
+    lastLogin: "पिछला लॉगिन",
+    continue: "ऐप पर जारी रखें",
+    signOut: "साइन आउट करें",
+    signOutConfirmTitle: "साइन आउट करें",
+    signOutConfirmMessage: "क्या आप निश्चित रूप से साइन आउट करना चाहते हैं?",
+    cancel: "रद्द करें",
+    signedOutToast: "साइन आउट किया गया",
+    signedOutToastMsg: "आप सफलतापूर्वक साइन आउट हो गए हैं",
+    signOutFailedToast: "साइन आउट विफल",
+    signOutFailedToastMsg: "कृपया पुनः प्रयास करें",
+    debugTitle: "🔍 डिबग जानकारी",
+    debugFirebaseAuth: "फायरबेस प्रमाणीकरण: जुड़ा हुआ ✅",
+    debugSession: "सत्र: सुरक्षित रूप से संग्रहीत ✅",
+    debugTesting: "मैन्युअल परीक्षण के लिए तैयार! 🚀"
+  },
+  bengali: {
+    title: "সাফল্য!",
+    subtitle: "প্রমাণীকরণ সফল!",
+    welcome: "কাবিল সেবকে স্বাগতম",
+    phoneNumber: "ফোন নম্বর",
+    userId: "ব্যবহারকারী আইডি",
+    lastLogin: "শেষ লগইন",
+    continue: "অ্যাপে চালিয়ে যান",
+    signOut: "সাইন আউট করুন",
+    signOutConfirmTitle: "সাইন আউট করুন",
+    signOutConfirmMessage: "আপনি কি নিশ্চিত যে আপনি সাইন আউট করতে চান?",
+    cancel: "বাতিল করুন",
+    signedOutToast: "সাইন আউট করা হয়েছে",
+    signedOutToastMsg: "আপনি সফলভাবে সাইন আউট হয়েছেন",
+    signOutFailedToast: "সাইন আউট ব্যর্থ হয়েছে",
+    signOutFailedToastMsg: "অনুগ্রহ করে আবার চেষ্টা করুন",
+    debugTitle: "🔍 ডিবাগ তথ্য",
+    debugFirebaseAuth: "ফায়ারবেস প্রমাণীকরণ: সংযুক্ত ✅",
+    debugSession: "সেশন: নিরাপদে সংরক্ষিত ✅",
+    debugTesting: "ম্যানুয়াল পরীক্ষার জন্য প্রস্তুত! 🚀"
+  }
+};
 
 export const SuccessScreen: React.FC<SuccessScreenProps> = ({
   onContinue,
   onSignOut,
+  language,
 }) => {
   const [userData, setUserData] = useState<any>(null);
+  const t = translations[language];
 
   useEffect(() => {
     loadUserData();
@@ -27,47 +98,40 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({
 
   const loadUserData = async () => {
     try {
-      const { userData } = await authService.getUserSession();
-      setUserData(userData);
+      const session = await authService.getUserSession();
+      setUserData(session.userData);
     } catch (error) {
       console.error('Error loading user data:', error);
     }
   };
 
-  const formatPhoneDisplay = (phoneNumber: string) => {
-    if (!phoneNumber) return '';
-    const cleaned = phoneNumber.replace('+91', '');
-    if (cleaned.length <= 5) return cleaned;
-    return `${cleaned.slice(0, 5)} ${cleaned.slice(5)}`;
-  };
-
   const handleSignOut = () => {
     Alert.alert(
-      'Sign Out',
-      'Are you sure you want to sign out?',
+      t.signOutConfirmTitle,
+      t.signOutConfirmMessage,
       [
         {
-          text: 'Cancel',
+          text: t.cancel,
           style: 'cancel',
         },
         {
-          text: 'Sign Out',
+          text: t.signOut,
           style: 'destructive',
           onPress: async () => {
             try {
               await authService.signOut();
               Toast.show({
                 type: 'success',
-                text1: 'Signed Out',
-                text2: 'You have been signed out successfully',
+                text1: t.signedOutToast,
+                text2: t.signedOutToastMsg,
               });
               onSignOut();
             } catch (error) {
               console.error('Error signing out:', error);
               Toast.show({
                 type: 'error',
-                text1: 'Sign Out Failed',
-                text2: 'Please try again',
+                text1: t.signOutFailedToast,
+                text2: t.signOutFailedToastMsg,
               });
             }
           },
@@ -76,78 +140,39 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({
     );
   };
 
+  const welcomeMessage = userData?.displayName ? `${t.welcome}, ${userData.displayName}!` : t.welcome;
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        {/* Success Icon */}
-        <View style={styles.iconContainer}>
-          <Text style={styles.successIcon}>✅</Text>
+        <View style={styles.mainContent}>
+          <View style={styles.iconContainer}>
+            <Text style={styles.successIcon}>🎉</Text>
+          </View>
+
+          <View style={styles.header}>
+            <Text style={styles.title}>{t.title}</Text>
+            <Text style={styles.subtitleEng}>{welcomeMessage}</Text>
+          </View>
         </View>
 
-        {/* Header */}
-        <View style={styles.header}>
-          <Text style={styles.title}>सफल!</Text>
-          <Text style={styles.titleEng}>Authentication Successful!</Text>
-          <Text style={styles.subtitle}>
-            Welcome to Kaabil Sewak
-          </Text>
-        </View>
-
-        {/* User Info */}
-        <View style={styles.userInfo}>
-          <Text style={styles.infoLabel}>Phone Number</Text>
-          <Text style={styles.phoneNumber}>
-            +91 {formatPhoneDisplay(userData?.phoneNumber || '')}
-          </Text>
-          
-          <Text style={styles.infoLabel}>User ID</Text>
-          <Text style={styles.userId}>
-            {userData?.uid || 'Loading...'}
-          </Text>
-          
-          {userData?.lastLogin && (
-            <>
-              <Text style={styles.infoLabel}>Last Login</Text>
-              <Text style={styles.lastLogin}>
-                {new Date(userData.lastLogin).toLocaleString()}
-              </Text>
-            </>
-          )}
-        </View>
-
-        {/* Action Buttons */}
-        <View style={styles.actions}>
+        <View style={styles.actionsContainer}>
           <TouchableOpacity
             style={styles.continueButton}
             onPress={onContinue}
+            activeOpacity={0.8}
           >
-            <Text style={styles.continueButtonText}>
-              Continue to App
-            </Text>
+            <Text style={styles.buttonText}>{t.continue}</Text>
+            <MaterialIcons name="arrow-forward-ios" size={20} color="#F0F4F8" style={styles.buttonArrowIcon} />
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.signOutButton}
             onPress={handleSignOut}
+            activeOpacity={0.7}
           >
-            <Text style={styles.signOutButtonText}>
-              Sign Out
-            </Text>
+            <Text style={styles.signOutButtonText}>{t.signOut}</Text>
           </TouchableOpacity>
-        </View>
-
-        {/* Debug Info */}
-        <View style={styles.debugInfo}>
-          <Text style={styles.debugTitle}>🔍 Debug Information</Text>
-          <Text style={styles.debugText}>
-            Firebase Auth: Connected ✅
-          </Text>
-          <Text style={styles.debugText}>
-            Session: Stored securely ✅
-          </Text>
-          <Text style={styles.debugText}>
-            Ready for manual testing! 🚀
-          </Text>
         </View>
       </View>
     </SafeAreaView>
@@ -157,128 +182,75 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#0A192F',
   },
   content: {
     flex: 1,
-    padding: 24,
+    paddingHorizontal: 24,
+    paddingVertical: 30,
+    justifyContent: 'space-between',
+  },
+  mainContent: {
+    alignItems: 'center',
+    flexGrow: 1,
     justifyContent: 'center',
   },
   iconContainer: {
     alignItems: 'center',
-    marginBottom: 32,
+    marginBottom: 25,
   },
   successIcon: {
-    fontSize: 64,
+    fontSize: 90,
   },
   header: {
     alignItems: 'center',
-    marginBottom: 48,
+    marginBottom: 30,
   },
   title: {
-    fontSize: 32,
+    fontSize: 38,
     fontWeight: 'bold',
-    color: '#28a745',
-    marginBottom: 8,
+    color: '#F055A8',
+    marginBottom: 12,
     textAlign: 'center',
   },
-  titleEng: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#28a745',
-    marginBottom: 8,
+  subtitleEng: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: '#F0F4F8',
     textAlign: 'center',
+    paddingHorizontal: 20,
   },
-  subtitle: {
-    fontSize: 18,
-    color: '#666',
-    textAlign: 'center',
-  },
-  userInfo: {
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    padding: 24,
-    marginBottom: 32,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  infoLabel: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#666',
-    marginTop: 16,
-    marginBottom: 4,
-  },
-  phoneNumber: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  userId: {
-    fontSize: 12,
-    fontFamily: 'monospace',
-    color: '#007AFF',
-    backgroundColor: '#f0f8ff',
-    padding: 8,
-    borderRadius: 8,
-  },
-  lastLogin: {
-    fontSize: 14,
-    color: '#666',
-  },
-  actions: {
-    marginBottom: 32,
+  actionsContainer: {
+    paddingBottom: 10,
   },
   continueButton: {
-    backgroundColor: '#007AFF',
-    paddingVertical: 16,
-    borderRadius: 12,
+    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16,
-    shadowColor: '#007AFF',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 4,
-  },
-  continueButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '600',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(48, 79, 254, 0.8)',
+    borderRadius: 18,
+    paddingVertical: 18,
+    minHeight: 60,
+    borderWidth: 1,
+    borderColor: 'rgba(240, 244, 248, 0.35)',
+    marginBottom: 20,
   },
   signOutButton: {
-    backgroundColor: '#fff',
-    paddingVertical: 16,
-    borderRadius: 12,
     alignItems: 'center',
-    borderWidth: 2,
-    borderColor: '#dc3545',
+    paddingVertical: 12,
+  },
+  buttonArrowIcon: {
+    marginLeft: 10,
+  },
+  buttonText: {
+    fontSize: 19,
+    fontWeight: 'bold',
+    color: '#F0F4F8',
   },
   signOutButtonText: {
-    color: '#dc3545',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  debugInfo: {
-    backgroundColor: '#e9ecef',
-    borderRadius: 12,
-    padding: 16,
-    borderLeftWidth: 4,
-    borderLeftColor: '#007AFF',
-  },
-  debugTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 8,
-  },
-  debugText: {
-    fontSize: 14,
-    color: '#666',
-    marginBottom: 4,
-    fontFamily: 'monospace',
+    fontSize: 15,
+    fontWeight: '500',
+    color: '#A0AEC0',
+    textDecorationLine: 'underline',
   },
 }); 
