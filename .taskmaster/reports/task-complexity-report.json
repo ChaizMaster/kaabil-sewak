@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "generatedAt": "2025-06-10T13:14:23.643Z",
+    "tasksAnalyzed": 10,
+    "totalTasks": 10,
+    "analysisCount": 10,
+    "thresholdScore": 5,
+    "projectName": "Taskmaster",
+    "usedResearch": false
+  },
+  "complexityAnalysis": [
+    {
+      "taskId": 1,
+      "taskTitle": "Setup Monorepo Architecture",
+      "complexityScore": 8,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the monorepo setup task into subtasks covering: 1) Initial repository structure creation, 2) Shared packages configuration, 3) Application workspace setup, 4) TypeScript/ESLint/Prettier configuration, 5) CI/CD pipeline implementation, and 6) Shared design system foundation.",
+      "reasoning": "High complexity due to architectural decisions that affect the entire project. Requires deep technical knowledge of monorepo tools, build systems, and cross-platform development. The task involves setting up multiple applications and shared libraries with proper configuration."
+    },
+    {
+      "taskId": 2,
+      "taskTitle": "Implement Core Data Models and Authentication",
+      "complexityScore": 7,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down the core data models and authentication implementation into subtasks covering: 1) Database schema design, 2) User model and authentication service, 3) Job and application models, 4) Verification and attendance models, 5) API endpoint implementation for all models.",
+      "reasoning": "Moderately high complexity as it involves designing the foundational data models that will support the entire application. Requires database design skills, authentication implementation, and API development. The role-based access control adds complexity."
+    },
+    {
+      "taskId": 3,
+      "taskTitle": "Enhance Blue-Collar Worker Onboarding Flow",
+      "complexityScore": 5,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break down the blue-collar worker onboarding enhancement into subtasks covering: 1) Skill selection screen UI development, 2) UPI ID collection screen implementation, 3) API integration for profile updates, 4) Analytics implementation for onboarding funnel tracking.",
+      "reasoning": "Medium complexity as it builds upon an existing system. The task involves UI development, API integration, and analytics implementation. The multilingual support and visual-first approach add some complexity but the scope is well-defined."
+    },
+    {
+      "taskId": 4,
+      "taskTitle": "Develop Job Feed and Application Feature for Blue-Collar App",
+      "complexityScore": 6,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break down the job feed and application feature into subtasks covering: 1) Job feed UI enhancement with filtering, 2) Job application flow implementation, 3) Backend API development for job matching and applications, 4) Application status tracking and analytics integration.",
+      "reasoning": "Medium-high complexity due to the need for job matching algorithms, application state management, and integration with the existing app. The feature requires both frontend and backend work with several user interactions to track."
+    },
+    {
+      "taskId": 5,
+      "taskTitle": "Implement SewakPay Wallet for Blue-Collar App",
+      "complexityScore": 5,
+      "recommendedSubtasks": 3,
+      "expansionPrompt": "Break down the SewakPay Wallet implementation into subtasks covering: 1) Wallet UI development with transaction history, 2) Payment API integration and data modeling, 3) Offline caching and synchronization implementation.",
+      "reasoning": "Medium complexity as it's a relatively self-contained feature. The wallet is read-only which simplifies implementation, but offline functionality and proper financial data handling add some complexity."
+    },
+    {
+      "taskId": 6,
+      "taskTitle": "Develop Grey-Collar Contractor App Core Features",
+      "complexityScore": 9,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down the grey-collar contractor app development into subtasks covering: 1) App initialization and navigation setup, 2) Authentication and profile management, 3) Job posting form and API integration, 4) Applicant management interface, 5) Hiring workflow implementation, 6) Team overview dashboard, 7) Analytics integration.",
+      "reasoning": "High complexity as it involves creating an entirely new application with multiple interconnected features. This task requires significant frontend and backend development, state management, and user flow design for a different user persona."
+    },
+    {
+      "taskId": 7,
+      "taskTitle": "Implement Worker Verification and Digital Muster Roll",
+      "complexityScore": 8,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down the worker verification and digital muster roll implementation into subtasks covering: 1) Camera integration for worker photos, 2) ID document capture and form implementation, 3) Verification data upload and status management, 4) Digital muster roll UI and attendance tracking, 5) Offline synchronization for field usage.",
+      "reasoning": "High complexity due to camera integration, complex form handling, and offline-first requirements. The verification flow involves multiple steps and media handling, while the muster roll requires date-based state management and synchronization."
+    },
+    {
+      "taskId": 8,
+      "taskTitle": "Develop Payment Approval Workflow for Grey-Collar App",
+      "complexityScore": 7,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "Break down the payment approval workflow into subtasks covering: 1) Notification system for pending payments, 2) Payment queue and details UI implementation, 3) Approval flow and API integration, 4) Payment status tracking and real-time updates.",
+      "reasoning": "Moderately high complexity due to the financial nature of the feature and the need for a reliable notification system. The workflow spans multiple user roles and requires careful state management and error handling."
+    },
+    {
+      "taskId": 9,
+      "taskTitle": "Build White-Collar Enterprise Web Portal",
+      "complexityScore": 8,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Break down the white-collar enterprise web portal development into subtasks covering: 1) Next.js application setup and authentication, 2) Enterprise profile management, 3) Hierarchical workforce dashboard implementation, 4) Real-time data visualization, 5) Search and filtering functionality, 6) Data export capabilities.",
+      "reasoning": "High complexity as it involves creating a data-rich web application with hierarchical views and real-time updates. The portal needs to handle complex data relationships and provide professional-grade filtering, search, and export capabilities."
+    },
+    {
+      "taskId": 10,
+      "taskTitle": "Implement Bulk Wage Authorization Workflow",
+      "complexityScore": 9,
+      "recommendedSubtasks": 5,
+      "expansionPrompt": "Break down the bulk wage authorization workflow into subtasks covering: 1) Wage calculation engine based on attendance data, 2) Detailed breakdown UI by contractor and worker, 3) Payment authorization flow and API integration, 4) Payment gateway integration for disbursement, 5) Real-time status tracking and notifications.",
+      "reasoning": "Very high complexity due to financial calculations, payment gateway integration, and multi-party approval workflow. This feature handles actual money movement and requires high reliability, auditability, and real-time status updates across different user roles."
+    }
+  ]
+}
