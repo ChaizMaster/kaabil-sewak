@@ -184,7 +184,6 @@ Key Milestones:
 
 ### **Technology Differentiators**
 - **94% AI Matching Accuracy**: Superior to industry average of 60%
-- **Multi-Language Voice Search**: Hindi/Bengali voice commands
 - **Military-Grade Security**: Facial recognition and fraud detection
 - **Offline Capability**: Works in areas with poor internet connectivity
 

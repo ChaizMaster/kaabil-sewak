@@ -42,7 +42,7 @@ Kaabil Sewak is a **three-tier digital workforce management ecosystem** designed
 │   • Wage negotiation with Grey-collar                     │
 │   • Subtle background verification                        │
 │   • SewakCoins rewards & gamification                     │
-│   • Voice commands in Hindi/Bengali                       │
+│                                                           │
 └─────────────────────────────────────────────────────────────┘
                   │ Data flows back up
                   ↑ Real-time synchronization
@@ -118,14 +118,13 @@ Kaabil Sewak is a **three-tier digital workforce management ecosystem** designed
 
 #### **Core Features**
 - **Ultra-Simple Job Discovery**: Visual job cards with minimal text
-- **Voice-Powered Search**: "मुझे काम चाहिए" voice commands
 - **Subtle Verification**: Background data collection without appearing intrusive
 - **Wage Negotiation**: Simple interface to bargain with grey-collar hirers
 - **SewakCoins Wallet**: Gamified rewards for reliability and good behavior
 
 #### **Technical Requirements**
 - **₹5,000 Smartphone Compatible**: Must work on budget Android phones
-- **Illiterate-friendly Design**: Icons, voice guidance, minimal text
+- **Illiterate-friendly Design**: Icons, minimal text
 - **Multi-language Support**: Hindi, Bengali, future expansion
 - **Offline Functionality**: Core features work without internet
 
@@ -205,7 +204,6 @@ interface MultiLanguageSupport {
   
   implementation: {
     uiLocalization: 'react-i18next';
-    voiceCommands: 'speech_recognition_api';
     textToSpeech: 'browser_speech_synthesis';
     rtlSupport: boolean; // For future Arabic/Urdu
   };
@@ -218,31 +216,6 @@ interface MultiLanguageSupport {
   };
 }
 ```
-
-### **Voice Command Architecture**
-```typescript
-// Voice AI for blue-collar users
-class VoiceCommandService {
-  async processVoiceCommand(audioBlob: Blob, language: 'hindi' | 'bengali' | 'english') {
-    // Convert speech to text
-    const transcript = await this.speechToText(audioBlob, language);
-    
-    // Process natural language intent
-    const intent = await this.nlpProcessor.extractIntent(transcript, language);
-    
-    // Execute appropriate action
-    switch (intent.type) {
-      case 'job_search':
-        return await this.searchJobs(intent.parameters);
-      case 'wage_inquiry':
-        return await this.getWageInfo(intent.parameters);
-      case 'help_request':
-        return await this.provideHelp(intent.parameters, language);
-    }
-  }
-}
-```
-
 ## 🧩 **Backend Architecture (NestJS)**
 
 ### **Three-Tier API Structure**
@@ -304,7 +277,6 @@ src/
 - **Real-time Reporting**: Updates to white-collar dashboard
 
 ### **Blue-collar Optimized Features** 📲
-- **Voice Job Search**: Hindi/Bengali voice commands
 - **Ultra-simple UI**: Icon-based navigation
 - **Subtle Verification**: Background data collection
 - **SewakCoins Gamification**: Reward system for good behavior
@@ -394,7 +366,6 @@ interface TierAnalytics {
 ### **Performance Optimization**
 - **Real-time Sync Optimization**: Efficient data synchronization across tiers
 - **Mobile App Performance**: Optimized for ₹5,000 smartphones
-- **Voice Processing**: Fast speech recognition and synthesis
 - **Analytics Processing**: Real-time and batch analytics processing
 
 ---
