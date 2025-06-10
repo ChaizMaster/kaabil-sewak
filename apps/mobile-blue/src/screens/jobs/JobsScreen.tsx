@@ -248,7 +248,7 @@ const styles = StyleSheet.create({
   },
   jobTitle: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: 'bold',
     color: '#222222',
     flex: 1,
   },
@@ -260,11 +260,12 @@ const styles = StyleSheet.create({
   jobDescription: {
     fontSize: 14,
     color: '#888888',
-    marginBottom: 8,
+    marginBottom: 12,
     lineHeight: 20,
   },
   jobLocation: {
-    fontSize: 12,
+    fontSize: 14,
+    fontWeight: '500',
     color: '#AAAAAA',
   },
 }); 
