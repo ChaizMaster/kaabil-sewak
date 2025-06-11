@@ -4,6 +4,12 @@ import baseConfig from "@repo/eslint-config/base";
 export default [
   ...baseConfig,
   {
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.json'],
+        ecmaFeatures: { jsx: true },
+      },
+    },
     rules: {
       // Your existing overrides can go here
       '@typescript-eslint/no-explicit-any': 'warn',

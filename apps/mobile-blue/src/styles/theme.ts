@@ -1,4 +1,4 @@
-import { DefaultTheme } from '@react-navigation/native';
+import { DefaultTheme, Theme } from '@react-navigation/native';
 
 export const colors = {
   background: '#0A192F',      // Very dark blue
@@ -16,7 +16,7 @@ export const colors = {
   gold: '#F0B90B',            // Gold/Yellow for accents
 };
 
-export const AppTheme = {
+export const AppTheme: Theme = {
   ...DefaultTheme,
   dark: true,
   colors: {
