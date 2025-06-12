@@ -55,7 +55,7 @@ export const JobCard: React.FC<JobCardProps> = ({
       {job.requirements && job.requirements.length > 0 && (
         <View style={styles.requirementsSection}>
           <Text style={styles.requirementsTitle}>{t.requirements}:</Text>
-          {job.requirements.slice(0, 2).map((req, index) => (
+          {job.requirements.slice(0, 2).map((req: string, index: number) => (
             <View key={index} style={styles.requirementItem}>
               <MaterialIcons name="check-circle-outline" size={16} color="#A0AEC0" style={styles.requirementIcon}/>
               <Text style={styles.requirementText} numberOfLines={1}>{req}</Text>

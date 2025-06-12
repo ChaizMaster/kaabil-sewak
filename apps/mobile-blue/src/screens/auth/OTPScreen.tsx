@@ -105,7 +105,7 @@ export const OTPScreen: React.FC<OTPScreenProps> = ({
   const t = translations[language];
 
   useEffect(() => {
-    let timerId: NodeJS.Timeout;
+    let timerId: ReturnType<typeof setInterval>;
     if (!canResend && resendTimer > 0) {
       timerId = setInterval(() => {
         setResendTimer((prev) => {

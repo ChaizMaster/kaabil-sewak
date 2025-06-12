@@ -1,0 +1,179 @@
+# Kaabil Sewak - Minimum Viable Product (MVP) Requirements Document
+
+# Overview
+This document outlines the requirements for the Minimum Viable Product (MVP) of Kaabil Sewak.
+
+Kaabil Sewak is a three-tier digital workforce management ecosystem designed to digitize and streamline India's traditional White-collar → Grey-collar → Blue-collar employment hierarchy.
+
+The problem we are solving is the deep-seated inefficiency, lack of transparency, and broken trust within the blue-collar hiring market, which currently relies on informal networks and exploitative middlemen.
+
+The MVP is for all three user tiers:
+1.  **White-Collar Enterprises:** The paying customers who need visibility and control over their entire contractual workforce.
+2.  **Grey-Collar Contractors:** The on-ground supervisors who need efficient tools to hire and manage their teams.
+3.  **Blue-Collar Workers:** The foundation of the ecosystem, who need a trustworthy platform to find jobs and get paid reliably.
+
+The MVP's value is in proving that this interconnected, three-tier model works. We will build a "steel thread" of functionality that delivers tangible value to each user, kickstarting the data flywheel for our future AI-powered features.
+
+# Core Features
+
+## Tier 3: Blue-Collar Worker App (The Foundation)
+**Goal:** Maximize trust and provide immediate, tangible value by enhancing the existing application without disruption.
+
+- **Onboarding Flow (Enhancement):**
+    - **What:** The existing onboarding flow—which captures the user's Photo and Location—will be enhanced by seamlessly integrating two additional steps: 1) A simple, visual selection of their primary skill, and 2) An optional screen to add a UPI ID, which includes clear, trust-building messaging in the user's selected language.
+    - **Why:** This approach preserves the proven, existing functionality while adding the data points (skill, optional UPI) necessary for the MVP. It ensures no features are broken and development focuses only on the missing pieces.
+    - **How:** The new "Skill Selection" and "Optional UPI" screens will be inserted into the current navigation flow of the onboarding component.
+
+- **Visual Job Feed & Application (Enhancement):**
+    - **What:** The existing job feed screen will be enhanced by adding a functional "Apply" button to each job card.
+    - **Why:** Leverages the existing UI to add the key piece of interactivity needed to connect workers to jobs.
+    - **How:** Modify the existing job card component to include a button that triggers an application event.
+
+- **Basic `SewakPay` Wallet (New, Additive Feature):**
+    - **What:** A new, self-contained "My Wallet" screen will be added to the app, accessible from the main navigation. It will be a read-only screen showing a simple history of payments received.
+    - **Why:** This is a net-new addition that provides the core value of financial transparency without altering any existing screen. It completes the value loop for the worker.
+    - **How:** A new component and screen will be created and added to the main React Navigation stack.
+
+## Tier 2: Grey-Collar Contractor App (The Engine)
+**Goal:** Provide superior hiring efficiency and establish the contractor as the on-ground verifier and payment approver.
+- **On-Site Worker Verification Flow:**
+    - **What:** A guided workflow to verify a worker on their first day. The contractor takes photos of the worker (front, left, right), a photo of their government ID, and manually enters the ID number and bank/UPI details (if not already provided by the worker).
+    - **Why:** Implements the core strategic decision to shift verification responsibility to the employer, removing friction for the blue-collar worker while ensuring data quality.
+    - **How:** A step-by-step camera and form interface that uploads the data and updates the worker's status from `Pending` to `Verified`.
+
+- **Digital Muster Roll:**
+    - **What:** A simple interface to mark daily attendance ("Present" or "Absent") for each hired worker.
+    - **Why:** Digitizes the manual attendance process, providing an accurate, auditable record for wage calculation.
+    - **How:** Displays a list of hired workers for a project, with toggles for marking daily attendance.
+
+- **Payment Approval Workflow:**
+    - **What:** An "Awaiting Approval" queue where payment requests authorized by the white-collar tier appear. The contractor performs a final review and gives a final "Approve for Payout" confirmation.
+    - **Why:** Makes the contractor the essential final link in the payment chain, giving them control and responsibility.
+    - **How:** The app receives a notification/task when a payment is authorized. The contractor views the details and taps a button to approve.
+
+## Tier 1: White-Collar Enterprise Portal (The Customer)
+**Goal:** Deliver unprecedented, real-time visibility and financial control.
+- **Hierarchical Workforce Dashboard:**
+    - **What:** A web dashboard showing a list of their hired contractors and the blue-collar workers hired by each contractor, including their "Verified" status.
+    - **Why:** Delivers on the core promise of the three-tier model: complete, real-time visibility into the entire workforce hierarchy.
+    - **How:** The dashboard fetches and displays the hierarchical relationship data from the backend.
+
+- **Bulk Wage Authorization Workflow:**
+    - **What:** A section that summarizes the total wage bill based on the digital muster rolls. The enterprise user can authorize the bulk payment with a single click.
+    - **Why:** Solves a massive accounting and reconciliation headache, providing top-level financial control.
+    - **How:** The system aggregates attendance data and calculates total wages. An "Authorize" button triggers the payment request to be sent down to the grey-collar contractors for final approval. The dashboard updates the status in real-time.
+
+# User Experience
+- **Blue-Collar Persona:** Low tech-literacy, potentially illiterate, suspicious of digital financial tools, owns a budget smartphone. The UX must be visual, use minimal text, support vernacular languages, and build trust at every step.
+- **Grey-Collar Persona:** Moderately tech-savvy, uses a smartphone for business (e.g., WhatsApp), is time-poor, and values efficiency and control. The UX must be fast, reliable, and task-oriented.
+- **White-Collar Persona:** High tech-proficiency, uses web applications for business management, and values data, analytics, and financial oversight. The UX must be a clean, professional, data-rich web dashboard.
+
+**Unified Design System:**
+- **Goal:** To ensure a consistent and high-quality user experience across all three platforms (mobile-blue, mobile-grey, web).
+- **Core Principle:** The design system will provide a unified visual language (colors, fonts, icons), but this language will be used to build distinctly different user experiences. The blue-collar app will be minimalist and simple, while the white-collar portal will be professional, data-rich, and aim for a "mind-blowing" level of utility and polish. The grey-collar app will strike a balance, focusing on on-the-go efficiency.
+- **Implementation:** This will be achieved by developing a shared component library within the `packages/ui` directory of the monorepo.
+    - **Color Palette:** A primary color palette (e.g., brand blue, neutrals, accent colors for success, error, warning) will be defined and used across all applications.
+    - **Typography:** A consistent set of font sizes and weights will be established for headings, body text, and labels.
+    - **Shared Components:** Core elements like Buttons, Input Fields, Cards, and Modals will be built once in the shared UI package and adapted for both React Native and web.
+
+**Key User Flows:**
+1.  **Worker Onboarding:** Sign-up (optional UPI) -> View Jobs -> Apply.
+2.  **Hiring & Verification:** Grey-Collar posts job -> Worker applies -> Grey-Collar hires -> Worker reports to site -> Grey-Collar verifies worker identity.
+3.  **Payment Flow:** Grey-Collar marks attendance -> White-Collar authorizes bulk payment -> Grey-Collar gives final approval -> Worker receives payment directly.
+
+# MVP Data Collection & Analytics
+**Goal:** To instrument all critical user interactions within the MVP to gather the foundational data required for business intelligence, user behavior analysis, and future AI model training.
+
+### Tier 3: Blue-Collar Worker App
+- **Onboarding Funnel:**
+    - **Event:** `OnboardingStepCompleted`
+    - **Properties:** `step_name` (e.g., 'PhoneOTP', 'ProfileCreation', 'SkillSelection', 'UPI_Optional'), `time_taken_ms`.
+    - **Event:** `OnboardingCompleted`
+    - **Properties:** `user_id`, `total_time_taken_ms`, `upi_provided` (boolean), `skill_selected`.
+- **Job Discovery & Application:**
+    - **Event:** `JobFeedViewed`
+    - **Properties:** `user_id`, `location`, `number_of_jobs_displayed`.
+    - **Event:** `JobApplied`
+    - **Properties:** `user_id`, `job_id`, `employer_id` (grey-collar), `timestamp`.
+- **Wallet Usage:**
+    - **Event:** `WalletViewed`
+    - **Properties:** `user_id`.
+
+### Tier 2: Grey-Collar Contractor App
+- **Hiring & Team Management:**
+    - **Event:** `JobPosted`
+    - **Properties:** `user_id` (contractor), `job_id`, `skill`, `location`, `wage_offered`, `number_of_positions`.
+    - **Event:** `WorkerHired`
+    - **Properties:** `hirer_id` (contractor), `worker_id`, `job_id`.
+- **Worker Verification:**
+    - **Event:** `VerificationStarted`
+    - **Properties:** `verifier_id` (contractor), `worker_id`.
+    - **Event:** `VerificationCompleted`
+    - **Properties:** `verifier_id`, `worker_id`, `time_taken_ms`, `verification_status` ('Success').
+- **Muster Roll & Payments:**
+    - **Event:** `AttendanceMarked`
+    - **Properties:** `marker_id` (contractor), `worker_id`, `status` ('Present', 'Absent'), `date`.
+    - **Event:** `PaymentApprovedByContractor`
+    - **Properties:** `approver_id` (contractor), `payment_id`, `total_amount`, `number_of_workers`, `time_to_approve_ms`.
+
+### Tier 1: White-Collar Enterprise Portal
+- **Dashboard & Oversight:**
+    - **Event:** `DashboardViewed`
+    - **Properties:** `user_id` (white-collar), `time_on_page_ms`.
+    - **Event:** `ContractorWorkforceViewed`
+    - **Properties:** `user_id`, `contractor_id`, `number_of_workers_viewed`.
+- **Wage Authorization:**
+    - **Event:** `PaymentAuthorizedByEnterprise`
+    - **Properties:** `authorizer_id` (white-collar), `payment_id`, `total_amount`, `number_of_workers`, `timestamp`.
+
+# Technical Architecture
+- **System Components:** A monorepo containing:
+    - A unified NestJS backend API.
+    - A Next.js web portal for the white-collar tier.
+    - A React Native (Expo) app for the grey-collar tier.
+    - The existing React Native (Expo) app for the blue-collar tier.
+- **Data Models:** Core models will include `User` (with roles for each tier), `Job`, `Application`, `VerificationRecord`, `Attendance`, and `Payment`.
+- **APIs and Integrations:** A RESTful/GraphQL API will connect the apps. Integration with a reliable payment gateway is critical for the `SewakPay` functionality.
+- **Infrastructure:** Hosted on a scalable cloud provider (e.g., AWS, GCP). Real-time data sync will be handled via WebSockets.
+
+# Development Roadmap
+## MVP Requirements:
+- **Phase 1: Foundation & Onboarding**
+    - Blue-Collar App: Implement Optional UPI and `SewakPay` wallet screen.
+    - Backend: Build User models (all 3 tiers), auth, and profile management APIs.
+- **Phase 2: Job & Team Management**
+    - Blue-Collar App: Implement Job Application logic.
+    - Grey-Collar App: Build Job Posting, Applicant Viewing, and Digital Muster Roll features.
+    - Backend: Build Job, Application, and Attendance APIs.
+- **Phase 3: Verification & Payment**
+    - Grey-Collar App: Build the On-Site Worker Verification flow and the Payment Approval workflow.
+    - White-Collar Portal: Build the Bulk Wage Authorization workflow.
+    - Backend: Build Verification and Payment Flow APIs, integrate with payment gateway.
+- **Phase 4: Visibility**
+    - White-Collar Portal: Build the Hierarchical Workforce Dashboard and Live Muster Roll view.
+    - Backend: Build the data aggregation APIs to feed the dashboard.
+
+## Future Enhancements (Post-MVP):
+- AI-Powered Job Matching
+- Smart Contract Builder for Enterprises
+- OCR for ID Scanning (using a premium, reliable service)
+- `SewakCoins` Loyalty & Gamification Program
+- Advanced Business Intelligence & Analytics Dashboards
+- Wage Negotiation Engine
+
+# Logical Dependency Chain
+1.  **User Identity is the foundation:** The blue-collar onboarding flow must be built first.
+2.  **Hiring is the core interaction:** The ability for a grey-collar user to post a job and a blue-collar user to apply is the next critical link.
+3.  **Verification builds trust:** The grey-collar verification flow must exist before any worker can be considered fully "active" in the system.
+4.  **Payment completes the loop:** The three-part payment flow (Authorize -> Approve -> Disburse) connects all tiers and provides the core value proposition.
+5.  **Visibility justifies the cost:** The white-collar dashboard is the final piece, consuming the data generated by the other tiers to provide value to the paying customer.
+
+# Risks and Mitigations
+- **Risk:** Low adoption by blue-collar workers due to distrust of digital platforms.
+  - **Mitigation:** A user-centric design that builds trust through optional UPI, clear vernacular messaging, and the tangible, immediate benefit of reliable wage payments.
+- **Risk:** Grey-collar contractors perceive the verification process as burdensome.
+  - **Mitigation:** Design the verification workflow to be extremely fast and simple (e.g., under 60 seconds per worker). Position it as a tool that helps them build a high-quality, reliable team, reducing their own risk.
+- **Risk:** Technical complexity of the payment system.
+  - **Mitigation:** For the MVP, prioritize reliability over features. Use a well-documented, trusted payment gateway partner. The internal logic should be simple: `Authorized amount` -> `Approved` -> `Trigger Payout API`.
+- **Risk:** The "Chicken and Egg" problem of a three-sided marketplace.
+  - **Mitigation:** A hyper-focused go-to-market strategy. Target a single vertical (Construction) in a single city. Onboard an enterprise first, then their trusted contractors, and then use that guaranteed demand to attract blue-collar workers for those specific jobs.

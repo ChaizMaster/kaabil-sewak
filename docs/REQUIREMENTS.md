@@ -78,7 +78,6 @@ interface SmartContractBuilder {
   digitalAcknowledgement: {
     contractDelivery: 'app' | 'email' | 'sms';
     workerESignature: boolean;
-    voiceConfirmation: boolean;
     legallyBinding: boolean;
   };
   
@@ -229,9 +228,8 @@ interface WageNegotiationFlow {
 
 #### **Core Design Principles**:
 - **Smartphone Compatibility**: Must work on ₹5,000 budget smartphones
-- **Illiterate-friendly**: Visual icons, minimal text, voice guidance
 - **Suspicious User-friendly**: Subtle data collection without appearing intrusive
-- **Vernacular Language Support**: Hindi/Bengali with voice commands
+- **Vernacular Language Support**: Hindi/Bengali
 
 #### **Core Requirements**:
 
@@ -261,7 +259,6 @@ interface SubtleDataCollection {
 ##### **B. Job Discovery & Application**
 - **Simple Job Display**: Visual job cards with minimal text
 - **Location-based Jobs**: Show nearby opportunities automatically
-- **Voice Search**: "मुझे काम चाहिए" type voice commands
 - **One-tap Application**: Extremely simple application process
 
 ##### **C. Wage Negotiation Interface**
@@ -278,12 +275,10 @@ interface BlueCollarNegotiation {
     acceptButton: boolean; // Green checkmark
     counterOfferButton: boolean; // Price edit icon
     rejectButton: boolean; // Red cross
-    voiceNegotiation: boolean; // Microphone for voice input
   };
   
   simplifiedFlow: {
     visualConfirmation: boolean; // Picture-based confirmations
-    audioInstructions: boolean; // Voice guidance in selected language
     minimalistUI: boolean; // Extremely clean interface
   };
 }
@@ -311,7 +306,6 @@ interface LanguageSupport {
   
   implementation: {
     uiElements: 'full_localization';
-    voiceCommands: 'speech_recognition_synthesis';
     notifications: 'localized_content';
     helpSupport: 'native_language_support';
   };
@@ -320,7 +314,6 @@ interface LanguageSupport {
 
 ### **Content Localization Requirements**:
 - **All UI text** must be localized for selected language
-- **Voice commands** must work in Hindi/Bengali
 - **Error messages** and notifications in user's language
 - **Help documentation** available in all supported languages
 
@@ -465,7 +458,6 @@ interface BlueCollarAnalytics {
 - **94% AI matching accuracy** across all three tiers
 - **Real-time sync latency** < 200ms between tiers
 - **App performance** on ₹5,000 smartphones
-- **Voice recognition accuracy** > 95% for Hindi/Bengali
 
 ### **Business Metrics**:
 - **User Growth**: 10K users by Month 6, 100K by Month 12
@@ -499,8 +491,7 @@ interface BlueCollarAnalytics {
 1. Machine learning matching algorithms
 2. Behavioral prediction models
 3. Business intelligence dashboard
-4. Voice AI for blue-collar users
-5. Fraud detection systems
+4. Fraud detection systems
 
 ### **Phase 4 (Weeks 25+): Advanced Features**
 1. Labor mandi integration

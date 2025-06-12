@@ -1,4 +1,9 @@
 {
-  "compilerOptions": {},
-  "extends": "expo/tsconfig.base"
+  "compilerOptions": {
+    "jsx": "react"
+  },
+  "compilerOptions": {
+    "jsx": "react"
+  },
+  "extends": "./packages/typescript-config/base.json"
 }

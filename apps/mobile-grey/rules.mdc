@@ -1,0 +1,29 @@
+---
+description: 
+globs: *.mdc
+alwaysApply: false
+---
+- **Branding:**
+  - The application name is **Kaabil Staff**.
+  - All user-facing instances of the app name must use "Kaabil Staff", not "Kaabil Sewak".
+
+- **Authentication and Onboarding Flow:**
+  - The user journey must follow this exact sequence:
+    1.  **`LanguageSelectionScreen`**: The initial screen. Must be functionally identical to the `mobile-blue` version, adapted for navigation hooks, and branded as "Kaabil Staff".
+    2.  **`AuthChoiceScreen`**: The second screen. Presents login and signup options. Must be functionally and stylistically identical to the `mobile-blue` version, adapted for navigation hooks, and branded as "Kaabil Staff".
+    3.  **`LoginScreen` / `SignupScreen`**: These flows are triggered from the `AuthChoiceScreen`.
+    4.  **`PhotoUploadScreen`**: Part of the **new user signup flow**. Must be implemented to match the `mobile-blue` version exactly.
+    5.  **`LocationPermissionScreen`**: Follows photo upload for **new users**. Must be implemented to match the `mobile-blue` version exactly.
+
+- **UI/UX and Theme:**
+  - All screens must adhere to the visual theme, color palette, and component style established in the `mobile-blue` application.
+  - Re-use components and styles from `mobile-blue` wherever possible to ensure consistency.
+  - New components must be built following the existing design principles.
+
+- **Development Process:**
+  - Do not assume functionality. When a screen is to be built "like mobile-blue", it means a full replication of its UI, state management, and functionality, adapted only where necessary for its new context (e.g., using navigation hooks instead of props).
+  - Implement screens one at a time, ensuring full functionality before proceeding.
+  - Refer back to this rule file to prevent deviation from the plan.
+
+
+

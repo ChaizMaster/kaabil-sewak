@@ -82,7 +82,6 @@ We build with autonomy, modularity, and velocity — letting Cursor drive, while
 
 - **UI Interactions**: < 100ms
 - **API Responses**: < 200ms
-- **Voice Command Latency**: < 1000ms
 - **Memory & CPU**: < 50MB RAM, < 30% CPU
 - **Battery Drain**: < 2%/hour
 - **Network Support**: Offline-first, works on 2G/3G
@@ -93,9 +92,8 @@ We build with autonomy, modularity, and velocity — letting Cursor drive, while
 ## 🌐 Accessibility & Inclusivity
 
 - **Languages**: English, Hindi, Bengali (Phase 1)
-- **Low-Literacy Support**: Voice guidance, visual icons
+- **Low-Literacy Support**: visual icons
 - **Touch Targets**: Minimum 44px for ease of interaction
-- **Voice Commands**: Hands-free job discovery for blue-collar users
 - **Screen Reader Compatibility**: For visually impaired users
 
 ---

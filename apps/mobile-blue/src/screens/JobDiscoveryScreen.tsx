@@ -131,7 +131,7 @@ export const JobDiscoveryScreen: React.FC<JobDiscoveryScreenProps> = ({
     ];
     
     return baseJobs.map((baseJob, index) => {
-      const jobData = jobsData[index % jobsData.length];
+      const jobData = jobsData[index % jobsData.length]!;
       
       let location: string;
       let requirements: string[];
@@ -151,8 +151,8 @@ export const JobDiscoveryScreen: React.FC<JobDiscoveryScreenProps> = ({
           break;
       }
       
-      const title = jobData.titleKey && t[jobData.titleKey] ? t[jobData.titleKey] : 'Job Title Missing';
-      const description = jobData.descriptionKey && t[jobData.descriptionKey] ? t[jobData.descriptionKey] : 'Description Missing';
+      const title: string = t[jobData.titleKey] ?? 'Job Title Missing';
+      const description = t[jobData.descriptionKey] ?? 'Description Missing';
 
       return {
         ...baseJob,
