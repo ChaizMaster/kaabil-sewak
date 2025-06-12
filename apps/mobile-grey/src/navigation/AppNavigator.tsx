@@ -1,6 +1,6 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 
 import LanguageSelectionScreen from '../screens/auth/LanguageSelectionScreen';
 import AuthChoiceScreen from '../screens/auth/AuthChoiceScreen';
@@ -14,17 +14,34 @@ import MainTabNavigator from './MainTabNavigator';
 
 const Stack = createStackNavigator();
 
+// Custom dark theme to prevent white flashes
+const DarkTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#3B82F6',
+    background: '#0A192F',
+    card: '#1A2942',
+    text: '#F0F4F8',
+    border: '#2D3748',
+    notification: '#3B82F6',
+  },
+};
+
 const AppNavigator = () => {
   // For now, we will always show the auth flow.
   // User authentication state will be added later.
   const isAuthenticated = false;
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={DarkTheme}>
       <Stack.Navigator
         initialRouteName="LanguageSelection"
         screenOptions={{
           headerShown: false,
+          cardStyle: { backgroundColor: '#0A192F' }, // Consistent background
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, // Smooth transitions
+          gestureEnabled: true,
         }}
       >
         <Stack.Screen

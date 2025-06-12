@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   ActivityIndicator,
   Image,
+  ScrollView,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -268,57 +269,63 @@ const PhotoUploadScreen = () => {
           <Text style={styles.subtitle}>{t.subtitle}</Text>
         </View>
 
-        <View style={styles.optionsContainer}>
-          <TouchableOpacity
-            style={styles.glassButton}
-            onPress={takePhoto}
-            activeOpacity={0.8}
-          >
-            <MaterialIcons
-              name="photo-camera"
-              size={32}
-              color="#F0F4F8"
-              style={styles.buttonIcon}
-            />
-            <View style={styles.buttonTextContainer}>
-              <Text style={styles.glassButtonText} numberOfLines={2}>{t.takePhoto}</Text>
-              <Text style={styles.glassButtonTextSecondary} numberOfLines={3}>
-                {t.cameraSubtitle}
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.glassButton}
-            onPress={chooseFromGallery}
-            activeOpacity={0.8}
-          >
-            <MaterialIcons
-              name="photo-library"
-              size={32}
-              color="#F0F4F8"
-              style={styles.buttonIcon}
-            />
-            <View style={styles.buttonTextContainer}>
-              <Text style={styles.glassButtonText} numberOfLines={2}>{t.choosePhoto}</Text>
-              <Text style={styles.glassButtonTextSecondary} numberOfLines={3}>
-                {t.gallerySubtitle}
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.skipButton}
-            onPress={handleSkip}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.skipButtonText}>{t.skip}</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.tipsContainer}>
-          <Text style={styles.tipsTitle}>{t.photoTips}</Text>
-          <Text style={styles.tipText}>{t.tip1}</Text>
-          <Text style={styles.tipText}>{t.tip2}</Text>
-          <Text style={styles.tipText}>{t.tip3}</Text>
-        </View>
+        <ScrollView style={styles.mainContent}>
+          <View style={styles.optionsContainer}>
+            <TouchableOpacity
+              style={styles.glassButton}
+              onPress={takePhoto}
+              activeOpacity={0.8}
+            >
+              <MaterialIcons
+                name="photo-camera"
+                size={32}
+                color="#F0F4F8"
+                style={styles.buttonIcon}
+              />
+              <View style={styles.buttonTextContainer}>
+                <Text style={styles.glassButtonText} numberOfLines={2}>{t.takePhoto}</Text>
+                <Text style={styles.glassButtonTextSecondary} numberOfLines={3}>
+                  {t.cameraSubtitle}
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.glassButton}
+              onPress={chooseFromGallery}
+              activeOpacity={0.8}
+            >
+              <MaterialIcons
+                name="photo-library"
+                size={32}
+                color="#F0F4F8"
+                style={styles.buttonIcon}
+              />
+              <View style={styles.buttonTextContainer}>
+                <Text style={styles.glassButtonText} numberOfLines={2}>{t.choosePhoto}</Text>
+                <Text style={styles.glassButtonTextSecondary} numberOfLines={3}>
+                  {t.gallerySubtitle}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.skipButtonContainer}>
+            <TouchableOpacity
+              style={styles.skipButton}
+              onPress={handleSkip}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.skipButtonText}>{t.skip}</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.tipsContainer}>
+            <Text style={styles.tipsTitle}>{t.photoTips}</Text>
+            <Text style={styles.tipText}>{t.tip1}</Text>
+            <Text style={styles.tipText}>{t.tip2}</Text>
+            <Text style={styles.tipText}>{t.tip3}</Text>
+          </View>
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -333,7 +340,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 24,
     paddingVertical: 30,
-    justifyContent: 'space-between',
   },
   contentPreview: {
     flex: 1,
@@ -344,7 +350,7 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     marginTop: 20,
-    marginBottom: 40,
+    marginBottom: 30,
     paddingHorizontal: 10,
   },
   headerPreview: {
@@ -357,6 +363,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#A0AEC0',
     marginBottom: 12,
+    textAlign: 'center',
   },
   userNameText: {
     color: '#F0F4F8',
@@ -374,10 +381,12 @@ const styles = StyleSheet.create({
     color: '#A0AEC0',
     textAlign: 'center',
   },
-  optionsContainer: {
+  mainContent: {
     flex: 1,
-    justifyContent: 'center',
+  },
+  optionsContainer: {
     alignItems: 'center',
+    paddingVertical: 10,
   },
   glassButton: {
     backgroundColor: 'rgba(23, 42, 70, 0.7)',
@@ -409,10 +418,28 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 4,
   },
+  skipButtonContainer: {
+    alignItems: 'center',
+    paddingTop: 10,
+    paddingBottom: 20,
+  },
+  skipButton: {
+    backgroundColor: 'transparent',
+    padding: 15,
+    paddingHorizontal: 30,
+  },
+  skipButtonText: {
+    color: '#A0AEC0',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   tipsContainer: {
     padding: 20,
     backgroundColor: 'rgba(23, 42, 70, 0.5)',
     borderRadius: 15,
+    marginHorizontal: 10,
+    marginTop: 10,
+    marginBottom: 20,
   },
   tipsTitle: {
     color: '#F0F4F8',
@@ -456,15 +483,6 @@ const styles = StyleSheet.create({
   },
   glassButtonDisabled: {
     backgroundColor: '#1E40AF',
-  },
-  skipButton: {
-    backgroundColor: 'transparent',
-    padding: 10,
-  },
-  skipButtonText: {
-    color: '#A0AEC0',
-    fontSize: 16,
-    fontWeight: 'bold',
   },
 });
 

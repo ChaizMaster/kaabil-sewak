@@ -1,29 +1,39 @@
 {
   "expo": {
-    "name": "Kaabil Staff",
-    "slug": "mobile-grey",
+    "name": "KaabilStaff",
+    "slug": "kaabil-staff",
     "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
     "splash": {
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0A192F"
     },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.kaabilstudios.staff",
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "Find jobs near you and connect with local opportunities"
+        "UIStatusBarStyle": "UIStatusBarStyleLightContent"
       }
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0A192F"
       },
-      "permissions": [
-        "android.permission.ACCESS_FINE_LOCATION",
-        "android.permission.ACCESS_COARSE_LOCATION"
-      ]
+      "package": "com.kaabilstudios.staff",
+      "statusBar": {
+        "barStyle": "light-content",
+        "backgroundColor": "#0A192F"
+      }
     },
-    "web": {}
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
   }
 } 

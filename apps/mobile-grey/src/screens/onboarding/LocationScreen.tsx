@@ -263,13 +263,14 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginBottom: 40,
+    marginVertical: 20,
   },
   welcomeText: {
     fontSize: 22,
     fontWeight: '600',
     color: '#A0AEC0',
-    marginBottom: 12,
+    marginBottom: 8,
+    textAlign: 'center',
   },
   userNameText: {
     color: '#F0F4F8',
