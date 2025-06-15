@@ -1,0 +1,16 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+- **Initializing Turborepo in an Existing Directory**
+    - To initialize Turborepo in a directory that is already structured like a monorepo (e.g., contains `apps/` and `packages/` folders), use the simplest form of the creation command.
+
+- **Correct Command:**
+    - The command should be run in the project root. It will interactively prompt for a package manager.
+    ```bash
+    npx create-turbo@latest .
+    ```
+
+- **Common Pitfalls (Learnings):**
+    - Do not use flags like `-y`, `--use-npm`, or `--no-git` with `create-turbo`. The modern script is designed to be fully interactive. It will ask for the project name, package manager, and whether to initialize a git repository during the setup process. Incorrect flags will cause the command to fail.

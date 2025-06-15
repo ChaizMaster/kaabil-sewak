@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "KaabilStaff",
+    "slug": "kaabil-staff",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0A192F"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.kaabilstudios.staff",
+      "infoPlist": {
+        "UIStatusBarStyle": "UIStatusBarStyleLightContent",
+        "NSCameraUsageDescription": "This feature requires camera access to capture ID documents."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0A192F"
+      },
+      "package": "com.kaabilstudios.staff",
+      "statusBar": {
+        "barStyle": "light-content",
+        "backgroundColor": "#0A192F"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+} 

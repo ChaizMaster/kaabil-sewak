@@ -8,10 +8,12 @@ import { LoginScreen } from '../screens/auth/LoginScreen';
 import { OTPScreen } from '../screens/auth/OTPScreen';
 import { PhotoUploadScreen } from '../screens/auth/PhotoUploadScreen';
 import { LocationPermissionScreen } from '../screens/auth/LocationPermissionScreen';
+import SkillSelectionScreen from '../screens/SkillSelectionScreen';
+import OptionalUPIScreen from '../screens/OptionalUPIScreen';
 import { JobsScreen } from '../screens/jobs/JobsScreen';
 import { UserProfileScreen } from '../screens/profile/UserProfileScreen';
 
-type AuthStep = 'language_selection' | 'auth_choice' | 'signup' | 'login' | 'otp' | 'photo_upload' | 'location_permission' | 'jobs' | 'profile';
+type AuthStep = 'language_selection' | 'auth_choice' | 'signup' | 'login' | 'otp' | 'photo_upload' | 'location_permission' | 'skill_selection' | 'optional_upi' | 'jobs' | 'profile';
 
 interface UserData {
   isAuthenticated: boolean;
@@ -27,6 +29,8 @@ interface UserData {
     longitude: number;
     address?: string;
   };
+  skills?: string[];
+  upiId?: string;
 }
 
 // Helper function to convert Language enum to string for legacy components
@@ -134,8 +138,19 @@ export const NewAuthFlow: React.FC = () => {
     const updatedData = { 
       ...userData, 
       location,
-      isAuthenticated: true 
     };
+    setUserData(updatedData);
+    setCurrentStep('skill_selection');
+  };
+
+  const handleSkillsSelected = (skills: string[]) => {
+    const updatedData = { ...userData, skills };
+    setUserData(updatedData);
+    setCurrentStep('optional_upi');
+  };
+
+  const handleUPISubmitted = (upiId?: string) => {
+    const updatedData = { ...userData, upiId, isAuthenticated: true };
     setUserData(updatedData);
     setCurrentStep('jobs');
   };
@@ -229,6 +244,20 @@ export const NewAuthFlow: React.FC = () => {
           language={languageToString(userData.language)}
           userName={userData.signupData?.fullName || 'User'}
           onLocationGranted={handleLocationPermissionGranted}
+        />
+      );
+
+    case 'skill_selection':
+      return (
+        <SkillSelectionScreen
+          onSkillsSelected={handleSkillsSelected}
+        />
+      );
+    
+    case 'optional_upi':
+      return (
+        <OptionalUPIScreen
+          onUPISubmitted={handleUPISubmitted}
         />
       );
 

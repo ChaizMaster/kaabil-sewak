@@ -75,7 +75,7 @@ export class LocationService {
         return null;
       }
 
-      const result = results[0];
+      const result = results[0]!;
       
       // Format address based on available data
       const addressParts = [

@@ -1,0 +1,22 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+- **Primary Principle: Clone First**
+  - When instructed to create a screen or flow in `mobile-grey` that exists in `mobile-blue`, the default action is to perform a direct, 1:1 clone.
+  - This includes the component file (`.tsx`), styling, and any related local assets or services.
+  - Do not re-implement or "re-create" from memory. Copy the source files directly.
+
+- **Branding and Naming Convention**
+  - The application name for `mobile-grey` is **`KaabilStaff`**.
+  - The application name for `mobile-blue` is **`KaabilSewak`**.
+  - When cloning from `mobile-blue` to `mobile-grey`, the only permissible change is updating the application name from `KaabilSewak` to `KaabilStaff`. All other text, including instructional copy, must remain identical unless explicitly stated otherwise.
+
+- **Verification and Communication**
+  - Before starting a cloning task, verify the exact file paths in the source `mobile-blue` application.
+  - After completing a set of cloning tasks as instructed, report back with the list of files created/modified and confirm that the cloning is complete.
+  - Do not proceed with new, non-cloned features until the cloned foundation is confirmed.
+  - If there is any ambiguity in the source files or the instructions, ask for clarification before proceeding.
+
+

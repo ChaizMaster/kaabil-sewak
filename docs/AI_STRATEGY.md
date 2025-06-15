@@ -136,7 +136,6 @@ interface SearchBehavior {
   clickedResults: string[];
   appliedJobs: string[];
   timeSpent: number;
-  voiceSearch?: boolean;
   language?: 'hindi' | 'bengali' | 'english';
 }
 ```

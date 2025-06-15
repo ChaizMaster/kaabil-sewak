@@ -1,6 +1,7 @@
 import { Language } from '../types/user.types';
 
 export interface Translations {
+  [key: string]: string;
   // Welcome & Onboarding
   welcome: string;
   selectLanguage: string;
@@ -389,7 +390,7 @@ export const translations: Record<Language, Translations> = {
     houseCleaning: '🏠 বাড়ি পরিষ্কার',
     deliveryHelper: '🚚 ডেলিভারি সহায়ক',
     maintenanceWork: '🔧 রক্ষণাবেক্ষণ কাজ',
-    kitchenHelper: '�� রান্নাঘর সহায়ক',
+    kitchenHelper: '🍳 রান্নাঘর সহায়ক',
     securityGuard: '🛡️ সম্পত্তি গার্ড',
     
     // Job Descriptions

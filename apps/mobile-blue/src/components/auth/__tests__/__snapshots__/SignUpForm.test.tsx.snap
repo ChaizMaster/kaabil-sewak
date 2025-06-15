@@ -1,0 +1,415 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignUpForm renders correctly 1`] = `
+<RCTSafeAreaView
+  style={
+    {
+      "backgroundColor": "#fff",
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "marginBottom": 10,
+        "marginTop": 20,
+        "paddingHorizontal": 20,
+      }
+    }
+  >
+    <View
+      accessibilityLabel="Change language"
+      accessibilityState={
+        {
+          "busy": undefined,
+          "checked": undefined,
+          "disabled": undefined,
+          "expanded": undefined,
+          "selected": undefined,
+        }
+      }
+      accessibilityValue={
+        {
+          "max": undefined,
+          "min": undefined,
+          "now": undefined,
+          "text": undefined,
+        }
+      }
+      accessible={true}
+      collapsable={false}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        {
+          "backgroundColor": "#F8F9FA",
+          "borderColor": "#E0E0E0",
+          "borderRadius": 8,
+          "borderWidth": 1,
+          "opacity": 1,
+          "paddingHorizontal": 12,
+          "paddingVertical": 6,
+        }
+      }
+      testID="language-change-button"
+    >
+      <Text
+        style={
+          {
+            "color": "#333",
+            "fontSize": 14,
+            "fontWeight": "600",
+          }
+        }
+      >
+        🇺🇸 EN
+      </Text>
+    </View>
+  </View>
+  <RCTScrollView
+    contentContainerStyle={
+      {
+        "paddingBottom": 40,
+        "paddingHorizontal": 20,
+      }
+    }
+    keyboardShouldPersistTaps="handled"
+    showsVerticalScrollIndicator={false}
+    style={
+      {
+        "flex": 1,
+      }
+    }
+  >
+    <View>
+      <Text
+        style={
+          {
+            "color": "#2E86AB",
+            "fontSize": 28,
+            "fontWeight": "bold",
+            "marginBottom": 30,
+            "textAlign": "center",
+          }
+        }
+      >
+        Sign Up
+      </Text>
+      <View
+        style={
+          {
+            "gap": 20,
+          }
+        }
+      >
+        <View
+          style={
+            {
+              "gap": 8,
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#333",
+                "fontSize": 16,
+                "fontWeight": "600",
+              }
+            }
+          >
+            Full Name
+          </Text>
+          <TextInput
+            accessibilityLabel="Enter your full name"
+            autoCapitalize="words"
+            autoComplete="name"
+            onChangeText={[Function]}
+            placeholder="Full Name"
+            placeholderTextColor="#999"
+            style={
+              [
+                {
+                  "backgroundColor": "#F8F9FA",
+                  "borderColor": "#E0E0E0",
+                  "borderRadius": 12,
+                  "borderWidth": 2,
+                  "fontSize": 16,
+                  "minHeight": 44,
+                  "padding": 16,
+                },
+                undefined,
+              ]
+            }
+            testID="name-input"
+            value=""
+          />
+        </View>
+        <View
+          style={
+            {
+              "gap": 8,
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#333",
+                "fontSize": 16,
+                "fontWeight": "600",
+              }
+            }
+          >
+            Phone Number
+          </Text>
+          <TextInput
+            accessibilityLabel="Enter your phone number"
+            autoComplete="tel"
+            keyboardType="phone-pad"
+            maxLength={10}
+            onChangeText={[Function]}
+            placeholder="9876543210"
+            placeholderTextColor="#999"
+            style={
+              [
+                {
+                  "backgroundColor": "#F8F9FA",
+                  "borderColor": "#E0E0E0",
+                  "borderRadius": 12,
+                  "borderWidth": 2,
+                  "fontSize": 16,
+                  "minHeight": 44,
+                  "padding": 16,
+                },
+                undefined,
+              ]
+            }
+            testID="phone-input"
+            value=""
+          />
+        </View>
+        <View
+          style={
+            {
+              "gap": 8,
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "#333",
+                "fontSize": 16,
+                "fontWeight": "600",
+              }
+            }
+          >
+            Photo
+             *
+          </Text>
+          <Text
+            style={
+              {
+                "color": "#666",
+                "fontSize": 14,
+                "lineHeight": 20,
+                "marginBottom": 8,
+              }
+            }
+          >
+            Please upload your photo or take a selfie to uniquely identify you, as names can be common. This helps us ensure you are a genuine worker.
+          </Text>
+          <View
+            accessibilityLabel="Upload Photo"
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "borderColor": "#E0E0E0",
+                "borderRadius": 12,
+                "borderStyle": "dashed",
+                "borderWidth": 2,
+                "height": 200,
+                "opacity": 1,
+                "overflow": "hidden",
+              }
+            }
+            testID="photo-upload-button"
+          >
+            <View
+              style={
+                {
+                  "alignItems": "center",
+                  "flex": 1,
+                  "gap": 12,
+                  "justifyContent": "center",
+                }
+              }
+            >
+              <Text
+                style={
+                  {
+                    "fontSize": 48,
+                  }
+                }
+              >
+                📷
+              </Text>
+              <Text
+                style={
+                  {
+                    "color": "#666",
+                    "fontSize": 16,
+                    "fontWeight": "500",
+                  }
+                }
+              >
+                Upload Photo
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": false,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "backgroundColor": "#2E86AB",
+              "borderRadius": 12,
+              "marginTop": 10,
+              "minHeight": 44,
+              "opacity": 1,
+              "padding": 16,
+            }
+          }
+          testID="signup-button"
+        >
+          <Text
+            style={
+              {
+                "color": "#fff",
+                "fontSize": 18,
+                "fontWeight": "600",
+              }
+            }
+          >
+            Create Account
+          </Text>
+        </View>
+        <View
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": undefined,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            {
+              "alignItems": "center",
+              "marginTop": 20,
+              "opacity": 1,
+              "padding": 10,
+            }
+          }
+          testID="login-link"
+        >
+          <Text
+            style={
+              {
+                "color": "#2E86AB",
+                "fontSize": 16,
+                "textDecorationLine": "underline",
+              }
+            }
+          >
+            Already have an account? Login
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</RCTSafeAreaView>
+`;

@@ -1,107 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { Job, JobStatus, JobSearchFilters } from '@kaabil/shared';
+import { CreateJobDto } from './dto/create-job.dto';
 
 @Injectable()
 export class JobsService {
-  private jobs: Job[] = [
-    {
-      id: 'job-001',
-      title: 'Construction Worker',
-      wage: 500,
-      location: 'Sector 15, Gurgaon',
-      distance: 2.5,
-      requirements: ['Basic tools', 'Experience in construction'],
-      employerId: 'emp-001',
-      status: JobStatus.ACTIVE,
-      createdAt: '2024-01-01T00:00:00Z',
-      updatedAt: '2024-01-01T00:00:00Z',
-      description: 'Construction work for residential building project'
-    },
-    {
-      id: 'job-002',
-      title: 'Delivery Boy',
-      wage: 350,
-      location: 'Cyber City, Gurgaon',
-      distance: 1.8,
-      requirements: ['Own vehicle', 'Mobile phone'],
-      employerId: 'emp-002',
-      status: JobStatus.ACTIVE,
-      createdAt: '2024-01-01T00:00:00Z',
-      updatedAt: '2024-01-01T00:00:00Z',
-      description: 'Food delivery for nearby restaurants'
-    },
-    {
-      id: 'job-003',
-      title: 'Security Guard',
-      wage: 450,
-      location: 'Golf Course Road, Gurgaon',
-      distance: 3.2,
-      requirements: ['Security training', 'Night shift available'],
-      employerId: 'emp-003',
-      status: JobStatus.ACTIVE,
-      createdAt: '2024-01-01T00:00:00Z',
-      updatedAt: '2024-01-01T00:00:00Z',
-      description: 'Security services for office complex'
-    }
-  ];
-
-  async getJobsNearby(
-    latitude: number, 
-    longitude: number, 
-    filters?: JobSearchFilters
-  ): Promise<Job[]> {
-    let filteredJobs = this.jobs.filter(job => job.status === JobStatus.ACTIVE);
-
-    if (filters) {
-      if (filters.wageMin !== undefined) {
-        filteredJobs = filteredJobs.filter(job => job.wage >= filters.wageMin!);
-      }
-      
-      if (filters.wageMax !== undefined) {
-        filteredJobs = filteredJobs.filter(job => job.wage <= filters.wageMax!);
-      }
-      
-      if (filters.distance !== undefined) {
-        filteredJobs = filteredJobs.filter(job => job.distance <= filters.distance!);
-      }
-      
-      if (filters.skills && filters.skills.length > 0) {
-        filteredJobs = filteredJobs.filter(job => 
-          filters.skills!.some(skill => 
-            job.requirements.some(req => 
-              req.toLowerCase().includes(skill.toLowerCase())
-            )
-          )
-        );
-      }
-    }
-
-    // Sort by distance (closest first)
-    return filteredJobs.sort((a, b) => a.distance - b.distance);
+  create(createJobDto: CreateJobDto) {
+    console.log(createJobDto);
+    return 'This action adds a new job';
   }
 
-  async getJobById(id: string): Promise<Job | null> {
-    return this.jobs.find(job => job.id === id) || null;
+  findAll() {
+    return `This action returns all jobs`;
   }
 
-  async searchJobs(query: string, filters?: JobSearchFilters): Promise<Job[]> {
-    const lowercaseQuery = query.toLowerCase();
-    let results = this.jobs.filter(job => 
-      job.title.toLowerCase().includes(lowercaseQuery) ||
-      job.description?.toLowerCase().includes(lowercaseQuery) ||
-      job.requirements.some(req => req.toLowerCase().includes(lowercaseQuery))
-    );
-
-    if (filters) {
-      if (filters.wageMin !== undefined) {
-        results = results.filter(job => job.wage >= filters.wageMin!);
-      }
-      
-      if (filters.wageMax !== undefined) {
-        results = results.filter(job => job.wage <= filters.wageMax!);
-      }
-    }
-
-    return results.sort((a, b) => a.distance - b.distance);
+  findOne(id: string) {
+    return `This action returns a #${id} job`;
   }
-} 
+
+  update(id: string, updateJobDto: any) {
+    console.log(updateJobDto);
+    return `This action updates a #${id} job`;
+  }
+
+  remove(id: string) {
+    return `This action removes a #${id} job`;
+  }
+}

@@ -116,7 +116,6 @@ interface HierarchicalAnalytics {
 ### **Technical Metrics**
 - **Matching Accuracy**: Target 94% job-candidate compatibility across all tiers
 - **Real-time Sync**: <200ms latency between tier data synchronization
-- **Voice Recognition**: >95% accuracy for Hindi/Bengali voice commands
 - **Data Quality**: 99.9% of user interactions successfully captured across all tiers
 
 ### **Business Impact**
@@ -214,10 +213,10 @@ interface HierarchicalAnalytics {
 - **Real-time White-collar Sync**: All decisions visible to enterprise dashboard
 
 ### **Blue-collar Features** 👷‍♂️
-- **Ultra-Simple Job Discovery**: Visual job cards with voice search
+- **Ultra-Simple Job Discovery**: Visual job cards
 - **Subtle Verification**: Background data collection without appearing intrusive
 - **SewakCoins Rewards**: Gamified reliability and performance tracking
-- **Multi-language Support**: Hindi/Bengali voice commands and UI
+- **Multi-language Support**: Hindi/Bengali UI
 
 ---
 
@@ -257,7 +256,6 @@ To bridge the gap between skilled blue-collar workers and employers by providing
 
 ### **For Workers**
 - 📱 **Mobile-First Experience** - Optimized mobile app for job seekers
-- 🗣️ **Voice Search** - Hindi/Bengali voice job search
 - 🔒 **Secure Verification** - Biometric and background verification
 - 💰 **SewakCoins** - Loyalty program and rewards
 - ⭐ **Reputation Building** - Profile enhancement through reviews
