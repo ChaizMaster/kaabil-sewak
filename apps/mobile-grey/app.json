@@ -18,7 +18,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.kaabilstudios.staff",
       "infoPlist": {
-        "UIStatusBarStyle": "UIStatusBarStyleLightContent"
+        "UIStatusBarStyle": "UIStatusBarStyleLightContent",
+        "NSCameraUsageDescription": "This feature requires camera access to capture ID documents."
       }
     },
     "android": {
